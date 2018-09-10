@@ -1,6 +1,29 @@
 import React, { Component } from 'react';
 
-const Product = () => {
+import ProductSlider from './ProductSlider';
+import ProductPic from './ProductPic';
+
+
+const Product = props => {
+    // const images = props.product.images;
+    const product = props.product;
+    const data = [
+        {
+            "title": "Босоножки женские",      
+            "brand": "Dior",
+            "price": 5000
+        },
+        {
+            "title": "Босоножки женские",      
+            "brand": "Dior",
+            "price": 5000
+        },
+        {
+            "title": "Босоножки женские",      
+            "brand": "Dior",
+            "price": 5000
+        }
+    ];
     return(
         <main className="product-card">
             <section className="product-card-content">
@@ -9,52 +32,55 @@ const Product = () => {
                     <section className="main-screen__favourite-product-slider">
                         <div className="favourite-product-slider">
                             <div className="favourite-product-slider__arrow favourite-product-slider__arrow_up arrow-up"></div>
-                            <div className="favourite-product-slider__item favourite-product-slider__item-1">
-                            <a href="#"></a>
+                            <ProductSlider list={product.images} />
+                            {/* <div className="favourite-product-slider__item favourite-product-slider__item-1">
+                                <a href="#"></a>
                             </div>
                             <div className="favourite-product-slider__item favourite-product-slider__item-2">
-                            <a href="#"></a>
+                                <a href="#"></a>
                             </div>
                             <div className="favourite-product-slider__item favourite-product-slider__item-3">
                                 <a href="#"></a>
-                            </div>
+                            </div> */}
                             <div className="favourite-product-slider__arrow favourite-product-slider__arrow_down arrow-down"></div>
                         </div>
                     </section>
                             
-                    <div className="main-screen__favourite-product-pic">
-                        <a href="#"><img src="img/product-card-pics/product-card__favourite-product-pic.png" alt=""/></a>
+                    <ProductPic pic="product-card__favourite-product-pic.png" />
+
+                    {/* <div className="main-screen__favourite-product-pic">
+                        <a href="#"><img src={require("..img/product-card-pics/product-card__favourite-product-pic.png")} alt=""/></a>
                         <a href="#" className="main-screen__favourite-product-pic__zoom"></a>
-                    </div>
+                    </div> */}
                         
                     <div className="main-screen__product-info">
-                        <div className="product-info-title"><h2>Ботинки женские</h2><div className="in-stock">В наличии</div>
+                        <div className="product-info-title"><h2>{product.title}</h2><div className="in-stock">{product.sizes ? "В наличии" : "Нет в наличии"}</div>
                     </div>
                     <div className="product-features">
                         <table className="features-table">
                             <tr>
-                            <td className="left-col">Артикул:</td>
-                            <td className="right-col">BD0677C</td>
+                                <td className="left-col">Артикул:</td>
+                                <td className="right-col">{product.sku}</td>
                             </tr>
                             <tr>
                                 <td className="left-col">Производитель:</td>
-                                <td className="right-col"><a href="#"><span className="producer">Fabi</span></a></td>
+                                <td className="right-col"><a href="#"><span className="producer">{product.brand}</span></a></td>
                             </tr>
                             <tr>
                                 <td className="left-col">Цвет:</td>
-                                <td className="right-col">чёрный</td>
+                                <td className="right-col">{product.color}</td>
                             </tr>
                             <tr>
                                 <td className="left-col">Материалы:</td>
-                                <td className="right-col">натуральная кожа</td>
+                                <td className="right-col">{product.material}</td>
                             </tr>
                             <tr>
                                 <td className="left-col">Сезон:</td>
-                                <td className="right-col">Осень-зима</td>
+                                <td className="right-col">{product.season}</td>
                             </tr>
                             <tr>
                                 <td className="left-col">Повод:</td>
-                                <td className="right-col">Любой</td>
+                                <td className="right-col">{product.reason}</td>
                             </tr>
                         </table>
                     </div>
@@ -76,7 +102,7 @@ const Product = () => {
                         <div className="basket-item__quantity-change basket-item-list__quantity-change_minus">-</div>1
                         <div className="basket-item__quantity-change basket-item-list__quantity-change_plus">+</div>
                     </div>
-                    <div className="price">26 120 ₽</div>
+                    <div className="price">{product.price}</div>
                     <button className="in-basket in-basket-click">В корзину</button>
                     </div>
 

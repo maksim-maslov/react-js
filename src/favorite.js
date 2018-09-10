@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Breadcrumbs from './components/Breadcrumbs';
 import Sorting from './components/Sorting';
-import FavoriteContent from './components/FavoriteContent';
+import ProductCatalogueItemListFavorite from './components/ProductCatalogueItemListFavorite';
 import Pagination from './components/Pagination';
 
 const Favorite = () => {
@@ -21,7 +21,7 @@ const Favorite = () => {
                     
                 </section>
 
-                <FavoriteContent />
+                <ProductCatalogueItemListFavorite />
                 
                 <Pagination />
 

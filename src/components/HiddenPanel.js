@@ -17,7 +17,9 @@ const HiddenPanel = () => {
                 <div className="product-list__item">
                     <a className="product-list__pic">
                     <img src="img/product-list__pic_1.jpg" alt="product"/> </a>
-                    <a href="#" className="product-list__product">Ботинки женские, Baldinini</a>
+                    <NavLink to="/product-card-desktop" className="product-list__product">
+                    Ботинки женские, Baldinini
+                    </NavLink>
                     <div className="product-list__fill"></div>
                     <div className="product-list__price">12 360
                     <i className="fa fa-rub" aria-hidden="true"></i>
@@ -30,7 +32,9 @@ const HiddenPanel = () => {
                 <div className="product-list__item">
                     <a className="product-list__pic">
                     <img src="img/product-list__pic_1.jpg" alt="product"/> </a>
-                    <a href="#" className="product-list__product">Ботинки женские, Baldinini</a>
+                    <NavLink to="/product-card-desktop" className="product-list__product">
+                    Ботинки женские, Baldinini
+                    </NavLink>
                     <div className="product-list__fill"></div>
                     <div className="product-list__price">12 360
                     <i className="fa fa-rub" aria-hidden="true"></i>
@@ -42,7 +46,9 @@ const HiddenPanel = () => {
                 <div className="product-list__item">
                     <a className="product-list__pic">
                     <img src="img/product-list__pic_1.jpg" alt="product"/> </a>
-                    <a href="#" className="product-list__product">Ботинки женские, Baldinini</a>
+                    <NavLink to="/product-card-desktop">
+                    Ботинки женские, Baldinini
+                    </NavLink>
                     <div className="product-list__fill"></div>
                     <div className="product-list__price">12 360
                     <i className="fa fa-rub" aria-hidden="true"></i>
@@ -54,7 +60,9 @@ const HiddenPanel = () => {
                 <div className="product-list__item">
                     <a className="product-list__pic">
                     <img src="img/product-list__pic_1.jpg" alt="product"/> </a>
-                    <a href="#" className="product-list__product">Ботинки женские, Baldinini</a>
+                    <NavLink to="/product-card-desktop">
+                    Ботинки женские, Baldinini
+                    </NavLink>
                     <div className="product-list__fill"></div>
                     <div className="product-list__price">12 360
                     <i className="fa fa-rub" aria-hidden="true"></i>
