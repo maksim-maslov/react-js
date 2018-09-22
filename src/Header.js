@@ -14,47 +14,38 @@ import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom'
 
 class Header extends Component {
 
-    componentDidMount() {
+  componentDidMount() {
+    
+    let headerProfile = document.querySelector('.header-main__pic_profile');
+    let headerBasket = document.querySelector('.header-main__pic_basket');
+    headerProfile.onclick = headerHiddenPanelProfileVisibility;
+    headerBasket.onclick = headerHiddenPanelBasketVisibility;
 
-        let headerProfile = document.querySelector('.header-main__pic_profile');
-        let headerBasket = document.querySelector('.header-main__pic_basket');
-        headerProfile.onclick = headerHiddenPanelProfileVisibility;
-        headerBasket.onclick = headerHiddenPanelBasketVisibility;
+    let headerSearch = document.querySelector('.header-main__pic_search');
+    headerSearch.onclick = headerMainSearchVisibility;
 
-        let headerSearch = document.querySelector('.header-main__pic_search');
-        headerSearch.onclick = headerMainSearchVisibility;
+    let mainMenuItems = document.querySelectorAll('.main-menu__item');
 
-        let mainMenuItems = document.querySelectorAll('.main-menu__item');
-
-        for (let item of mainMenuItems) {
-            item.onclick = mainSubmenuVisibility;
-        }
-
+    for (let item of mainMenuItems) {
+      item.onclick = mainSubmenuVisibility;
     }
 
-    render() {
+  }
 
-        return(
-            <header className="header">         
-                
-                <TopMenu />
-    
-                <div className="header-main">
-                    
-                    <HeaderMainWrapper />
-    
-                    <HiddenPanel />
-                    
-                </div>
-    
-                <MainMenu />
-    
-                <DroppedMenu />
-            
-            </header>
-    
-        );
-    }
+  render() {
+    return(
+      <header className="header">   
+        <TopMenu />
+        <div className="header-main">
+          <HeaderMainWrapper />
+          <HiddenPanel productsInBasket={this.props.productsInBasket} updateBasket={this.props.updateBasket} />
+        </div>
+        <MainMenu />
+        <DroppedMenu />
+      </header>
+    );
+  }
+
 }
 
 export default Header;

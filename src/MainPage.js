@@ -7,14 +7,14 @@ import AboutUs from './components/AboutUs';
 
 
 const MainPage = () => {
-    return(
-        <div className="container">  
-            <Slider />
-            <NewDeals />
-            <SalesAndNews />
-            <AboutUs />
-        </div>
-    );
+  return(
+    <div className="container">  
+      <Slider />
+      <NewDeals />
+      <SalesAndNews />
+      <AboutUs />
+    </div>
+  );
 }
 
 export default MainPage;

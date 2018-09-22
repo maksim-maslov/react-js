@@ -28,33 +28,92 @@ import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom'
 // const NavLink = ReactRouterDOM.NavLink;
 
 
-
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      productsInBasket: []
+    };
+  }
+
+  componentDidMount() {
+              
+    const cartId = localStorage.getItem('cartId');
+    if (cartId) {
+      fetch(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`,  {method: 'GET'})
+        .then(response => response.json())
+        .then(data => {
+          if (data.status == 'ok') {
+            this.setState({ productsInBasket: data.data.products });
+          } else {
+            localStorage.cartId = '';
+            this.setState({ productsInBasket: [] });
+          }
+        }); 
+    } else {        
+        
+    }
+  }
+
+  updateBasket(product) {
+
+    const cartId = localStorage.getItem('cartId');
+    if (cartId) {
+      fetch(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, {
+          method: 'POST', 
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(product)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status == 'ok') {
+            this.setState({ productsInBasket: data.data.products });
+          } else {
+            localStorage.cartId = '';
+            this.setState({ productsInBasket: [] });
+          }
+        });
+    } else {
+      fetch('https://neto-api.herokuapp.com/bosa-noga/cart/', {
+          method: 'POST', 
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(product)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status == 'ok') {
+            localStorage.cartId = data.data.id;
+            this.setState({ productsInBasket: [product] });
+          } else {
+            localStorage.cartId = '';
+            this.setState({ productsInBasket: [] });
+          }
+        });
+        
+    }
+  }
+
   render() {
-    
+    const productsInBasket = this.state.productsInBasket;
+
     return (
       <HashRouter>
         <div className="container">
-          <Header />
-          
+          <Header productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} />          
           <Switch>
-          <Route path="/catalogue" component={Catalogue} />
-          <Route path="/favorite" component={Favorite} />
-          <Route path="/product-card-desktop" component={ProductCardDesktop} />
-          <Route path="/order" component={Order} />
-          <Route path="/order-done" component={OrderDone} />
-          <Route path="/search" component={Search} />
-          <Route path="/" component={MainPage} />
-          </Switch>
-
-          {/* <MainPage />
-          <Catalogue />
-          <Favorite />
-          <ProductCardDesktop />
-          <Order />
-          <OrderDone /> */}
-          
+            <Route path="/catalogue" render={(props) => <Catalogue {...props} />} />
+            <Route path="/favorite" component={Favorite} />
+            <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop updateBasket={this.updateBasket.bind(this)} {...props} />} />
+              {/* <ProductCardDesktop cart={this.handler.bind(this)} />
+            </Route> */}
+            {/* <Route path="/product-card-desktop/:id[0-9]+" component={ProductCardDesktop} /> */}
+            <Route path="/order" component={Order} />
+            <Route path="/order-done" component={OrderDone} />
+            <Route path="/search" component={Search} />
+            <Route path="/" component={MainPage} />
+          </Switch>          
           <Footer />
         </div>
       </HashRouter>

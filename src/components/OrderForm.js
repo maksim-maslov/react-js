@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 
-
 const OrderForm = () => {
     return(
         <div className="order-process__confirmed">
