@@ -5,7 +5,6 @@ import ProductPic from './ProductPic';
 import ProductSizes from './ProductSizes';
 
 
-
 class Product extends Component {
     
   constructor(props) {

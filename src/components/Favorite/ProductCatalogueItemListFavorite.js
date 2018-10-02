@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ListItemCard from './ListItemCard';
+import ListItemCard from '../ListItemCard';
 
 class ProductCatalogueItemListFavorite extends Component {
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Breadcrumbs from './components/Breadcrumbs';
-import OrderForm from './components/OrderForm';
-import ProductInBasket from './components/ProductInBasket';
+import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
+import OrderForm from './components/Order/OrderForm';
+import ProductInBasket from './components/Order/ProductInBasket';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 

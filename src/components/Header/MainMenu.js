@@ -6,20 +6,10 @@ class MainMenu extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      categories: []
-    };
-  }
-  
-  componentDidMount() {
-    fetch('https://neto-api.herokuapp.com/bosa-noga/categories')
-      .then(response => response.json())
-      .then(data => {this.setState({categories: data.data})});
   }
 
   render() {
-    const {categories} = this.state;
+    const categories = this.props.categories;
     return(
       <nav className="main-menu">
         <div className="wrapper">
@@ -29,7 +19,7 @@ class MainMenu extends Component {
             </li>
               {categories.map(el => 
             <li key={el.id} className="main-menu__item main-menu__item_sales">
-              <NavLink to={`/catalogue?categoryId=${el.id}`}>{el.title}</NavLink>
+              <NavLink to={{pathname: '/catalogue', search: `?categoryId=${el.id}`}}>{el.title}</NavLink>
             </li>                
             )}
           </ul>

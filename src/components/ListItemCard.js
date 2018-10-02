@@ -5,7 +5,7 @@ import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom'
 const ListItemCard = ({list = []}) => {
   return list.map((el, index) => {
     return(
-      <NavLink to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
+      <NavLink to={`/product-card-desktop/${el.id}`} className="item-list__item-card item" >
         <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
           <div className="product-catalogue__product_favorite">
             <p></p>

@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 
-import TopMenu from './components/TopMenu';
-import HeaderMainWrapper from './components/HeaderMainWrapper';
-import HiddenPanel from './components/HiddenPanel';
-import MainMenu from './components/MainMenu';
-import HeaderMain from './components/HiddenPanel';
-import DroppedMenu from './components/DroppedMenu';
+import TopMenu from './components/Header/TopMenu';
+import HeaderMainWrapper from './components/Header/HeaderMainWrapper';
+import HiddenPanel from './components/Header/HiddenPanel';
+import MainMenu from './components/Header/MainMenu';
+import DroppedMenu from './components/Header/DroppedMenu';
 
-import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, headerMainSearchVisibility, mainSubmenuVisibility} from './js/script.js';
+import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, headerMainSearchVisibility, mainSubmenuVisibility} from './components/Header/js/script.js';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
 
   componentDidMount() {
     
@@ -40,7 +43,7 @@ class Header extends Component {
           <HeaderMainWrapper />
           <HiddenPanel productsInBasket={this.props.productsInBasket} updateBasket={this.props.updateBasket} />
         </div>
-        <MainMenu />
+        <MainMenu categories={this.props.categories} />
         <DroppedMenu />
       </header>
     );

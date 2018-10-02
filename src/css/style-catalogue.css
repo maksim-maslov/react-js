@@ -195,13 +195,17 @@ select {
 
 
 /* Карточка товара в каталоге с ховером*/
-a.item-list__item-card {
+.item-list__item-card {
   display: inline-block;
   width: 283px;
   height: auto;
   margin-top: 27px;
   margin-bottom: -17px;
   padding-bottom: 53px;
+  text-decoration: none;
+}
+
+.item-list__item-card.item {
   text-decoration: none;
 }
 
@@ -385,7 +389,7 @@ span.producer {
 }
 
 .product-catalogue .sizes {
-  position: absolute;
+  /* position: absolute; */
   display: none;
   width: 100%;
   text-align: center;

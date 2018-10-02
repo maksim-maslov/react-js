@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import slider from '../js/slider.js';
+import slider from './js/slider.js';
 
-import slide1 from '../img/slider.jpg';
-import slide2 from '../img/slider180deg.jpeg';
+import slide1 from './img/slider.jpg';
+import slide2 from './img/slider180deg.jpeg';
 
 
 class Slider extends Component {

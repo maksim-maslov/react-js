@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './img/header-logo.png';
+// import logo from './img/header-logo.png';
 
 import './css/normalize.css';
 import './css/font-awesome.min.css';
@@ -34,7 +34,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      productsInBasket: []
+      productsInBasket: [],
+      categories: []
     };
   }
 
@@ -52,9 +53,14 @@ class App extends Component {
             this.setState({ productsInBasket: [] });
           }
         }); 
-    } else {        
-        
+    } else {   
+      // this.setState({ productsInBasket: ['В корзине пока ничего нет. Не знаете, с чего начать? Посмотрите наши новинки!'] });        
     }
+
+    fetch('https://neto-api.herokuapp.com/bosa-noga/categories')
+        .then(response => response.json())
+        .then(data => {this.setState({categories: data.data})});
+
   }
 
   updateBasket(product) {
@@ -101,11 +107,11 @@ class App extends Component {
     return (
       <HashRouter>
         <div className="container">
-          <Header productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} />          
+          <Header productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />          
           <Switch>
-            <Route path="/catalogue" render={(props) => <Catalogue {...props} />} />
+            <Route path="/catalogue" render={(props) => <Catalogue {...props} categories={this.state.categories} />} />
             <Route path="/favorite" component={Favorite} />
-            <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop updateBasket={this.updateBasket.bind(this)} {...props} />} />
+            <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop {...props} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />} />
               {/* <ProductCardDesktop cart={this.handler.bind(this)} />
             </Route> */}
             {/* <Route path="/product-card-desktop/:id[0-9]+" component={ProductCardDesktop} /> */}

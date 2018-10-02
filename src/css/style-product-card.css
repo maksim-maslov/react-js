@@ -196,7 +196,7 @@ a.main-screen__favourite-product-pic__zoom{
   color: #333333;
 }
 
-.sizes {
+.main-screen__product-info .sizes {
   position: relative;
   top: 19px;
   left: 130px;

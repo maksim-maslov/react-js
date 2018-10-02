@@ -8,7 +8,7 @@ const ListSimilarProducts = ({list = []}) => {
       <div className="similar-products-slider__item-list__item-card item">
         <div className="similar-products-slider__item">
           <NavLink to="/product-card-desktop">
-            <img src={require(`../img/product-card-pics/product-card__similar-products-slider-item-${index + 1}.png`)} className={`similar-products-slider__item-pic-${index + 1}`} alt={el.title}/>
+            <img src={require(`../../img/product-card-pics/product-card__similar-products-slider-item-${index + 1}.png`)} className={`similar-products-slider__item-pic-${index + 1}`} alt={el.title}/>
           </NavLink>
         </div>
         <div className="similar-products-slider__item-desc">

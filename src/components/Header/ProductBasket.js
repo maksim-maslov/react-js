@@ -15,7 +15,7 @@ class ProductBasket extends Component {
   componentDidMount() {
     fetch(`https://neto-api.herokuapp.com/bosa-noga/products/${this.product.id}`)
       .then(response => response.json())
-      .then(data => {console.log('ProductBasket', data);this.setState({productInfo: data.data})});
+      .then(data => this.setState({productInfo: data.data}));
   }
 
   componentWillReceiveProps(newProps) {
