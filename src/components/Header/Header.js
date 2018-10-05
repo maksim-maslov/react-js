@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import TopMenu from './components/Header/TopMenu';
-import HeaderMainWrapper from './components/Header/HeaderMainWrapper';
-import HiddenPanel from './components/Header/HiddenPanel';
-import MainMenu from './components/Header/MainMenu';
-import DroppedMenu from './components/Header/DroppedMenu';
+import TopMenu from './TopMenu';
+import HeaderMainWrapper from './HeaderMainWrapper';
+import HiddenPanel from './HiddenPanel';
+import MainMenu from './MainMenu';
+import DroppedMenu from './DroppedMenu';
 
-import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, headerMainSearchVisibility, mainSubmenuVisibility} from './components/Header/js/script.js';
+import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, headerMainSearchVisibility, mainSubmenuVisibility} from './js/script.js';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 
-import ListProductsBasket from './ListProductsBasket';
+import Basket from './Basket';
 
 const HiddenPanel = ({productsInBasket = [], updateBasket}) => {
 
@@ -14,13 +14,7 @@ const HiddenPanel = ({productsInBasket = [], updateBasket}) => {
           <i className="fa fa-heart-o" aria-hidden="true"></i>Избранное
         </NavLink>
       </div>
-      <div className="hidden-panel__basket basket-dropped">
-        <div className="basket-dropped__title">В вашей корзине:</div>
-        <div className="basket-dropped__product-list product-list">
-          <ListProductsBasket productsInBasket={productsInBasket} updateBasket={updateBasket} />
-        </div>
-        <NavLink to="/order" className="basket-dropped__order-button">Оформить заказ</NavLink>
-      </div>
+      <Basket productsInBasket={productsInBasket} updateBasket={updateBasket} />
     </div>
   );
 }

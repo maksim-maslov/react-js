@@ -29,7 +29,7 @@ class Product extends Component {
     return(
       <main className="product-card">
         <section className="product-card-content">
-          <h2 className="section-name">Ботинки женские</h2>
+          <h2 className="section-name">{this.props.category}</h2>
           <section className="product-card-content__main-screen">
             <section className="main-screen__favourite-product-slider">
               <div className="favourite-product-slider">

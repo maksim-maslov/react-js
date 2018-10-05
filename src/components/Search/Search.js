@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
-import Sorting from './components/Sorting';
-import Sidebar from './components/Sidebar';
-import ProductCatalogueItemList from './components/ProductCatalogueItemList';
-import Pagination from './components/Pagination';
-import BrowsedProducts from './components/BrowsedProducts/BrowsedProducts';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Sorting from '../Sorting';
+import Sidebar from '../Sidebar';
+import ProductCatalogueItemList from '../ProductCatalogueItemList';
+import Pagination from '../Pagination';
+import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
 
 const Search = () => {
   return(

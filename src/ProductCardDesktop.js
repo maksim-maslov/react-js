@@ -32,7 +32,7 @@ class ProductCardDesktop extends Component {
           // {link: '', text: 'Ботинки'}, 
           // {link: '', text: 'Ботинки женские'}
         ]}/>
-        <Product product={product} updateBasket={this.props.updateBasket}/>
+        <Product product={product} updateBasket={this.props.updateBasket} categories={this.props.categories} />
         <BrowsedProducts />            
         <SimilarProducts />
       </div>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
-import Sorting from './components/Sorting';
-import ProductCatalogueItemListFavorite from './components/Favorite/ProductCatalogueItemListFavorite';
-import Pagination from './components/Pagination';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Sorting from '../Sorting';
+import ProductCatalogueItemListFavorite from './ProductCatalogueItemListFavorite';
+import Pagination from '../Pagination';
 
 const Favorite = () => {
   return(

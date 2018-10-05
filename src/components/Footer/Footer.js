@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Subscribe from './components/Footer/Subscribe';
+import Subscribe from './Subscribe';
 
 const Footer = () => {
     return(

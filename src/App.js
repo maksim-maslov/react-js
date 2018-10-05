@@ -9,15 +9,15 @@ import './css/style-order.css';
 import './css/style-favorite.css';
 import './css/style-product-card.css';
 
-import Header from './Header';
-import Footer from './Footer';
-import MainPage from './MainPage';
-import Favorite from './Favorite';
-import Catalogue from './Catalogue';
-import ProductCardDesktop from './ProductCardDesktop';
-import Order from './Order';
-import OrderDone from './OrderDone';
-import Search from './Search';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import MainPage from './components/MainPage/MainPage';
+import Favorite from './components/Favorite/Favorite';
+import Catalogue from './components/Catalogue/Catalogue';
+import ProductCardDesktop from './components/ProductCardDesktop/ProductCardDesktop';
+import Order from './components/Order/Order';
+import OrderDone from './components/OrderDone/OrderDone';
+import Search from './components/Search/Search';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 
@@ -39,6 +39,23 @@ class App extends Component {
     };
   }
 
+  getData(products) {
+
+    const queryString = products.reduce((memo, el) => {
+      memo = memo + `id[]=${el.id}&`;
+      return memo;
+    }, '');
+
+    fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
+      .then(response => response.json())
+      .then(data => {
+        const productsInBasket = data.data.map((el,index) => {return {item: el, size: products[index].size, amount: products[index].amount};});
+        this.setState({ productsInBasket: productsInBasket });
+      });
+
+      
+  }
+
   componentDidMount() {
               
     const cartId = localStorage.getItem('cartId');
@@ -47,15 +64,13 @@ class App extends Component {
         .then(response => response.json())
         .then(data => {
           if (data.status == 'ok') {
-            this.setState({ productsInBasket: data.data.products });
+            this.getData(data.data.products);
           } else {
             localStorage.cartId = '';
             this.setState({ productsInBasket: [] });
           }
         }); 
-    } else {   
-      // this.setState({ productsInBasket: ['В корзине пока ничего нет. Не знаете, с чего начать? Посмотрите наши новинки!'] });        
-    }
+    } 
 
     fetch('https://neto-api.herokuapp.com/bosa-noga/categories')
         .then(response => response.json())
@@ -75,7 +90,7 @@ class App extends Component {
         .then(response => response.json())
         .then(data => {
           if (data.status == 'ok') {
-            this.setState({ productsInBasket: data.data.products });
+            this.getData(data.data.products);
           } else {
             localStorage.cartId = '';
             this.setState({ productsInBasket: [] });
@@ -91,7 +106,7 @@ class App extends Component {
         .then(data => {
           if (data.status == 'ok') {
             localStorage.cartId = data.data.id;
-            this.setState({ productsInBasket: [product] });
+            this.getData([product]);
           } else {
             localStorage.cartId = '';
             this.setState({ productsInBasket: [] });
@@ -112,9 +127,6 @@ class App extends Component {
             <Route path="/catalogue" render={(props) => <Catalogue {...props} categories={this.state.categories} />} />
             <Route path="/favorite" component={Favorite} />
             <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop {...props} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />} />
-              {/* <ProductCardDesktop cart={this.handler.bind(this)} />
-            </Route> */}
-            {/* <Route path="/product-card-desktop/:id[0-9]+" component={ProductCardDesktop} /> */}
             <Route path="/order" component={Order} />
             <Route path="/order-done" component={OrderDone} />
             <Route path="/search" component={Search} />

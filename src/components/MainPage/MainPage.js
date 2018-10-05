@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Slider from './components/MainPage/Slider';
-import NewDeals from './components/MainPage/NewDeals';
-import SalesAndNews from './components/MainPage/SalesAndNews';
-import AboutUs from './components/MainPage/AboutUs';
+import Slider from './Slider';
+import NewDeals from './NewDeals';
+import SalesAndNews from './SalesAndNews';
+import AboutUs from './AboutUs';
 
 const MainPage = () => {
   return(

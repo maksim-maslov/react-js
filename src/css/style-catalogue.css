@@ -27,7 +27,11 @@ a:hover {
 
 .product-catalogue {
   width: 1440px;
+  height: auto;
+  min-height: 1600px;
   margin: 0 auto;
+  position: relative;
+  padding-bottom: 50px;
 }
 
 .product-catalogue-content {
@@ -138,6 +142,7 @@ select {
   width: 892px;
   margin-left: 22px;
   border-top: 1px solid #F4F4F4;
+  margin-bottom: 50px;
 }
 
 /*Сердечки для избранного товара с эффектами*/
@@ -411,6 +416,8 @@ span.producer {
   display: block;
   width: 892px;
   margin: 20px 0 25px 22px;
+  position: absolute;
+  bottom: 0;
 }
 
 .page-nav-wrapper {

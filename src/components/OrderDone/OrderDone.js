@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const OrderDone = () => {
   return(

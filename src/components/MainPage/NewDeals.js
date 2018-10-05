@@ -9,7 +9,7 @@ class NewDeals extends Component {
     super(props);
 
     this.state = {
-      favorite: []
+      featured: []
     };
 
     this.menuTitles = [
