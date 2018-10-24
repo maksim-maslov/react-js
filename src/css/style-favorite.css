@@ -51,7 +51,7 @@
   right: 5px;
   z-index: 10;
 }
-.product-catalogue_favorite .product-catalogue__product_favorite a,
+/* .product-catalogue_favorite .product-catalogue__product_favorite a, */
 .product-catalogue_favorite .product-catalogue__product_favorite p {
   position: static;
   width: 33px;
@@ -59,7 +59,7 @@
   background-image: url(../img/new-deals__product_favorite_chosen.png);
   background-repeat: no-repeat;
 }
-.product-catalogue_favorite .product-catalogue__product_favorite a:hover,
+/* .product-catalogue_favorite .product-catalogue__product_favorite a:hover, */
 .product-catalogue_favorite .product-catalogue__product_favorite p:hover {
   background-image: url(../img/new-deals__product_favorite_refuse.png);
   cursor: pointer;

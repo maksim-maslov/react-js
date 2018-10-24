@@ -25,6 +25,7 @@ class Catalogue extends Component {
     this.title = this.props.categories.find(el => el.id == this.categoryId)
     ? this.props.categories.find(el => el.id == this.categoryId).title
     : '';
+    console.log('state', this.state)
   }
     
   componentDidMount() {
@@ -41,9 +42,12 @@ class Catalogue extends Component {
 
   render() {
     const products = this.state.products;  
-    const title = this.title; 
+    const title = this.title;
+    console.log('products', products)
+
     return(
-      <div>  
+      <div>
+        {products &&  <div>
         <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: 'Каталог'}]}/> 
         <main className="product-catalogue">            
           <Sidebar />            
@@ -54,11 +58,12 @@ class Catalogue extends Component {
               </div>
               <Sorting />                    
             </section>            
-            <ProductCatalogueItemList products={products.data} />            
+            <ProductCatalogueItemList products={products.data} updateFavorites={this.props.updateFavorites} />            
             <Pagination pages={products.pages} page={products.page} categoryId={products.data ? products.data[0].categoryId : ''} />
           </section>
         </main>
-        <BrowsedProducts />
+        <BrowsedProducts /></div>
+        }
       </div>
     );
   }

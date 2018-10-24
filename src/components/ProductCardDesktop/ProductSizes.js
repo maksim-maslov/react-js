@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const ProductSizes = ({sizes = []}) => {
 
-  const onClickHandler = (event) => {
+  const handler = (event) => {
     const sizes = document.querySelectorAll('.sizes li');
     // const inBasketBtn = document.querySelector('button.in-basket-click'); 
     Array.from(sizes).forEach(el => el.classList.remove('active'));
@@ -13,7 +13,7 @@ const ProductSizes = ({sizes = []}) => {
 
   const availableSizes = sizes.filter(el => el.available == true); 
 
-  return availableSizes.map((el, index) => <li key={index} onClick={onClickHandler}>{el.size}</li>);
+  return availableSizes.map((el, index) => <li key={index} onClick={handler}>{el.size}</li>);
     
 }
 

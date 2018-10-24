@@ -19,7 +19,7 @@ class Basket extends Component {
           <div className="basket-dropped__product-list product-list">
             {this.props.productsInBasket.map(el => <ProductsBasket product={el} updateBasket={this.props.updateBasket} />)}
           </div>
-          <NavLink to="/order" className="basket-dropped__order-button">Оформить заказ</NavLink>
+          <NavLink to={{ pathname: '/order', state: { productsInBasket: this.props.productsInBasket } }} className="basket-dropped__order-button">Оформить заказ</NavLink>
         </div>
       )
     } else {

@@ -23,7 +23,7 @@ class ProductCardDesktop extends Component {
 
   render() {
     const {product} = this.state;
-    const category = product.categoryId ? this.props.categories.find(el => el.id == product.categoryId).title : '';
+    const category = product.categoryId && this.props.categories.length ? this.props.categories.find(el => el.id == product.categoryId).title : '';
       return(
         <div>
           <Breadcrumbs links={[
@@ -33,7 +33,7 @@ class ProductCardDesktop extends Component {
             // {link: '', text: 'Ботинки'}, 
             // {link: '', text: 'Ботинки женские'}
           ]}/>
-          <Product product={product} updateBasket={this.props.updateBasket} category={category}/>
+          <Product product={product} updateBasket={this.props.updateBasket} updateFavorites={this.props.updateFavorites} category={category} />
           <BrowsedProducts />            
           <SimilarProducts />
         </div>

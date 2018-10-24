@@ -1,30 +1,52 @@
 import React, { Component } from 'react';
 
-import ListItemCard from '../ListItemCard';
+import ListItemCardFavorite from './ListItemCardFavorite';
 
 class ProductCatalogueItemListFavorite extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      favorite: []
-    };
+    // this.favoriteIdList = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : new Array()
+
+    // this.state = {
+    //   favorite: []
+    // };
+    
   }
   
-  componentDidMount() {
-    fetch('https://neto-api.herokuapp.com/bosa-noga/products')
-      .then(response => response.json())
-      .then(data => {this.setState({ favorite: data.data })});
-  }
+  // componentDidMount() {
+  //   console.log(this.favoriteIdList)
+  //   this.getData(this.favoriteIdList)
+  //   // fetch('https://neto-api.herokuapp.com/bosa-noga/products')
+  //   //   .then(response => response.json())
+  //   //   .then(data => {this.setState({ favorite: data.data })});
+  // }
+
+  // getData(products) {
+
+  //   const queryString = products.reduce((memo, el) => {
+  //     memo = memo + `id[]=${el.id}&`;
+  //     return memo;
+  //   }, '');
+  //   console.log('queryString', queryString)
+  //   fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
+  //     .then(response => response.json())
+  //     .then(data => {this.setState({ favorite: data.data })});
+
+  // }
 
   render() {
-    const { favorite } = this.state;
+    const favorites = this.props.favorites;
+    console.log(favorites)
+    if (!this.props) {
+      return false;
+    }
     return(
       <section className="product-catalogue__item-list product-catalogue__item-list_favorite">
-          <ListItemCard list={favorite} />
+          <ListItemCardFavorite list={favorites} updateFavorites={this.props.updateFavorites} />
       </section>            
-    )
+    );
   }
 
 }

@@ -271,6 +271,10 @@ li.active {
   background: url(../img/product-card-pics/product-card__favorite.png) no-repeat;
 }
 
+.favourite_chosen {
+  background: url(../img/product-card-pics/product-card__favorite-fill.png) no-repeat;
+}
+
 /*Счётчик для корзины*/
 .basket-item__quantity {
   position: relative;

@@ -2,13 +2,64 @@ import React, { Component } from 'react';
 
 import ListItemCard from './ListItemCard';
 
-const ProductCatalogueItemList = ({products}) => {
+
+class ProductCatalogueItemList extends Component {
+
+  constructor(props) {
+    super(props);
+
+    // this.favoriteIdList = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : new Array()
+
+    // this.state = {
+    //   favorite: []
+    // };
+    
+  }
+  
+  // componentDidMount() {
+  //   console.log(this.favoriteIdList)
+  //   this.getData(this.favoriteIdList)
+  //   // fetch('https://neto-api.herokuapp.com/bosa-noga/products')
+  //   //   .then(response => response.json())
+  //   //   .then(data => {this.setState({ favorite: data.data })});
+  // }
+
+  // getData(products) {
+
+  //   const queryString = products.reduce((memo, el) => {
+  //     memo = memo + `id[]=${el.id}&`;
+  //     return memo;
+  //   }, '');
+  //   console.log('queryString', queryString)
+  //   fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
+  //     .then(response => response.json())
+  //     .then(data => {this.setState({ favorite: data.data })});
+
+  // }
+
+  render() {
+    // const favorites = this.props.favorites;
+    // console.log(favorites)
+    if (!this.props) {
+      return false;
+    }
     return(
-        <section  className="product-catalogue__item-list">
-            <ListItemCard list={products} />
-        </section>            
-    )
+      <section className="product-catalogue__item-list product-catalogue__item-list_favorite">
+          <ListItemCard list={this.props.products} updateFavorites={this.props.updateFavorites} />
+      </section>            
+    );
+  }
+
 }
+
+// const ProductCatalogueItemList = ({products}) => {
+//     console.log(products)
+//     return(
+//         <section  className="product-catalogue__item-list">
+//             <ListItemCard list={products} updateFavorites={this.props.updateFavorites} />
+//         </section>            
+//     )
+// }
 
 export default ProductCatalogueItemList;
 

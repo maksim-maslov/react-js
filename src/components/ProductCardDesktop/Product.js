@@ -9,9 +9,15 @@ class Product extends Component {
     
   constructor(props) {
     super(props);
+    
+    this.favoriteIdList = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
+    console.log('array', this.favoriteIdList)
+    this.state = {
+      isFavorite: this.favoriteIdList.find(el => el.id === this.props.product.id)
+    };
   }
 
-  addProduct(event) {
+  addCart(event) {
 
     event.preventDefault();
 
@@ -24,7 +30,35 @@ class Product extends Component {
     this.props.updateBasket(product);
   }
 
+  addFavorites(event) {    
+    const favorite = event.currentTarget.querySelector('.in-favourites');
+    const favoritePic = event.currentTarget.querySelector('.favourite');
+    // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
+    // console.log(this.favoriteIdList);
+    // this.favoriteIdList.shift();
+    
+    if (!this.state.isFavorite) {
+      console.log(this.favoriteIdList)
+      this.favoriteIdList.push({id: this.props.product.id});
+      localStorage.favorites = JSON.stringify(this.favoriteIdList);
+      this.setState({isFavorite: !this.state.isFavorite});
+      favoritePic.classList.add('favourite_chosen');
+      // favorite.textContent = 'В избранном';
+    } else {
+      const removeElementIndex = this.favoriteIdList.findIndex(el => el.id === this.props.product.id);
+      this.favoriteIdList.splice(removeElementIndex, 1);
+      localStorage.favorites = JSON.stringify(this.favoriteIdList);
+      // favorite.textContent = 'В избранное';
+      this.setState({ isFavorite: !this.state.isFavorite });
+      favoritePic.classList.remove('favourite_chosen');
+    }
+    this.props.updateFavorites();
+    
+    // favorite.textContent = favorite.textContent === 'В избранное' ? 'В избранном' : 'В избранное';
+  }
+
   render() {
+    console.log(localStorage)
     const {product} = this.props;
     return(
       <main className="product-card">
@@ -83,11 +117,11 @@ class Product extends Component {
 
               </ul>
               <div className="size-wrapper">
-                <a href="#"><span className="size-rule"></span><p className="size-table">Таблица размеров</p></a>
+                <a href=""><span className="size-rule"></span><p className="size-table">Таблица размеров</p></a>
               </div>
-              <a href="#" className="in-favourites-wrapper">
-                <div className="favourite" href="#"></div>
-                <p className="in-favourites">В избранное</p>
+              <a className="in-favourites-wrapper" onClick={this.addFavorites.bind(this)}>
+                <div className="favourite"></div>
+                <p className="in-favourites">{this.state.isFavorite ? 'В избранном' : 'В избранное'}</p>
               </a>
               <div className="basket-item__quantity">
                 <div className="basket-item__quantity-change basket-item-list__quantity-change_minus">-</div>
@@ -95,7 +129,7 @@ class Product extends Component {
                 <div className="basket-item__quantity-change basket-item-list__quantity-change_plus">+</div>
               </div>
               <div className="price">{product.price}</div>
-              <button className="in-basket in-basket-click" onClick={this.addProduct.bind(this)}>В корзину</button>
+              <button className="in-basket in-basket-click" onClick={this.addCart.bind(this)}>В корзину</button>
             </div>
 
           </section>

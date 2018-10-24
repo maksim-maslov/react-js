@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 
-class ListItemCard extends Component {
+class ListItemCardFavorite extends Component {
   constructor(props) {
     super(props);
 
@@ -10,9 +10,9 @@ class ListItemCard extends Component {
     // this.favoriteIdList = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
     // console.log('array', this.favoriteIdList)
 
-    this.state = {      
-      favoriteIdList: localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : []
-    };
+    // this.state = {      
+    //   favorites: props.favorites
+    // };
   
   }
 
@@ -25,23 +25,7 @@ class ListItemCard extends Component {
 
   removeFavorites(event) {  
     event.preventDefault(); 
-    const favorite = event.target;
-    const favoriteIdList = this.state.favoriteIdList;
-    if (favorite.classList.contains('favourite_chosen')) {
-      // favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-      const removeElementIndex = favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
-      favoriteIdList.splice(removeElementIndex, 1);
-      favorite.classList.remove('favourite_chosen');
-    } else {
-      favoriteIdList.push({id: event.currentTarget.dataset.id});
-      favorite.classList.add('favourite_chosen');
-    }
-    localStorage.favorites = JSON.stringify(favoriteIdList);
-    this.state = {
-      favoriteIdList: localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : []
-    };
-    // localStorage.favorites = this.state.favoriteIdList;
-
+    const favorite = event.currentTarget.querySelector('.product-catalogue_favorite .product-catalogue__product_favorite p');
     // const favoritePic = event.currentTarget.querySelector('.favourite');
     // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
     // console.log(this.favoriteIdList);
@@ -55,16 +39,16 @@ class ListItemCard extends Component {
     //   favoritePic.classList.add('favourite_chosen');
     //   // favorite.textContent = 'В избранном';
     // } else {
-      // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-      // const removeElementIndex = this.favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
-      // // console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
-      // // console.log('56575', this.favoriteIdList)
-      // this.favoriteIdList.splice(removeElementIndex, 1);
-      // console.log('56576', this.favoriteIdList)
+      this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
+      const removeElementIndex = this.favoriteIdList.findIndex(el => {console.log('ghgjkhhlkl', el, event.currentTarget.dataset.id, el.id == event.currentTarget.dataset.id);return el.id == event.currentTarget.dataset.id});
+      console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
+      console.log('56575', this.favoriteIdList)
+      this.favoriteIdList.splice(removeElementIndex, 1);
+      console.log('56576', this.favoriteIdList)
       // this.state = {      
       //   favorites: this.favoriteIdList
       // };
-      // localStorage.favorites = JSON.stringify(this.favoriteIdList);
+      localStorage.favorites = JSON.stringify(this.favoriteIdList);
       // favorite.textContent = 'В избранное';
       // this.setState({ isFavorite: !this.state.isFavorite });
       // favoritePic.classList.remove('favourite_chosen');
@@ -84,7 +68,7 @@ class ListItemCard extends Component {
         <NavLink to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
           <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
             <div className="product-catalogue__product_favorite">
-              <p className={ this.state.favoriteIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen' } data-id={el.id} onClick={this.removeFavorites.bind(this)} ></p>
+              <p data-id={el.id} onClick={this.removeFavorites.bind(this)} ></p>
             </div>
             <div className="arrow arrow_left"></div>
             <div className="arrow arrow_right"></div>
@@ -106,4 +90,4 @@ class ListItemCard extends Component {
   
 }
 
-export default ListItemCard;
+export default ListItemCardFavorite;

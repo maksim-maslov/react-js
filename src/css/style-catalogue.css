@@ -156,6 +156,10 @@ select {
   background-repeat: no-repeat;
 }
 
+.product-catalogue .product-catalogue__product_favorite .favourite_chosen {
+  background: url(../img/catalogue-pics/product-catalogue__product_favorite_chosen.png) no-repeat;
+}
+
 .product-catalogue .product-catalogue__product_favorite a:hover,
 .product-catalogue .product-catalogue__product_favorite p:hover {
   cursor: pointer;
