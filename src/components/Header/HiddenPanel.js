@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 import Basket from './Basket';
 
@@ -10,9 +10,9 @@ const HiddenPanel = ({productsInBasket = [], updateBasket}) => {
     <div className="header-main__hidden-panel hidden-panel">
       <div className="hidden-panel__profile">
         <a href="#">Личный кабинет</a>
-        <NavLink to="/favorite">
+        <Link to="/favorite">
           <i className="fa fa-heart-o" aria-hidden="true"></i>Избранное
-        </NavLink>
+        </Link>
       </div>
       <Basket productsInBasket={productsInBasket} updateBasket={updateBasket} />
     </div>

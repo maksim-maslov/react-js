@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 const ListSimilarProducts = ({list = []}) => {
   return list.map((el, index) => {
     return(
       <div className="similar-products-slider__item-list__item-card item">
         <div className="similar-products-slider__item">
-          <NavLink to="/product-card-desktop">
+          <Link to="/product-card-desktop">
             <img src={require(`../../img/product-card-pics/product-card__similar-products-slider-item-${index + 1}.png`)} className={`similar-products-slider__item-pic-${index + 1}`} alt={el.title}/>
-          </NavLink>
+          </Link>
         </div>
         <div className="similar-products-slider__item-desc">
           <h4 className="similar-products-slider__item-name">{el.title}</h4>

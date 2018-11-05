@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 class ProductsBasket extends Component {
 
@@ -26,9 +26,9 @@ class ProductsBasket extends Component {
         <a className="product-list__pic">
           <img src={productInfo ? productInfo.item.images[0] : ""} alt="product"/> 
         </a>
-        <NavLink to={`/product-card-desktop/${productInfo.item.id}`} className="product-list__product">
+        <Link to={`/product-card-desktop/${productInfo.item.id}`} className="product-list__product">
           {productInfo.item.title}
-        </NavLink>
+        </Link>
         <div className="product-list__fill"></div>
         <div className="product-list__price">{productInfo.item.price}
           <i className="fa fa-rub" aria-hidden="true"></i>

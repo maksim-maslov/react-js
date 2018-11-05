@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './img/header-logo.png';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 const HeaderMainWrapper = () => {
   return(
@@ -11,11 +11,11 @@ const HeaderMainWrapper = () => {
         <p>Ежедневно: с 09-00 до 21-00</p>
       </div>
       <div className="header-main__logo">
-        <NavLink to="/">
+        <Link to="/">
         <h1>
           <img src={logo} alt="logotype"/>
         </h1>
-        </NavLink>
+        </Link>
         <p>Обувь и аксессуары для всей семьи</p>
       </div>
       <div className="header-main__profile">

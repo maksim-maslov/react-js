@@ -991,6 +991,7 @@ li a:hover {
   background-color: #A1B3BF;
   color: #ffffff;
   cursor: pointer;
+  text-decoration: none;
 }
 .product-list {
   margin: 0 30px;
@@ -1020,6 +1021,12 @@ li a:hover {
   font-weight: 300;
   font-size: 18px;
   color: #ffffff;
+  text-decoration: none;
+}
+.product-list__product:hover {
+  /* background-color: #A1B3BF;
+  color: #ffffff;
+  cursor: pointer; */
   text-decoration: none;
 }
 .product-list__fill {

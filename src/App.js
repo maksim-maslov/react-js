@@ -43,46 +43,25 @@ class App extends Component {
 
   componentDidMount() {              
     const cartId = localStorage.getItem('cartId');
-    // console.log('this.state', cartId)
     if (cartId) {
       const params = {method: 'GET'};
       this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, params);      
     } 
     this.getCategories();
     this.updateFavorites();
-    // localStorage.clear();
   }
 
 
   joinProductIdsToQueryString(products = []) {
-    // console.log('ljkghjdtyhdtdr', products)
     return new Promise((done, fail) => {
-      // console.log('ljkghjdtyhdtdr', products)
       const queryString = products.reduce((memo, el) => {
         console.log('el', el)
         memo = memo + `id[]=${el.id}&`;
         return memo;
       }, '');
-      // console.log('2342536543', queryString)
       done(queryString);
     });
   }
-
-  // createArrayProductsInBasket({data, products}) {
-  //   console.log(data)
-  //   return data.data.map((el, index) => {
-  //     return {item: el, size: products[index].size, amount: products[index].amount};
-  //   });
-  // }
-
-  // getProducts(products, queryString) {
-  //   let result = [];
-  //   fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
-  //     .then(response => response.json())
-  //     .then(data => result = data);  
-  //     console.log({result: result, products: products})    
-  //   return {result: result, products: products};
-  // }
 
   updateFavorites() {  
     const favoriteIdList = localStorage.getItem('favorites') 
@@ -93,44 +72,11 @@ class App extends Component {
       this.setState({ favorites: [] });         
     } else {
       this.joinProductIdsToQueryString(favoriteIdList)
-        .then(queryString => {console.log('fgsdhj', queryString);return fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)})
-        .then(response => {console.log(response); return response.json()})
-        .then(data => this.setState({ favorites: data.data })); 
+        .then(queryString => fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
+        .then(response => response.json())
+        .then(data => this.setState({ favorites: data })); 
     }
-
-  //   fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
-  //     .then(response => response.json())
-  //     .then(data => {this.setState({ favorite: data.data })});
-
-  //   // this.favoriteIdList = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : new Array()
-
-  //   // this.state = {
-  //   //   favorites: []
-  //   // };
-    
-  // // }
-  
-  // // componentDidMount() {
-  // //   console.log(this.favoriteIdList)
-  // //   this.getData(this.favoriteIdList)
-  //   // fetch('https://neto-api.herokuapp.com/bosa-noga/products')
-  //   //   .then(response => response.json())
-  //   //   .then(data => {this.setState({ favorite: data.data })});
   }
-
-  // getData(products) {
-
-  //   const queryString = products.reduce((memo, el) => {
-  //     memo = memo + `id[]=${el.id}&`;
-  //     return memo;
-  //   }, '');
-  //   console.log('queryString', queryString)
-  //   fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
-  //     .then(response => response.json())
-  //     .then(data => {this.setState({ favorite: data.data })});
-
-  // }
-  // }
 
   getCategories() {
     fetch('https://neto-api.herokuapp.com/bosa-noga/categories')
@@ -162,7 +108,7 @@ class App extends Component {
         }
       })
       .then(productArray => {
-        console.log('productArray', productArray);
+        // console.log('productArray', productArray);
         return this.joinProductIdsToQueryString(productArray)
           .then(queryString => fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
           .then(response => response.json())
@@ -178,7 +124,6 @@ class App extends Component {
   }
 
   updateBasket(product) {
-
     const params = {
       method: 'POST', 
       headers: {'Content-Type': 'application/json'},
@@ -188,19 +133,7 @@ class App extends Component {
     if (cartId) {      
       this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, params);
     } else {
-      this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/`, params, [product]);
-      // fetch('https://neto-api.herokuapp.com/bosa-noga/cart/', params)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     if (data.status == 'ok') {
-      //       localStorage.cartId = data.data.id;
-      //       this.getProductsInBasket([product]);
-      //     } else {
-      //       localStorage.cartId = '';
-      //       this.setState({ productsInBasket: [] });
-      //     }
-      //   });
-        
+      this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/`, params, [product]);        
     }
   }
 
@@ -214,9 +147,9 @@ class App extends Component {
           <Header productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />          
           <Switch>
             <Route path="/catalogue" render={(props) => <Catalogue {...props} updateFavorites={this.updateFavorites.bind(this)} categories={this.state.categories} />} />
-            <Route path="/favorite" render={(props) => <Favorite {...props} favorites={this.state.favorites} updateFavorites={this.updateFavorites.bind(this)} />} /> 
+            <Route path="/favorite" render={(props) => <Favorite {...props} favorites={this.state.favorites} updateFavorites={this.updateFavorites.bind(this)} joinProductIdsToQueryString={this.joinProductIdsToQueryString.bind(this)} />} /> 
             <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop {...props} updateBasket={this.updateBasket.bind(this)} updateFavorites={this.updateFavorites.bind(this)} categories={this.state.categories} />} />
-            <Route path="/order" render={(props) => <Order {...props} categories={this.state.categories} />} />
+            <Route path="/order" render={(props) => <Order {...props} productsInBasket={productsInBasket} categories={this.state.categories} />} />
             <Route path="/order-done" component={OrderDone} />
             <Route path="/search" component={Search} />
             <Route path="/" component={MainPage} />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 import ProductsBasket from './ProductsBasket';
 
@@ -19,7 +19,7 @@ class Basket extends Component {
           <div className="basket-dropped__product-list product-list">
             {this.props.productsInBasket.map(el => <ProductsBasket product={el} updateBasket={this.props.updateBasket} />)}
           </div>
-          <NavLink to={{ pathname: '/order', state: { productsInBasket: this.props.productsInBasket } }} className="basket-dropped__order-button">Оформить заказ</NavLink>
+          <Link to={{ pathname: '/order'}} className="basket-dropped__order-button">Оформить заказ</Link>
         </div>
       )
     } else {

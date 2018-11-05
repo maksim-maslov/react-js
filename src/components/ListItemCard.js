@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 class ListItemCard extends Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class ListItemCard extends Component {
     }
     return this.props.list.map((el, index) => {
       return(
-        <NavLink to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
+        <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
           <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
             <div className="product-catalogue__product_favorite">
               <p className={ this.state.favoriteIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen' } data-id={el.id} onClick={this.removeFavorites.bind(this)} ></p>
@@ -98,7 +98,7 @@ class ListItemCard extends Component {
             <p className="sizes__avalible">36, 37, 38, 39, 40, 41, 42</p>
             </div>
           </div>
-        </NavLink>            
+        </Link>            
       )
     })
   }

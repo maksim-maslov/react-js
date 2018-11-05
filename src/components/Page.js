@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
+import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-const Page = ({index, page, categoryId}) => {
+const Page = ({index, page, search}) => {
   return(
-    <li className={page == index ? "active" : ""}><NavLink to={{pathname: '/catalogue', search: `?categoryId=${categoryId}&page[]=${index}`}}>{index}</NavLink></li>
+    <li className={page == index ? "active" : ""}><Link to={`${search}&page[]=${index}`}>{index}</Link></li>
   );
 }
 
