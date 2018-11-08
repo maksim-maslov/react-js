@@ -47,8 +47,8 @@ class Favorite extends Component {
       // favoritePic.classList.remove('favourite_chosen');
     // }
     this.props.updateFavorites();
-    this.props.joinProductIdsToQueryString(this.favoriteIdList)
-      .then(queryString => this.setState({queryString: queryString}))
+    // this.props.joinProductIdsToQueryString(this.favoriteIdList)
+    //   .then(queryString => this.setState({queryString: queryString}))
     
     // favorite.textContent = favorite.textContent === 'В избранное' ? 'В избранном' : 'В избранное';
   }

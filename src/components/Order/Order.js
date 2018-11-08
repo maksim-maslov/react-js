@@ -23,7 +23,7 @@ class Order extends Component {
         <section className="order-process">
           <h2 className="order-process__title">Оформление заказа</h2>   
           {this.props.productsInBasket && <ProductsInBasket productsInBasket={this.props.productsInBasket} />}
-          <OrderForm  updateOrder={this.props.updateOrder}/>            
+          <OrderForm  updateBasket={this.props.updateBasket}/>            
         </section>
       </div>
     );    

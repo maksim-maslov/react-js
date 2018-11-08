@@ -119,7 +119,7 @@ class Catalogue extends Component {
               <Pagination pages={products.pages} page={products.page} search={`/catalogue?categoryId=${this.categoryId}`} />
             </section>
           </main>
-          <BrowsedProducts />
+          <BrowsedProducts browsedProducts={this.props.browsedProducts} />
         </div>}
       </div>
     );

@@ -24,18 +24,24 @@ class ProductCardDesktop extends Component {
   render() {
     const {product} = this.state;
     const category = product.categoryId && this.props.categories.length ? this.props.categories.find(el => el.id == product.categoryId).title : '';
+      console.log('prodUct', product)
+      console.log('gjhlkj;l;k;ljl;kl;kl', this.props.browsedProducts)
       return(
         <div>
-          <Breadcrumbs links={[
-            {link: '/main-page', text: 'Главная'}, 
-            {link: `/catalogue?categoryId=${product.categoryId}`, text: category }
-            // , 
-            // {link: '', text: 'Ботинки'}, 
-            // {link: '', text: 'Ботинки женские'}
-          ]}/>
-          <Product product={product} updateBasket={this.props.updateBasket} updateFavorites={this.props.updateFavorites} category={category} />
-          <BrowsedProducts />            
-          <SimilarProducts />
+          {this.state.product.id && (
+            <div>
+              <Breadcrumbs links={[
+                {link: '/main-page', text: 'Главная'}, 
+                {link: `/catalogue?categoryId=${product.categoryId}`, text: category }
+                // , 
+                // {link: '', text: 'Ботинки'}, 
+                // {link: '', text: 'Ботинки женские'}
+              ]}/>
+              <Product product={this.state.product} updateBasket={this.props.updateBasket} updateFavorites={this.props.updateFavorites} updateBrowsedProducts={this.props.updateBrowsedProducts} category={category} />
+              <BrowsedProducts browsedProducts={this.props.browsedProducts} />            
+              <SimilarProducts />
+            </div>
+          )}
         </div>
       ); 
   }

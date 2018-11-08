@@ -36,7 +36,8 @@ class App extends Component {
     this.state = {
       productsInBasket: [],
       categories: [],
-      favorites: []
+      favorites: [],
+      browsedProducts: []
     };
   }
 
@@ -49,6 +50,7 @@ class App extends Component {
     } 
     this.getCategories();
     this.updateFavorites();
+    this.updateBrowsedProducts();
   }
 
 
@@ -137,19 +139,43 @@ class App extends Component {
     }
   }
 
+  updateBrowsedProducts() {  
+    const browsedProducts = localStorage.getItem('browsedProducts') 
+    ? JSON.parse(localStorage.getItem('browsedProducts')) 
+    : [];
+
+    console.log('browsedProducts1478234729', browsedProducts)
+
+    if (browsedProducts.length === 0) {
+      this.setState({ browsedProducts: [] });         
+    } else {
+      this.joinProductIdsToQueryString(browsedProducts)
+        .then(queryString => fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
+        .then(response => response.json())
+        .then(data => {
+          console.log('6875394058908940', data)
+          if (data) {
+            this.setState({ browsedProducts: data.data }); 
+
+          }
+        });
+    }
+  }
+
   render() {
     const productsInBasket = this.state.productsInBasket;
     console.log(localStorage);
+    console.log(this.state.browsedProducts)
 
     return (
       <HashRouter>
         <div className="container">
           <Header productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />          
           <Switch>
-            <Route path="/catalogue" render={(props) => <Catalogue {...props} updateFavorites={this.updateFavorites.bind(this)} categories={this.state.categories} />} />
+            <Route path="/catalogue" render={(props) => <Catalogue {...props} updateFavorites={this.updateFavorites.bind(this)} categories={this.state.categories} browsedProducts={this.state.browsedProducts} />} />
             <Route path="/favorite" render={(props) => <Favorite {...props} favorites={this.state.favorites} updateFavorites={this.updateFavorites.bind(this)} joinProductIdsToQueryString={this.joinProductIdsToQueryString.bind(this)} />} /> 
-            <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop {...props} updateBasket={this.updateBasket.bind(this)} updateFavorites={this.updateFavorites.bind(this)} categories={this.state.categories} />} />
-            <Route path="/order" render={(props) => <Order {...props} productsInBasket={productsInBasket} categories={this.state.categories} />} />
+            <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop {...props} updateBasket={this.updateBasket.bind(this)} updateFavorites={this.updateFavorites.bind(this)} updateBrowsedProducts={this.updateBrowsedProducts.bind(this)} categories={this.state.categories} browsedProducts={this.state.browsedProducts} />} />
+            <Route path="/order" render={(props) => <Order {...props} productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />} />
             <Route path="/order-done" component={OrderDone} />
             <Route path="/search" component={Search} />
             <Route path="/" component={MainPage} />

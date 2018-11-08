@@ -17,8 +17,8 @@ class OrderForm extends Component {
 
   // let formData;
   
-  submit(e) {
-    e.preventDefault();
+  submit(event) {
+    event.preventDefault();
 
     const {name, phone, address, paid} = this.formData;
     this.order = {
@@ -46,7 +46,11 @@ class OrderForm extends Component {
         this.setState({
           doRedirect: true
         });
+        localStorage.cartId = '';
+        this.props.updateBasket();
+
       });
+      
 
   }
 
