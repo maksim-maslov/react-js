@@ -37,12 +37,19 @@ class Catalogue extends Component {
   }
 
   getProducts() {
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/products?categoryId=${this.categoryId}&page[]=${this.page ? this.page : 1}`)
+    let queryString;
+    if (this.categoryId) {
+      queryString = `categoryId=${this.categoryId}&page[]=${this.page ? this.page : 1}`;
+      this.title = this.props.categories.find(el => el.id == this.categoryId)
+      ? this.props.categories.find(el => el.id == this.categoryId).title
+      : '';
+    } else {
+      queryString = `discounted=true`;
+      this.title = 'Акции'
+    }
+    fetch(`https://neto-api.herokuapp.com/bosa-noga/products?${queryString}`)
       .then(response => response.json())
-      .then(data => {this.setState({ products: data })});
-    this.title = this.props.categories.find(el => el.id == this.categoryId)
-    ? this.props.categories.find(el => el.id == this.categoryId).title
-    : '';
+      .then(data => {this.setState({ products: data })});    
     // console.log('state', this.state)
   }
 

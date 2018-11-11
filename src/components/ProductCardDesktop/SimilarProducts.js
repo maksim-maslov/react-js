@@ -2,31 +2,31 @@ import React, { Component } from 'react';
 
 import ListSimilarProducts from './ListSimilarProducts';
 
-const SimilarProducts = () => {   
+const SimilarProducts = (props) => {   
 
-    const data = [
-        {
-            "title": "Босоножки женские",      
-            "brand": "Dior",
-            "price": 5000
-        },
-        {
-            "title": "Босоножки женские",      
-            "brand": "Dior",
-            "price": 5000
-        },
-        {
-            "title": "Босоножки женские",      
-            "brand": "Dior",
-            "price": 5000
-        }
-    ];
+    // const data = [
+    //     {
+    //         "title": "Босоножки женские",      
+    //         "brand": "Dior",
+    //         "price": 5000
+    //     },
+    //     {
+    //         "title": "Босоножки женские",      
+    //         "brand": "Dior",
+    //         "price": 5000
+    //     },
+    //     {
+    //         "title": "Босоножки женские",      
+    //         "brand": "Dior",
+    //         "price": 5000
+    //     }
+    // ];
     return(
         <section className="product-card__similar-products-slider">
             <h3>Похожие товары:</h3>
             <div className="similar-products-slider">
                 <div className="similar-products-slider__arrow similar-products-slider__arrow_left arrow"></div>
-                <ListSimilarProducts list={data} />
+                <ListSimilarProducts list={props.similarProducts} />
                 {/* <div className="similar-products-slider__item-list__item-card item">
                     <div className="similar-products-slider__item">
                         <a href="product-card-desktop.html"><img src="img/product-card-pics/product-card__similar-products-slider-item-1.png" className="similar-products-slider__item-pic-1" alt="Ботинки женские"/>

@@ -11,17 +11,27 @@ class ProductCardDesktop extends Component {
     super(props);
     this.id = props.match.params.id;
     this.state = {
-      product: {}
+      product: {},
+      similarProducts: []
     };
   }
   
   componentDidMount() {
     fetch(`https://neto-api.herokuapp.com/bosa-noga/products/${this.id}`)
       .then(response => response.json())
-      .then(data => {this.setState({product: data.data})});
+      .then(data => {
+        this.setState({product: data.data});
+        return fetch(`https://neto-api.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`);
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({similarProducts: data.data});
+      });
+    
   }
 
   render() {
+    console.log('this.state.similarProducts', this.state.similarProducts)
     const {product} = this.state;
     const category = product.categoryId && this.props.categories.length ? this.props.categories.find(el => el.id == product.categoryId).title : '';
       console.log('prodUct', product)
@@ -39,7 +49,7 @@ class ProductCardDesktop extends Component {
               ]}/>
               <Product product={this.state.product} updateBasket={this.props.updateBasket} updateFavorites={this.props.updateFavorites} updateBrowsedProducts={this.props.updateBrowsedProducts} category={category} />
               <BrowsedProducts browsedProducts={this.props.browsedProducts} />            
-              <SimilarProducts />
+              <SimilarProducts similarProducts={this.state.similarProducts} />
             </div>
           )}
         </div>

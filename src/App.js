@@ -170,12 +170,46 @@ class App extends Component {
     return (
       <HashRouter>
         <div className="container">
-          <Header productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />          
+          <Header 
+            productsInBasket={productsInBasket} 
+            updateBasket={this.updateBasket.bind(this)} 
+            categories={this.state.categories} 
+          />          
           <Switch>
-            <Route path="/catalogue" render={(props) => <Catalogue {...props} updateFavorites={this.updateFavorites.bind(this)} categories={this.state.categories} browsedProducts={this.state.browsedProducts} />} />
-            <Route path="/favorite" render={(props) => <Favorite {...props} favorites={this.state.favorites} updateFavorites={this.updateFavorites.bind(this)} joinProductIdsToQueryString={this.joinProductIdsToQueryString.bind(this)} />} /> 
-            <Route path="/product-card-desktop/:id" render={(props) => <ProductCardDesktop {...props} updateBasket={this.updateBasket.bind(this)} updateFavorites={this.updateFavorites.bind(this)} updateBrowsedProducts={this.updateBrowsedProducts.bind(this)} categories={this.state.categories} browsedProducts={this.state.browsedProducts} />} />
-            <Route path="/order" render={(props) => <Order {...props} productsInBasket={productsInBasket} updateBasket={this.updateBasket.bind(this)} categories={this.state.categories} />} />
+            <Route path="/catalogue" 
+              render={(props) => <Catalogue 
+                {...props} 
+                updateFavorites={this.updateFavorites.bind(this)} 
+                categories={this.state.categories} 
+                browsedProducts={this.state.browsedProducts} 
+              />} 
+            />
+            <Route path="/favorite" 
+              render={(props) => <Favorite 
+                {...props} 
+                favorites={this.state.favorites} 
+                updateFavorites={this.updateFavorites.bind(this)} 
+                joinProductIdsToQueryString={this.joinProductIdsToQueryString.bind(this)} 
+              />} 
+            /> 
+            <Route path="/product-card-desktop/:id" 
+              render={(props) => <ProductCardDesktop 
+                {...props} 
+                updateBasket={this.updateBasket.bind(this)} 
+                updateFavorites={this.updateFavorites.bind(this)} 
+                updateBrowsedProducts={this.updateBrowsedProducts.bind(this)} 
+                categories={this.state.categories} 
+                browsedProducts={this.state.browsedProducts} 
+              />} 
+            />
+            <Route path="/order" 
+              render={(props) => <Order 
+                {...props} 
+                productsInBasket={productsInBasket} 
+                updateBasket={this.updateBasket.bind(this)} 
+                categories={this.state.categories} 
+              />} 
+            />
             <Route path="/order-done" component={OrderDone} />
             <Route path="/search" component={Search} />
             <Route path="/" component={MainPage} />
