@@ -41,10 +41,10 @@ class ListItemCardFavorite extends Component {
     // } else {
       this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
       const removeElementIndex = this.favoriteIdList.findIndex(el => {console.log('ghgjkhhlkl', el, event.currentTarget.dataset.id, el.id == event.currentTarget.dataset.id);return el.id == event.currentTarget.dataset.id});
-      console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
-      console.log('56575', this.favoriteIdList)
+      // console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
+      // console.log('56575', this.favoriteIdList)
       this.favoriteIdList.splice(removeElementIndex, 1);
-      console.log('56576', this.favoriteIdList)
+      // console.log('56576', this.favoriteIdList)
       // this.state = {      
       //   favorites: this.favoriteIdList
       // };
@@ -59,7 +59,7 @@ class ListItemCardFavorite extends Component {
   }
 
   render() {
-    console.log('lastrender', this.props)
+    // console.log('lastrender', this.props)
     if (!this.props.list) {
       return false;
     }

@@ -8,13 +8,15 @@ const HiddenPanel = ({productsInBasket = [], updateBasket}) => {
 
   return(
     <div className="header-main__hidden-panel hidden-panel">
-      <div className="hidden-panel__profile">
-        <a href="#">Личный кабинет</a>
-        <Link to="/favorite">
-          <i className="fa fa-heart-o" aria-hidden="true"></i>Избранное
-        </Link>
+      <div class="wrapper">
+        <div className="hidden-panel__profile">
+          <a href="#">Личный кабинет</a>
+          <Link to="/favorite">
+            <i className="fa fa-heart-o" aria-hidden="true"></i>Избранное
+          </Link>
+        </div>
+        <Basket productsInBasket={productsInBasket} updateBasket={updateBasket} />
       </div>
-      <Basket productsInBasket={productsInBasket} updateBasket={updateBasket} />
     </div>
   );
 }

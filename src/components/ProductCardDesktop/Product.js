@@ -15,7 +15,7 @@ class Product extends Component {
     this.favoriteIdList = localStorage.getItem('favorites') 
     ? JSON.parse(localStorage.getItem('favorites')) 
     : [];
-    console.log('array', this.favoriteIdList)
+    // console.log('array', this.favoriteIdList)
     this.state = {
       isFavorite: this.favoriteIdList.find(el => el.id == this.props.product.id)
     };

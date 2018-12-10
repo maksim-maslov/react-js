@@ -141,11 +141,30 @@ a:hover {
   border-width: 0;
   transition: background-position 1s;
 }
-.order-process__form-submit:hover {
+
+
+
+/* .order-process__form-submit:hover {
+  cursor: pointer;
+  box-shadow: none;
+  margin: 71px auto 69px;
+} */
+
+
+
+.order-process__form-submit:hover:not(.order-process__form-submit_disabled) {
   cursor: pointer;
   box-shadow: none;
   margin: 71px auto 69px;
 }
+.order-process__form-submit_disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+
+
+
 .order-process__form-submit_click {
   overflow: hidden;
   position: relative;

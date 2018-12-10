@@ -75,7 +75,7 @@ class ListItemCard extends Component {
   }
 
   render() {
-    console.log('lastrender', this.props)
+    // console.log('lastrender', this.props)
     if (!this.props.list) {
       return false;
     }

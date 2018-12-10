@@ -15,7 +15,7 @@ class Order extends Component {
   }
 
   render() {
-    console.log('order', this);
+    // console.log('order', this);
     // const productsInBasket = this.state.productsInBasket;
     return( 
       <div className="wrapper order-wrapper">

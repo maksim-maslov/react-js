@@ -35,12 +35,12 @@ class OrderForm extends Component {
       body: JSON.stringify(this.order)
     };
     
-    console.log('submit', this.order)
+    // console.log('submit', this.order)
 
     fetch(`https://neto-api.herokuapp.com/bosa-noga/order`, params)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.order.total = document.querySelector('.order-basket__summ span').textContent;
         // this.props.updateOrder(order);
         this.setState({

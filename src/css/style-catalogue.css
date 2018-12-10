@@ -27,8 +27,9 @@ a:hover {
 
 .product-catalogue {
   width: 1440px;
-  height: auto;
-  min-height: 1600px;
+  min-height: 1850px;
+  /* height: auto; */
+  /* min-height: 1600px; */
   margin: 0 auto;
   position: relative;
   padding-bottom: 50px;
@@ -138,7 +139,8 @@ select {
 .product-catalogue__item-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
   width: 892px;
   margin-left: 22px;
   border-top: 1px solid #F4F4F4;
@@ -214,8 +216,20 @@ select {
   text-decoration: none;
 }
 
+
+
+
+.product-catalogue__item-list:not(.product-catalogue__item-list_favorite) a.item-list__item-card:nth-of-type(3n + 2) {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+
+
 .item-list__item-card.item {
   text-decoration: none;
+  margin-left: 15px;
 }
 
 .product-catalogue .item-list__item-card:hover {
@@ -431,11 +445,18 @@ span.producer {
   align-items: center;
 }
 
-.product-catalogue__pagination ul {
+/* .product-catalogue__pagination ul {
   width: 310px;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
+} */
+
+.product-catalogue__pagination ul {
+			   
+  margin: 0 auto;
+  display: flex;
+								
 }
 
 .product-catalogue__pagination ul li {
@@ -449,6 +470,16 @@ span.producer {
   font-size: 14px;
   color: #000000;
 }
+
+
+
+
+.product-catalogue__pagination ul li + li {
+  margin-left: 25px;
+}
+
+
+
 
 li.active {
   display: inline-block;
@@ -477,6 +508,16 @@ li.active {
 }
 
 
+
+
+.hidden {
+  visibility: hidden;
+}
+
+
+
+
+
 /*Слайдер "Вы смотрели"*/
 .product-catalogue__overlooked-slider {
   width: 995px;
@@ -498,7 +539,13 @@ li.active {
   top: 20px;
   left: 1px;
   display: flex;
-  justify-content: space-between;
+
+
+
+  /* justify-content: space-between; */
+  
+  
+  
   align-items: center;
 }
 
@@ -676,9 +723,9 @@ li.active {
 /*Каталог в сайдбаре*/
 .sidebar__catalogue-list h3 {
   width: auto;
-  padding-top: 19px;
+  padding-top: 20px;
   padding-left: 21px;
-  padding-bottom: 16px;
+  padding-bottom: 15px;
 }
 
 .sidebar__catalogue-list ul {
@@ -804,7 +851,7 @@ li.active {
 }
 
 .sidebar__color ul {
-  width: 242px;
+  /* width: 242px; */
   height: 140px;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -874,8 +921,8 @@ span.color-name:hover {
 }
 
 .sidebar__size ul {
-  height: 95px;
-  padding-left: 1px;
+  height: 130px;
+  /* padding-left: 1px; */
   overflow: auto;
 }
 
@@ -934,7 +981,14 @@ span.color-name:hover {
 /*Размер каблука*/
 .sidebar__heel-height h3 {
   padding-top: 37px;
+  padding-bottom: 13px;
   padding-left: 22px;
+}
+
+.sidebar__heel-height ul {
+  height: 160px;
+  /* padding-left: 1px; */
+  overflow: auto;
 }
 
 .sidebar__heel-height .opener-up {
@@ -945,14 +999,14 @@ span.color-name:hover {
 
 /*Повод*/
 .sidebar__occasion h3 {
-  padding-top: 17px;
+  padding-top: 20px;
   padding-left: 22px;
   padding-bottom: 15px;
 }
 
 .sidebar__occasion ul {
   width: 240px;
-  height: 143px;
+  height: 145px;
   flex-direction: column;
   flex-wrap: nowrap;
   overflow: auto;
@@ -971,9 +1025,22 @@ span.color-name:hover {
 
 /*Сезон*/
 .sidebar__season h3 {
-  padding-top: 24px;
+  padding-top: 20px;
   padding-left: 22px;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
+}
+
+.sidebar__season ul {
+  width: 240px;
+  height: 74px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow: auto;
+
+}
+
+.sidebar__season ul li {
+  padding-top: 12px;
 }
 
 .sidebar__season .opener-up {
@@ -984,9 +1051,9 @@ span.color-name:hover {
 
 /*Бренд*/
 .sidebar__brand h3 {
-  padding-top: 8px;
+  padding-top: 20px;
   padding-left: 22px;
-  padding-bottom: 13px;
+  padding-bottom: 15px;
 }
 
 /*Форма поиска по бренду*/

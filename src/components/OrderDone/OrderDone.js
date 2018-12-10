@@ -5,7 +5,7 @@ import { HashRouter, Route, Link, Nav, Switch, Redirect } from 'react-router-dom
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const OrderDone = (props) => {
-  console.log('props-order', props.location);
+  // console.log('props-order', props.location);
   const order = props.location.state;
   return(
     <div>

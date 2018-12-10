@@ -34,10 +34,10 @@ class Favorite extends Component {
     // } else {
       this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
       const removeElementIndex = this.favoriteIdList.findIndex(el => {console.log('ghgjkhhlkl', el, event.currentTarget.dataset.id, el.id == event.currentTarget.dataset.id);return el.id == event.currentTarget.dataset.id});
-      console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
-      console.log('56575', this.favoriteIdList)
+      // console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
+      // console.log('56575', this.favoriteIdList)
       this.favoriteIdList.splice(removeElementIndex, 1);
-      console.log('56576', this.favoriteIdList)
+      // console.log('56576', this.favoriteIdList)
       // this.state = {      
       //   favorites: this.favoriteIdList
       // };
@@ -59,7 +59,7 @@ class Favorite extends Component {
   render() {
     
     const favorites = this.props.favorites;  
-    console.log('1', favorites)
+    // console.log('1', favorites)
     return(
       <div className="wrapper wrapper_favorite">
         {favorites.status === 'ok' &&  <div>

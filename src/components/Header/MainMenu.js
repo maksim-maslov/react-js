@@ -15,12 +15,12 @@ class MainMenu extends Component {
         <div className="wrapper">
           <ul className="main-menu__items">
             <li className="main-menu__item main-menu__item_sales">
-              <Link to={{pathname: '/catalogue', search: `?discounted=true`}}>Акции</Link>
+              <Link key={0} to={{pathname: '/catalogue', search: `?discounted=true`}}>Акции</Link>
             </li>
-              {categories.map(el => 
-            <li key={el.id} className="main-menu__item main-menu__item_sales">
-              <Link to={{pathname: '/catalogue', search: `?categoryId=${el.id}`}}>{el.title}</Link>
-            </li>                
+            {categories.map((el, index) => 
+              <li key={index + 1} className="main-menu__item main-menu__item_sales">
+                <Link to={{pathname: '/catalogue', search: `?categoryId=${el.id}`}}>{el.title}</Link>
+              </li>                
             )}
           </ul>
         </div>

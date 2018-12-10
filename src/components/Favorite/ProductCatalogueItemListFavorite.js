@@ -38,7 +38,7 @@ class ProductCatalogueItemListFavorite extends Component {
 
   render() {
     const favorites = this.props.favorites;
-    console.log(favorites)
+    // console.log(favorites)
     if (!this.props) {
       return false;
     }

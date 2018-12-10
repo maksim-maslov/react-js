@@ -27,12 +27,14 @@ class Header extends Component {
     let headerSearch = document.querySelector('.header-main__pic_search');
     headerSearch.onclick = headerMainSearchVisibility;
 
-    let mainMenuItems = document.querySelectorAll('.main-menu__item');
+  }
 
+  componentWillReceiveProps(newProps) {
+    let mainMenuItems = document.querySelectorAll('.main-menu__item');
+    // console.log('mainMenuItems', mainMenuItems);
     for (let item of mainMenuItems) {
       item.onclick = mainSubmenuVisibility;
     }
-
   }
 
   render() {

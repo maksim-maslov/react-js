@@ -937,6 +937,7 @@ li a:hover {
 .hidden-panel__profile_visible {
   display: block;
   line-height: 45px;
+  padding-right: 40px;
 }
 .hidden-panel__profile a {
   margin-left: 25px;

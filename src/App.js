@@ -37,7 +37,8 @@ class App extends Component {
       productsInBasket: [],
       categories: [],
       favorites: [],
-      browsedProducts: []
+      browsedProducts: [],
+      filters: {}
     };
   }
 
@@ -57,7 +58,7 @@ class App extends Component {
   joinProductIdsToQueryString(products = []) {
     return new Promise((done, fail) => {
       const queryString = products.reduce((memo, el) => {
-        console.log('el', el)
+        // console.log('el', el)
         memo = memo + `id[]=${el.id}&`;
         return memo;
       }, '');
@@ -144,7 +145,7 @@ class App extends Component {
     ? JSON.parse(localStorage.getItem('browsedProducts')) 
     : [];
 
-    console.log('browsedProducts1478234729', browsedProducts)
+    // console.log('browsedProducts1478234729', browsedProducts)
 
     if (browsedProducts.length === 0) {
       this.setState({ browsedProducts: [] });         
@@ -153,7 +154,7 @@ class App extends Component {
         .then(queryString => fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
         .then(response => response.json())
         .then(data => {
-          console.log('6875394058908940', data)
+          // console.log('6875394058908940', data)
           if (data) {
             this.setState({ browsedProducts: data.data }); 
 
@@ -162,10 +163,133 @@ class App extends Component {
     }
   }
 
+  updateFilters(event) {
+
+    let filters = this.state.filters;
+
+    if (event.currentTarget.classList.contains('sidebar__size')) {
+      const size = event.target.value;
+      // console.log('size', event.target)
+      if (filters.hasOwnProperty('size[]')) {
+        const index = filters['size[]'].indexOf(size);
+        if (index !== -1) {
+          filters['size[]'].splice(index, 1);
+          filters['size[]'].length === 0
+          ? delete filters['size[]']
+          : null;
+        } else {
+          filters['size[]'].push(size);
+        }
+      } else {
+        // console.log('size1', size)
+        filters['size[]'] = [];
+        filters['size[]'].push(size);
+      }
+
+    } else if (event.currentTarget.classList.contains('sidebar__heel-height')) {
+
+      const heelSize = event.target.value;
+      // console.log('size', event.target)
+      if (filters.hasOwnProperty('heelSize[]')) {
+        const index = filters['heelSize[]'].indexOf(heelSize);
+        if (index !== -1) {
+          filters['heelSize[]'].splice(index, 1);
+          filters['heelSize[]'].length === 0
+          ? delete filters['heelSize[]']
+          : null;
+        } else {
+          filters['heelSize[]'].push(heelSize);
+        }
+      } else {
+        // console.log('size1', heelSize)
+        filters['heelSize[]'] = [];
+        filters['heelSize[]'].push(heelSize);
+      }
+
+    } else if (event.currentTarget.classList.contains('checkbox-discount')) {
+      // console.log('event.currentTarget', filters)
+      filters.hasOwnProperty('discounted')
+      ? delete filters['discounted']
+      : filters.discounted = 'true'; 
+    } else {
+
+      event.preventDefault();
+
+      // console.log(event.currentTarget)
+      
+      if (event.currentTarget.classList.contains('sidebar__catalogue-list')) {
+        filters.type = event.target.textContent;
+      }
+
+      if (event.currentTarget.classList.contains('sidebar__color')) {
+        filters.color = event.target.textContent;
+      }
+
+      if (event.currentTarget.classList.contains('sidebar__occasion')) {
+        filters.reason = event.target.textContent;
+      }
+
+      if (event.currentTarget.classList.contains('sidebar__season')) {
+        filters.season = event.target.textContent;
+      }
+
+      
+
+      if (event.currentTarget.classList.contains('brand-search')) {
+        
+        const {search, button} = event.currentTarget;
+        if (search.value == '') {
+          delete filters['brand'];
+        } else {
+          filters.brand = search.value;
+        }
+
+      }
+
+      
+
+      if (event.currentTarget.classList.contains('drop-down')) {
+        // console.log('Array', Array.from(filters));
+        for (let key in filters) {
+          delete filters[key];
+        } 
+        const checkboxes = document.querySelectorAll(`.sidebar [type="checkbox"]`);
+        // console.log('checkboxes', checkboxes)
+        Array.from(checkboxes).forEach(el => el.checked = false);
+        const search = document.querySelector(`.sidebar [name="search"]`);
+        // console.log('search', search)
+        search.value = '';
+      }
+
+    }
+
+    
+
+    // console.log('event.currentTarget', event.currentTarget)
+
+    // // if (event.currentTarget.classList.contains('checkbox-discount')) {
+    // //   console.log('event.currentTarget', filters)
+    // //   filters.hasOwnProperty('discounted')
+    // //   ? delete filters['discounted']
+    // //   : filters.discounted = 'true';
+    // // }
+
+    
+
+    
+    
+    // filters.push(event.target.textContent);
+    this.setState({
+      filters: filters
+    });
+
+    // console.log('this.state.filters', event.currentTarget, this.state.filters)
+  }
+
   render() {
     const productsInBasket = this.state.productsInBasket;
-    console.log(localStorage);
-    console.log(this.state.browsedProducts)
+    // console.log(localStorage);
+    // console.log(this.state.browsedProducts)
 
     return (
       <HashRouter>
@@ -182,6 +306,8 @@ class App extends Component {
                 updateFavorites={this.updateFavorites.bind(this)} 
                 categories={this.state.categories} 
                 browsedProducts={this.state.browsedProducts} 
+                updateFilters={this.updateFilters.bind(this)}
+                filters={this.state.filters}
               />} 
             />
             <Route path="/favorite" 

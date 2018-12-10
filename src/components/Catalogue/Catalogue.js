@@ -38,13 +38,29 @@ class Catalogue extends Component {
 
   getProducts() {
     let queryString;
+    let filters = '';
+    // console.log('this.props.filters', this.props.filters)
+    for (let key in this.props.filters) {
+      // console.log('this.props.filters[key]', `&${key}=${this.props.filters[key]}`)
+      if (key == 'size[]' || key == 'heelSize[]') {
+        filters = this.props.filters[key].reduce((memo, el) => {
+          memo = memo + `&${key}=${el}`;
+          return memo;
+        }, filters);
+        // filters = `${filters}&${key}=${this.props.filters[key]}`;  
+      } else {
+        filters = `${filters}&${key}=${this.props.filters[key]}`;
+      }
+      
+    }
+    // console.log('this.filters', filters)
     if (this.categoryId) {
-      queryString = `categoryId=${this.categoryId}&page[]=${this.page ? this.page : 1}`;
+      queryString = `categoryId=${this.categoryId}&page[]=${this.page ? this.page : 1}${filters}`;
       this.title = this.props.categories.find(el => el.id == this.categoryId)
       ? this.props.categories.find(el => el.id == this.categoryId).title
       : '';
     } else {
-      queryString = `discounted=true`;
+      queryString = `discounted=true${filters}`;
       this.title = 'Акции'
     }
     fetch(`https://neto-api.herokuapp.com/bosa-noga/products?${queryString}`)
@@ -88,7 +104,7 @@ class Catalogue extends Component {
         {products.status === 'ok' &&  <div>
           <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: 'Каталог'}]}/> 
           <main className="product-catalogue">            
-            <Sidebar />            
+            <Sidebar updateFilters={this.props.updateFilters} />            
             <section className="product-catalogue-content">                
               <section className="product-catalogue__head">
                 <div className="product-catalogue__section-title">
