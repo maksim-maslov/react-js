@@ -170,7 +170,7 @@ class Sidebar extends Component {
               </form>
             </div>
 
-            <label><input type="checkbox" className="checkbox" name="checkbox-disc" value="" /><span className="checkbox-discount" onClick={event => this.props.updateFilters(event)}></span> <span className="text-discount">Со скидкой</span></label>
+            <label><input type="checkbox" className="checkbox" name="checkbox-disc" value="" /><span className="checkbox-discount" onChange={event => this.props.updateFilters(event)}></span> <span className="text-discount">Со скидкой</span></label>
 
             <div className="separator-240"></div>
           </section>

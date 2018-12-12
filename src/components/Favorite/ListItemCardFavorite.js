@@ -77,10 +77,10 @@ class ListItemCardFavorite extends Component {
             <h4 className="item-name">{el.title}</h4>
             <p className="item-producer">Производитель: <span className="producer">{el.brand}</span></p>
             <p className="item-price">{el.price}</p>
-            <div className="sizes">
+            {/* <div className="sizes">
             <p className="sizes__title">Размеры в наличии:</p>
             <p className="sizes__avalible">36, 37, 38, 39, 40, 41, 42</p>
-            </div>
+            </div> */}
           </div>
         </Link>            
       )

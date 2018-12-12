@@ -11,6 +11,8 @@ class Favorite extends Component {
   constructor(props) {
     super(props);
 
+    console.log('1234567s', props);
+
     this.state = {queryString: ''}; 
 
   }
@@ -33,7 +35,7 @@ class Favorite extends Component {
     //   // favorite.textContent = 'В избранном';
     // } else {
       this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-      const removeElementIndex = this.favoriteIdList.findIndex(el => {console.log('ghgjkhhlkl', el, event.currentTarget.dataset.id, el.id == event.currentTarget.dataset.id);return el.id == event.currentTarget.dataset.id});
+      const removeElementIndex = this.favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
       // console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
       // console.log('56575', this.favoriteIdList)
       this.favoriteIdList.splice(removeElementIndex, 1);
@@ -69,7 +71,7 @@ class Favorite extends Component {
             <div className="product-catalogue__section-title">
               <h2 className="section-name">В вашем избранном</h2><span className="amount amount_favorite"> {favorites.goods} товаров</span>
             </div>
-            <Sorting />
+            <Sorting updateFilters={this.props.updateFilters} />
           </section>
 
           {/* <ProductCatalogueItemListFavorite favorites={props.favorites} updateFavorites={props.updateFavorites} />         */}
@@ -90,10 +92,10 @@ class Favorite extends Component {
                     <h4 className="item-name">{el.title}</h4>
                     <p className="item-producer">Производитель: <span className="producer">{el.brand}</span></p>
                     <p className="item-price">{el.price}</p>
-                    <div className="sizes">
+                    {/* <div className="sizes">
                     <p className="sizes__title">Размеры в наличии:</p>
                     <p className="sizes__avalible">36, 37, 38, 39, 40, 41, 42</p>
-                    </div>
+                    </div> */}
                   </div>
                 </Link> 
               );

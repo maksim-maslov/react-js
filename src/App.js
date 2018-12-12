@@ -54,6 +54,10 @@ class App extends Component {
     this.updateBrowsedProducts();
   }
 
+  // componentWillUpdate() {
+  //   this.updateFavorites();
+  // }
+
 
   joinProductIdsToQueryString(products = []) {
     return new Promise((done, fail) => {
@@ -75,7 +79,14 @@ class App extends Component {
       this.setState({ favorites: [] });         
     } else {
       this.joinProductIdsToQueryString(favoriteIdList)
-        .then(queryString => fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
+        .then(queryString => {
+          console.log('filters', this.state)
+          if (this.state.filters.sortBy) {
+            queryString = queryString + `&sortBy=${this.state.filters.sortBy}`;
+          }
+
+          return fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
+        })
         .then(response => response.json())
         .then(data => this.setState({ favorites: data })); 
     }
@@ -233,6 +244,10 @@ class App extends Component {
         filters.season = event.target.textContent;
       }
 
+      if (event.currentTarget.classList.contains('product-catalogue__sort-by')) {
+        filters.sortBy = event.target.value;
+        this.updateFavorites();
+      }
       
 
       if (event.currentTarget.classList.contains('brand-search')) {
@@ -315,7 +330,8 @@ class App extends Component {
                 {...props} 
                 favorites={this.state.favorites} 
                 updateFavorites={this.updateFavorites.bind(this)} 
-                joinProductIdsToQueryString={this.joinProductIdsToQueryString.bind(this)} 
+                joinProductIdsToQueryString={this.joinProductIdsToQueryString.bind(this)}
+                updateFilters={this.updateFilters.bind(this)} 
               />} 
             /> 
             <Route path="/product-card-desktop/:id" 
