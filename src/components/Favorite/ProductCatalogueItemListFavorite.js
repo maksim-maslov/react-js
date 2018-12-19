@@ -37,12 +37,12 @@ class ProductCatalogueItemListFavorite extends Component {
   // }
 
   render() {
-    const favorites = this.props.favorites;
+    const { favorites } = this.props;
     // console.log(favorites)
-    if (!this.props) {
-      return false;
-    }
-    return(
+    // if (!this.props) {
+    //   return false;
+    // }
+    return(favorites &&
       <section className="product-catalogue__item-list product-catalogue__item-list_favorite">
           <ListItemCardFavorite list={favorites} updateFavorites={this.props.updateFavorites} />
       </section>            

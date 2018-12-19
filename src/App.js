@@ -78,6 +78,7 @@ class App extends Component {
     if (favoriteIdList.length === 0) {
       this.setState({ favorites: [] });         
     } else {
+      console.log('this', this)
       this.joinProductIdsToQueryString(favoriteIdList)
         .then(queryString => {
           console.log('filters', this.state)
@@ -354,7 +355,13 @@ class App extends Component {
             />
             <Route path="/order-done" component={OrderDone} />
             <Route path="/search" component={Search} />
-            <Route path="/" component={MainPage} />
+            <Route path="/" 
+              render={(props) => <MainPage 
+                {...props} 
+                updateFavorites={this.updateFavorites.bind(this)}   
+                categories={this.state.categories} 
+              />}
+            />
           </Switch>          
           <Footer />
         </div>

@@ -86,8 +86,8 @@ class ListItemCard extends Component {
             <div className="product-catalogue__product_favorite">
               <p className={ this.state.favoriteIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen' } data-id={el.id} onClick={this.removeFavorites.bind(this)} ></p>
             </div>
-            <div className="arrow arrow_left"></div>
-            <div className="arrow arrow_right"></div>
+            {/* <div className="arrow arrow_left"></div>
+            <div className="arrow arrow_right"></div> */}
           </div>
           <div className="item-desc">
             <h4 className="item-name">{el.title}</h4>

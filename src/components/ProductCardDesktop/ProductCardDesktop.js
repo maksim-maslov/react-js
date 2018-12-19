@@ -32,7 +32,7 @@ class ProductCardDesktop extends Component {
 
   render() {
     // console.log('this.state.similarProducts', this.state.similarProducts)
-    const {product} = this.state;
+    const { product } = this.state;
     const category = product.categoryId && this.props.categories.length ? this.props.categories.find(el => el.id == product.categoryId).title : '';
       // console.log('prodUct', product)
       // console.log('gjhlkj;l;k;ljl;kl;kl', this.props.browsedProducts)

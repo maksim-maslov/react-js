@@ -78,7 +78,7 @@ class Product extends Component {
 
   render() {
     // console.log(localStorage)
-    const {product} = this.props;
+    const { product } = this.props;
     return(
       <main className="product-card">
         <section className="product-card-content">
