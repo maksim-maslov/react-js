@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 
-const ProductSizes = ({sizes = []}) => {
-
-  const handler = (event) => {
-    const sizes = document.querySelectorAll('.sizes li');
-    // const inBasketBtn = document.querySelector('button.in-basket-click'); 
-    Array.from(sizes).forEach(el => el.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    // console.log(inBasketBtn.disabled)
-    // inBasketBtn.disabled = false;
+class ProductSizes extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      size: ''
+    };
   }
 
-  const availableSizes = sizes.filter(el => el.available == true); 
+  handler(size) {
+    this.setState({
+      size: size
+    });
+  }
 
-  return availableSizes.map((el, index) => <li key={index} onClick={handler}>{el.size}</li>);
-    
-}
+  render() {
+    const { sizes } = this.props; 
+    const availableSizes = sizes.filter(el => el.available == true); 
+    return availableSizes.map((el, index) => <li className={el.size === this.state.size ? 'active' : ''} key={index} onClick={this.handler.bind(this, el.size)}>{el.size}</li>);
+  }
+
+} 
 
 export default ProductSizes;
