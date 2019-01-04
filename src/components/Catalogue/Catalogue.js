@@ -4,8 +4,8 @@ import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Sorting from '../Sorting';
-import Sidebar from '../Sidebar';
-import ProductCatalogueItemList from '../ProductCatalogueItemList';
+import Sidebar from './Sidebar';
+import ProductCatalogueItemList from './ProductCatalogueItemList';
 import Pagination from '../Pagination/Pagination';
 import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
 
@@ -54,7 +54,6 @@ class Catalogue extends Component {
         filters = `${filters}&${key}=${this.props.filters[key]}`;
       }      
     }
-    // console.log("this", this)
     if (!this.search) {
       if (this.categoryId) {
         queryString = `categoryId=${this.categoryId}&page[]=${page}${filters}`;
