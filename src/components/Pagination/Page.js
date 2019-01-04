@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-const Page = ({index, page, search}) => {
+const Page = ({index, page, nextPage}) => {
   return(
-    <li className={page == index ? "active" : ""}><Link to={`${search}&page[]=${index}`}>{index}</Link></li>
+    <li className={page == index ? 'active' : ''} ><a onClick={() => nextPage(index)} >{index}</a></li>
   );
 }
 

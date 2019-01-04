@@ -6,29 +6,17 @@ class ListItemCard extends Component {
   constructor(props) {
     super(props);
 
-    // this.favoriteIdList = props.favorites;
-    // this.favoriteIdList = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : [];
-    // console.log('array', this.favoriteIdList)
-
     this.state = {      
       favoriteIdList: localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : []
     };
   
   }
 
-  // compnentWillReceiveProps(newProps) {
-  //   this.state = {
-  //     favorites: newProps.list
-  //   }
-  // }
-
-
   removeFavorites(event) {  
     event.preventDefault(); 
     const favorite = event.target;
     const favoriteIdList = this.state.favoriteIdList;
     if (favorite.classList.contains('favourite_chosen')) {
-      // favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
       const removeElementIndex = favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
       favoriteIdList.splice(removeElementIndex, 1);
       favorite.classList.remove('favourite_chosen');
@@ -40,42 +28,12 @@ class ListItemCard extends Component {
     this.state = {
       favoriteIdList: localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : []
     };
-    // localStorage.favorites = this.state.favoriteIdList;
-
-    // const favoritePic = event.currentTarget.querySelector('.favourite');
-    // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-    // console.log(this.favoriteIdList);
-    // this.favoriteIdList.shift();
-    
-    // if (!this.state.isFavorite) {
-    //   console.log(this.favoriteIdList)
-    //   this.favoriteIdList.push({id: this.props.product.id});
-    //   localStorage.favorites = JSON.stringify(this.favoriteIdList);
-    //   this.setState({isFavorite: !this.state.isFavorite});
-    //   favoritePic.classList.add('favourite_chosen');
-    //   // favorite.textContent = 'В избранном';
-    // } else {
-      // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-      // const removeElementIndex = this.favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
-      // // console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
-      // // console.log('56575', this.favoriteIdList)
-      // this.favoriteIdList.splice(removeElementIndex, 1);
-      // console.log('56576', this.favoriteIdList)
-      // this.state = {      
-      //   favorites: this.favoriteIdList
-      // };
-      // localStorage.favorites = JSON.stringify(this.favoriteIdList);
-      // favorite.textContent = 'В избранное';
-      // this.setState({ isFavorite: !this.state.isFavorite });
-      // favoritePic.classList.remove('favourite_chosen');
-    // }
+   
     this.props.updateFavorites();
     
-    // favorite.textContent = favorite.textContent === 'В избранное' ? 'В избранном' : 'В избранное';
   }
 
   render() {
-    // console.log('lastrender', this.props)
     if (!this.props.list) {
       return false;
     }

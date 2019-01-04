@@ -6,7 +6,7 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Sorting from '../Sorting';
 import Sidebar from '../Sidebar';
 import ProductCatalogueItemList from '../ProductCatalogueItemList';
-import Pagination from '../Pagination';
+import Pagination from '../Pagination/Pagination';
 import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
 
 class Catalogue extends Component {
@@ -16,93 +16,78 @@ class Catalogue extends Component {
 
     this.title = '';
     this.categoryId = '';
-    this.page = '';
+    // this.page = '';
     this.state = {
-      products: [],
-      favoriteIdList: localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : []
+      products: []
     };
 
   }
 
   componentDidMount() {
+    this.search = new URLSearchParams(this.props.history.location.search).get('search');    
     this.categoryId = new URLSearchParams(this.props.history.location.search).get('categoryId');
-    this.page = new URLSearchParams(this.props.history.location.search).get('page[]');
+    // this.page = new URLSearchParams(this.props.history.location.search).get('page[]');
     this.getProducts();
   }
 
   componentWillReceiveProps(newProps) {
+    this.search = new URLSearchParams(newProps.history.location.search).get('search');
     this.categoryId = new URLSearchParams(newProps.history.location.search).get('categoryId');
-    this.page = new URLSearchParams(this.props.history.location.search).get('page[]');
+    // this.page = new URLSearchParams(this.props.history.location.search).get('page[]');
     this.getProducts();
   }
 
-  getProducts() {
+  getProducts(page = 1) {
+
     let queryString;
     let filters = '';
-    // console.log('this.props.filters', this.props.filters)
+
     for (let key in this.props.filters) {
-      // console.log('this.props.filters[key]', `&${key}=${this.props.filters[key]}`)
       if (key == 'size[]' || key == 'heelSize[]') {
+
         filters = this.props.filters[key].reduce((memo, el) => {
           memo = memo + `&${key}=${el}`;
           return memo;
         }, filters);
-        // filters = `${filters}&${key}=${this.props.filters[key]}`;  
+
       } else {
         filters = `${filters}&${key}=${this.props.filters[key]}`;
+      }      
+    }
+    // console.log("this", this)
+    if (!this.search) {
+      if (this.categoryId) {
+        queryString = `categoryId=${this.categoryId}&page[]=${page}${filters}`;
+        this.title = this.props.categories.find(el => el.id == this.categoryId)
+        ? this.props.categories.find(el => el.id == this.categoryId).title
+        : '';
+      } else {
+        queryString = `discounted=true${filters}`;
+        this.title = 'Акции';
       }
-      
-    }
-    // console.log('this.filters', filters)
-    if (this.categoryId) {
-      queryString = `categoryId=${this.categoryId}&page[]=${this.page ? this.page : 1}${filters}`;
-      this.title = this.props.categories.find(el => el.id == this.categoryId)
-      ? this.props.categories.find(el => el.id == this.categoryId).title
-      : '';
     } else {
-      queryString = `discounted=true${filters}`;
-      this.title = 'Акции'
+      queryString = `search=${this.search}`;
+      this.title = 'Результаты поиска';
     }
+
     fetch(`https://neto-api.herokuapp.com/bosa-noga/products?${queryString}`)
       .then(response => response.json())
-      .then(data => {this.setState({ products: data })});    
-    // console.log('state', this.state)
+      .then(data => {this.setState({ products: data })});  
+
   }
 
-  removeFavorites(event) {  
-
+  changeFavorites(event) {  
     event.preventDefault(); 
-    const favorite = event.target;
-    const favoriteIdList = this.state.favoriteIdList;
-
-    if (favorite.classList.contains('favourite_chosen')) {
-      const removeElementIndex = favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
-      favoriteIdList.splice(removeElementIndex, 1);
-      favorite.classList.remove('favourite_chosen');
-    } else {
-      favoriteIdList.push({id: event.currentTarget.dataset.id});
-      favorite.classList.add('favourite_chosen');
-    }
-
-    localStorage.favorites = JSON.stringify(favoriteIdList);
-
-    this.state = {
-      favoriteIdList: localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')) : []
-    };
-
-    this.props.updateFavorites();
-    
+    this.props.changeFavorites(event.currentTarget.dataset.id);    
   } 
 
   render() {
     const products = this.state.products;  
-    // const title = this.title;
-    // console.log('products1', products)
-
+    
     return(
       <div>
-        {products.status === 'ok' &&  <div>
-          <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: 'Каталог'}]}/> 
+        {products.status === 'ok' && this.props.favorites.data && <div>
+          <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: `${this.title}`}]}/> 
           <main className="product-catalogue">            
             <Sidebar updateFilters={this.props.updateFilters} />            
             <section className="product-catalogue-content">                
@@ -115,16 +100,15 @@ class Catalogue extends Component {
               {/* <ProductCatalogueItemList products={products.data} updateFavorites={this.props.updateFavorites} />   */}
               <section className="product-catalogue__item-list product-catalogue__item-list_favorite">
                 {/* <ListItemCard list={this.props.products} updateFavorites={this.props.updateFavorites} /> */}
-                {/* {console.log('13255947040', products)} */}
                 {products.data.map((el, index) => {
                   return(
                     <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
                       <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
                         <div className="product-catalogue__product_favorite">
-                          <p className={this.state.favoriteIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen'} data-id={el.id} onClick={this.removeFavorites.bind(this)} ></p>
+                          <p className={this.props.favorites.data.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen'} data-id={el.id} onClick={this.changeFavorites.bind(this)} ></p>
                         </div>
-                        <div className="arrow arrow_left"></div>
-                        <div className="arrow arrow_right"></div>
+                        {/* <div className="arrow arrow_left"></div>
+                        <div className="arrow arrow_right"></div> */}
                       </div>
                       <div className="item-desc">
                         <h4 className="item-name">{el.title}</h4>
@@ -139,7 +123,7 @@ class Catalogue extends Component {
                   );
                 })}
               </section>              
-              <Pagination pages={products.pages} page={products.page} search={`/catalogue?categoryId=${this.categoryId}`} />
+              <Pagination pages={products.pages} page={products.page} nextPage={this.getProducts.bind(this)} />
             </section>
           </main>
           <BrowsedProducts browsedProducts={this.props.browsedProducts} />

@@ -7,39 +7,10 @@ class ProductCatalogueItemList extends Component {
 
   constructor(props) {
     super(props);
-
-    // this.favoriteIdList = localStorage.getItem('favorite') ? JSON.parse(localStorage.getItem('favorite')) : new Array()
-
-    // this.state = {
-    //   favorite: []
-    // };
     
   }
-  
-  // componentDidMount() {
-  //   console.log(this.favoriteIdList)
-  //   this.getData(this.favoriteIdList)
-  //   // fetch('https://neto-api.herokuapp.com/bosa-noga/products')
-  //   //   .then(response => response.json())
-  //   //   .then(data => {this.setState({ favorite: data.data })});
-  // }
-
-  // getData(products) {
-
-  //   const queryString = products.reduce((memo, el) => {
-  //     memo = memo + `id[]=${el.id}&`;
-  //     return memo;
-  //   }, '');
-  //   console.log('queryString', queryString)
-  //   fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
-  //     .then(response => response.json())
-  //     .then(data => {this.setState({ favorite: data.data })});
-
-  // }
 
   render() {
-    // const favorites = this.props.favorites;
-    // console.log(favorites)
     if (!this.props) {
       return false;
     }
@@ -51,15 +22,6 @@ class ProductCatalogueItemList extends Component {
   }
 
 }
-
-// const ProductCatalogueItemList = ({products}) => {
-//     console.log(products)
-//     return(
-//         <section  className="product-catalogue__item-list">
-//             <ListItemCard list={products} updateFavorites={this.props.updateFavorites} />
-//         </section>            
-//     )
-// }
 
 export default ProductCatalogueItemList;
 

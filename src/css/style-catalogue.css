@@ -26,19 +26,21 @@ a:hover {
 /*Общее*/
 
 .product-catalogue {
-  width: 1440px;
+  width: 1200px;
   min-height: 1850px;
   /* height: auto; */
   /* min-height: 1600px; */
   margin: 0 auto;
   position: relative;
   padding-bottom: 50px;
+  text-align: center;
 }
 
 .product-catalogue-content {
   display: inline-block;
-  width: 915px;
-  margin-right: 120px;
+  width: 910px;
+  margin-right: 0px;
+  text-align: center;
 }
 
 /*Breadcrumbs*/
@@ -69,7 +71,7 @@ a:hover {
 .product-catalogue__head {
   display: flex;
   justify-content: space-between;
-  width: 892px;
+  width: 880px;
   height: 28px;
   margin-top: -2px;
   margin-left: 24px;
@@ -268,12 +270,18 @@ select {
   display: block;
   width: 283px;
   height: 247px;
+  line-height: 247px;
+  text-align: center;
   margin: auto;
   overflow: hidden;
   outline: 1px solid #F4F4F4;
 }
 
-.item-pic-1 {
+/* .item-pic img {
+  position: relative;
+} */
+
+/* .item-pic-1 {
   position: relative;
   top: 16px;
   left: -1px;
@@ -360,11 +368,12 @@ select {
   position: relative;
   top: 58px;
   left: 2px;
-}
+} */
 
 .item-pic img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
 }
 
 .product-catalogue .item-desc {
@@ -431,16 +440,16 @@ span.producer {
 
 /*Пагинация в каталоге*/
 .product-catalogue__pagination {
-  display: block;
-  width: 892px;
-  margin: 20px 0 25px 22px;
+  display: inline-block;
+  /* width: auto; */
+  margin: 20px 0 25px -80px;
   position: absolute;
   bottom: 0;
 }
 
 .page-nav-wrapper {
   display: flex;
-  width: 365px;
+  width: auto;
   margin: 0 auto;
   align-items: center;
 }
@@ -454,14 +463,14 @@ span.producer {
 
 .product-catalogue__pagination ul {
 			   
-  margin: 0 auto;
+  margin: 0 20px;
   display: flex;
 								
 }
 
 .product-catalogue__pagination ul li {
   display: inline-block;
-  width: 19px;
+  width: 26px;
   height: 26px;
   vertical-align: middle;
   padding: 5px;
@@ -471,11 +480,15 @@ span.producer {
   color: #000000;
 }
 
+.product-catalogue__pagination ul a {
+  text-decoration: none;  
+}
+
 
 
 
 .product-catalogue__pagination ul li + li {
-  margin-left: 25px;
+  margin-left: 2px;
 }
 
 
@@ -494,7 +507,7 @@ li.active {
   position: relative;
   display: inline-block;
   top: 0;
-  right: -15px;
+  right: -30px;
   width: 26px;
   height: 26px;
   vertical-align: middle;
@@ -503,11 +516,9 @@ li.active {
 }
 
 .angle-forward a {
-  left: -7px;
+  left: -15px;
   background-position: 36px -107px;
 }
-
-
 
 
 .hidden {
@@ -575,11 +586,12 @@ li.active {
 .overlooked-slider__item {
   width: 184px;
   height: 133px;
+  line-height: 133px;
   border: solid 0.5px rgba(41, 42, 58, 0.25);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  overflow: hidden;
+  /* background-repeat: no-repeat; */
+  /* background-position: center center;
+  background-size: contain; */
+  /* overflow: hidden; */
 }
 
 .overlooked-slider__item:hover {
@@ -590,9 +602,17 @@ li.active {
   display: inline-block;
   height: 100%;
   width: 100%;
+  text-align: center;
 }
 
-.overlooked-slider__item-1 {
+.overlooked-slider__item-pic {
+  /* display: inline-block; */
+  max-height: 99%;
+  max-width: 99%;
+  vertical-align: middle;  
+}
+
+/* .overlooked-slider__item-1 {
   background-image: url(../img/catalogue-pics/product-catalogue__overlooked-slider-item-1.png);
 }
 
@@ -610,7 +630,7 @@ li.active {
 
 .overlooked-slider__item-5 {
   background-image: url(../img/catalogue-pics/product-catalogue__overlooked-slider-item-5.png);
-}
+} */
 
 
 /* Cайдбар */
@@ -658,7 +678,7 @@ li.active {
 .sidebar {
   width: 285px;
   height: auto;
-  margin-left: 120px;
+  margin-left: 0px;
   vertical-align: top;
   float: left;
   border-radius: 15px;

@@ -6,6 +6,7 @@
 }
 .product-catalogue_favorite {
   width: inherit;
+  /* text-align: center; */
 }
 .product-catalogue_favorite .product-catalogue__pagination {
   width: unset;

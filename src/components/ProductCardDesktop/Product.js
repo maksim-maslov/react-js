@@ -5,94 +5,44 @@ import ProductPic from './ProductPic';
 import ProductSizes from './ProductSizes';
 
 
-class Product extends Component {
-    
+class Product extends Component { 
   constructor(props) {
     super(props);
-
-    // localStorage.browsedProducts = [];
-    
-    this.favoriteIdList = localStorage.getItem('favorites') 
-    ? JSON.parse(localStorage.getItem('favorites')) 
-    : [];
-    // console.log('array', this.favoriteIdList)
     this.state = {
-      isFavorite: this.favoriteIdList.find(el => el.id == this.props.product.id)
+      size: ''
     };
-
-    this.browsedProducts = localStorage.getItem('browsedProducts') 
-    ? JSON.parse(localStorage.getItem('browsedProducts')) 
-    : [];
-    // console.log('array', this.favoriteIdList)
-    if (!this.browsedProducts.find(el => el.id == this.props.product.id)) {
-      this.browsedProducts.push({id: this.props.product.id});
-      if (this.browsedProducts.length > 10) {
-        this.browsedProducts.splice(0, 1);
-      }
-      localStorage.browsedProducts = JSON.stringify(this.browsedProducts);
-    }
-
-    this.props.updateBrowsedProducts(); 
     
   }
 
+  changeSize(size) {
+    this.setState({
+      size: size
+    });
+  }  
+
   addCart(event) {
-
     event.preventDefault();
-
-    const amount = Number(document.querySelector('.basket-item__quantity span').textContent);
-
-    const size = Number(document.querySelector('.sizes li.active').textContent);
+    const size = this.state.size;
     const id = this.props.product.id;        
-    const product = {id, size, amount};  
-    
+    const product = {id: id, size: size, amount: 1};     
     this.props.updateBasket(product);
   }
 
-  addFavorites(event) {    
-    // const favorite = event.currentTarget.querySelector('.in-favourites');
-    // const favoritePic = event.currentTarget.querySelector('.favourite');
-    // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-    // console.log(this.favoriteIdList);
-    // this.favoriteIdList.shift();
-    
-    if (!this.state.isFavorite) {
-      // console.log(this.favoriteIdList)
-      this.favoriteIdList.push({id: this.props.product.id});
-      localStorage.favorites = JSON.stringify(this.favoriteIdList);
-      this.setState({isFavorite: !this.state.isFavorite});
-      // favoritePic.classList.add('favourite_chosen');
-      // favorite.textContent = 'В избранном';
-    } else {
-      const removeElementIndex = this.favoriteIdList.findIndex(el => el.id == this.props.product.id);
-      this.favoriteIdList.splice(removeElementIndex, 1);
-      localStorage.favorites = JSON.stringify(this.favoriteIdList);
-      // favorite.textContent = 'В избранное';
-      this.setState({ isFavorite: !this.state.isFavorite });
-      // favoritePic.classList.remove('favourite_chosen');
-    }
-    this.props.updateFavorites();
-    
-    // favorite.textContent = favorite.textContent === 'В избранное' ? 'В избранном' : 'В избранное';
+  changeFavorites(event) {      
+    event.preventDefault(); 
+    this.props.changeFavorites(event.currentTarget.dataset.id);
   }
 
   render() {
-    // console.log(localStorage)
     const { product } = this.props;
     return(
       <main className="product-card">
+      {this.props.favorites.data &&
         <section className="product-card-content">
           <h2 className="section-name">{this.props.category}</h2>
           <section className="product-card-content__main-screen">
-            <section className="main-screen__favourite-product-slider">
-              <div className="favourite-product-slider">
-                <div className="favourite-product-slider__arrow favourite-product-slider__arrow_up arrow-up"></div>
-                
-                  <ProductSlider list={product.images} />
-                
-                <div className="favourite-product-slider__arrow favourite-product-slider__arrow_down arrow-down"></div>
-              </div>
-            </section>
+
+            <ProductSlider list={product.images} />            
                     
             <ProductPic pic={product.images ? product.images[0] : "" } />
                 
@@ -132,15 +82,15 @@ class Product extends Component {
               <p className="size">Размер</p>
               <ul className="sizes">
               
-                <ProductSizes sizes={product.sizes} />
+                <ProductSizes sizes={product.sizes} size={this.state.size} changeSize={this.changeSize.bind(this)} />
 
               </ul>
               <div className="size-wrapper">
                 <a href=""><span className="size-rule"></span><p className="size-table">Таблица размеров</p></a>
               </div>
-              <a className="in-favourites-wrapper" onClick={this.addFavorites.bind(this)}>
-                <div className={this.state.isFavorite ? 'favourite favourite_chosen' : 'favourite'}></div>
-                <p className="in-favourites" >{this.state.isFavorite ? 'В избранном' : 'В избранное'}</p>
+              <a className="in-favourites-wrapper" data-id={product.id} onClick={this.changeFavorites.bind(this)}>
+                <div className={this.props.favorites.data.findIndex(element => element.id == product.id) !== -1 ? 'favourite favourite_chosen' : 'favourite'}></div>
+                <p className="in-favourites" >{this.props.favorites.data.findIndex(element => element.id == product.id) !== -1 ? 'В избранном' : 'В избранное'}</p>
               </a>
               <div className="basket-item__quantity">
                 <div className="basket-item__quantity-change basket-item-list__quantity-change_minus">-</div>
@@ -153,6 +103,7 @@ class Product extends Component {
 
           </section>
         </section>
+      }
       </main>
     );
   }    

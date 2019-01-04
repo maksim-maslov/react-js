@@ -3,16 +3,23 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 const ProductSlider = ({list = []}) => {
-  return list.map((el, index) => {
-    return(
-      <div className={`favourite-product-slider__item favourite-product-slider__item-${index + 1}`}>
-        <img src={el} />
-        {/* <Link to={`/product-card-desktop/${el.id}`} />
-
-        </Link> */}
-      </div>                       
-    )
-  })    
+  return(
+    <section className="main-screen__favourite-product-slider">
+      <div className="favourite-product-slider">
+        <div className={`favourite-product-slider__arrow ${list.length > 3 ? 'favourite-product-slider__arrow_up arrow-up' : ''}`}></div>
+        
+        {list.map((el, index) => {
+          return(
+            <div className={`favourite-product-slider__item`}>
+              <img src={el} />
+            </div>                       
+          )
+        })}         
+        
+        <div className={`favourite-product-slider__arrow ${list.length > 3 ? 'favourite-product-slider__arrow_down arrow-down' : ''}`}></div>
+      </div>
+    </section>
+  )     
 }
 
 export default ProductSlider;

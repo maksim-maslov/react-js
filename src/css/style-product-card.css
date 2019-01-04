@@ -82,14 +82,22 @@ h2.section-name {
   height: 440px;
   margin: 45px 0;
   text-align: center;
+  line-height: 440px;  
+}
+
+.main-screen__favourite-product-pic a {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
 }
 
 .main-screen__favourite-product-pic img {
   position: relative;
   /* top: 23px; */
   /* left: 14px; */
-  max-width: 100%;
-  max-height: 440px;
+  max-width: 99%;
+  max-height: 99%;  
+  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -279,7 +287,7 @@ li.active {
 /*Счётчик для корзины*/
 .basket-item__quantity {
   position: relative;
-  top: 60px;
+  /* top: 60px; */
   left: 5px;
   display: flex;
   justify-content: space-around;
@@ -441,6 +449,7 @@ li.active {
   border: 1px solid #C4C4C4;
   margin: 12px 0;
   text-align: center;
+  line-height: 124px;
 }
 
 .favourite-product-slider__item:hover {
@@ -449,8 +458,9 @@ li.active {
 
 .favourite-product-slider__item img {
   display: inline-block;  
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -606,11 +616,12 @@ li.active {
   top: -3px;
   width: 319px;
   height: 230px;
+  line-height: 226px;
   border: solid 0.5px rgba(41, 42, 58, 0.25);
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
-  overflow: hidden;
+  overflow: hidden; */
 }
 
 .similar-products-slider__item:hover {
@@ -621,6 +632,7 @@ li.active {
   display: inline-block;
   height: 100%;
   width: 100%;
+  text-align: center;
 }
 
 .similar-products-slider__item-list__item-card {
@@ -628,13 +640,16 @@ li.active {
   height: auto;
 }
 
-.similar-products-slider__item-pic-1 {
+.similar-products-slider__item-pic {
   position: relative;
-  top: 6px;
-  left: 40px;
+  /* top: 6px;
+  left: 40px; */
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
 }
 
-.similar-products-slider__item-pic-2 {
+/* .similar-products-slider__item-pic-2 {
   position: relative;
   top: 21px;
   left: 16px;
@@ -644,7 +659,7 @@ li.active {
   position: relative;
   top: 7px;
   left: 24px;
-}
+} */
 
 .similar-products-slider__item-desc {
   position: relative;

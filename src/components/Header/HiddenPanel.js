@@ -8,7 +8,7 @@ const HiddenPanel = ({productsInBasket = [], updateBasket}) => {
 
   return(
     <div className="header-main__hidden-panel hidden-panel">
-      <div class="wrapper">
+      <div className="wrapper">
         <div className="hidden-panel__profile">
           <a href="#">Личный кабинет</a>
           <Link to="/favorite">

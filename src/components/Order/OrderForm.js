@@ -14,8 +14,6 @@ class OrderForm extends Component {
       doRedirect: false
     };
   }
-
-  // let formData;
   
   submit(event) {
     event.preventDefault();
@@ -26,7 +24,8 @@ class OrderForm extends Component {
       phone: phone.value,
       address: address.value,
       paymentType: paid.value,
-      cart: localStorage.cartId
+      cart: localStorage.cartId,
+      total: this.props.total
     };
 
     const params = {
@@ -34,23 +33,16 @@ class OrderForm extends Component {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(this.order)
     };
-    
-    // console.log('submit', this.order)
 
     fetch(`https://neto-api.herokuapp.com/bosa-noga/order`, params)
       .then(response => response.json())
-      .then(data => {
-        // console.log(data);
-        this.order.total = document.querySelector('.order-basket__summ span').textContent;
-        // this.props.updateOrder(order);
+      .then(data => {        
         this.setState({
           doRedirect: true
         });
         localStorage.cartId = '';
         this.props.updateBasket();
-
-      });
-      
+      });    
 
   }
 

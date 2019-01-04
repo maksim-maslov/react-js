@@ -5,63 +5,24 @@ import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Sorting from '../Sorting';
 import ProductCatalogueItemListFavorite from './ProductCatalogueItemListFavorite';
-import Pagination from '../Pagination';
+import Pagination from '../Pagination/Pagination';
 
 class Favorite extends Component {
   constructor(props) {
     super(props);
 
-    console.log('1234567s', props);
-
-    this.state = {queryString: ''}; 
-
   }
 
-
-  removeFavorites(event) {  
+  changeFavorites(event) {  
     event.preventDefault(); 
-    const favorite = event.currentTarget.querySelector('.product-catalogue_favorite .product-catalogue__product_favorite p');
-    // const favoritePic = event.currentTarget.querySelector('.favourite');
-    // this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-    // console.log(this.favoriteIdList);
-    // this.favoriteIdList.shift();
-    
-    // if (!this.state.isFavorite) {
-    //   console.log(this.favoriteIdList)
-    //   this.favoriteIdList.push({id: this.props.product.id});
-    //   localStorage.favorites = JSON.stringify(this.favoriteIdList);
-    //   this.setState({isFavorite: !this.state.isFavorite});
-    //   favoritePic.classList.add('favourite_chosen');
-    //   // favorite.textContent = 'В избранном';
-    // } else {
-      this.favoriteIdList = JSON.parse(localStorage.getItem('favorites'));
-      const removeElementIndex = this.favoriteIdList.findIndex(el => el.id == event.currentTarget.dataset.id);
-      // console.log('tyetytre', this.favoriteIdList, removeElementIndex, event.currentTarget.dataset.id)
-      // console.log('56575', this.favoriteIdList)
-      this.favoriteIdList.splice(removeElementIndex, 1);
-      // console.log('56576', this.favoriteIdList)
-      // this.state = {      
-      //   favorites: this.favoriteIdList
-      // };
-      localStorage.favorites = JSON.stringify(this.favoriteIdList);
-      // favorite.textContent = 'В избранное';
-      // this.setState({ isFavorite: !this.state.isFavorite });
-      // favoritePic.classList.remove('favourite_chosen');
-    // }
-    this.props.updateFavorites();
-    // this.props.joinProductIdsToQueryString(this.favoriteIdList)
-    //   .then(queryString => this.setState({queryString: queryString}))
-    
-    // favorite.textContent = favorite.textContent === 'В избранное' ? 'В избранном' : 'В избранное';
+    this.props.changeFavorites(event.currentTarget.dataset.id);    
   }
-
-
-  
   
   render() {
+    console.log(this)
     
     const favorites = this.props.favorites;  
-    // console.log('1', favorites)
+
     return(
       <div className="wrapper wrapper_favorite">
         {favorites.status === 'ok' &&  <div>
@@ -83,10 +44,10 @@ class Favorite extends Component {
                 <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
                   <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
                     <div className="product-catalogue__product_favorite">
-                      <p data-id={el.id} onClick={this.removeFavorites.bind(this)} ></p>
+                      <p data-id={el.id} onClick={this.changeFavorites.bind(this)} ></p>
                     </div>
-                    <div className="arrow arrow_left"></div>
-                    <div className="arrow arrow_right"></div>
+                    {/* <div className="arrow arrow_left"></div>
+                    <div className="arrow arrow_right"></div> */}
                   </div>
                   <div className="item-desc">
                     <h4 className="item-name">{el.title}</h4>
@@ -103,7 +64,7 @@ class Favorite extends Component {
           
           </section>  
           
-          <Pagination pages={favorites.pages} page={favorites.page} search={`/products?${this.state.queryString}`} />
+          <Pagination pages={favorites.pages} page={favorites.page} nextPage={this.props.updateFavorites} />
         </main>
         </div>}
       </div>

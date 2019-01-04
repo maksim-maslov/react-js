@@ -10,42 +10,21 @@ import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, h
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-
 class Header extends Component {
   constructor(props) {
-    super(props);
-    
-  }
-
-  componentDidMount() {
-    
-    let headerProfile = document.querySelector('.header-main__pic_profile');
-    let headerBasket = document.querySelector('.header-main__pic_basket');
-    headerProfile.onclick = headerHiddenPanelProfileVisibility;
-    headerBasket.onclick = headerHiddenPanelBasketVisibility;
-
-    let headerSearch = document.querySelector('.header-main__pic_search');
-    headerSearch.onclick = headerMainSearchVisibility;
-
-  }
-
-  componentWillReceiveProps(newProps) {
-    let mainMenuItems = document.querySelectorAll('.main-menu__item');
-    // console.log('mainMenuItems', mainMenuItems);
-    for (let item of mainMenuItems) {
-      item.onclick = mainSubmenuVisibility;
-    }
+    super(props);    
   }
 
   render() {
+    const { categories, productsInBasket, updateBasket } = this.props;
     return(
       <header className="header">   
         <TopMenu />
         <div className="header-main">
           <HeaderMainWrapper />
-          <HiddenPanel productsInBasket={this.props.productsInBasket} updateBasket={this.props.updateBasket} />
+          <HiddenPanel productsInBasket={productsInBasket} updateBasket={updateBasket} />
         </div>
-        <MainMenu categories={this.props.categories} />
+        <MainMenu categories={categories} />
         <DroppedMenu />
       </header>
     );

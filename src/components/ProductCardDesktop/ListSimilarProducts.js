@@ -4,11 +4,11 @@ import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 const ListSimilarProducts = ({list = []}) => {
   return list.map((el, index) => {
-    return(
+    return(index < 3 &&
       <div className="similar-products-slider__item-list__item-card item">
         <div className="similar-products-slider__item">
-          <Link to="/product-card-desktop">
-            <img src={require(`../../img/product-card-pics/product-card__similar-products-slider-item-${index + 1}.png`)} className={`similar-products-slider__item-pic-${index + 1}`} alt={el.title}/>
+          <Link to={`/product-card-desktop/${el.id}`}>
+            <img src={el.images[0]} className={`similar-products-slider__item-pic`} alt={el.title}/>
           </Link>
         </div>
         <div className="similar-products-slider__item-desc">
