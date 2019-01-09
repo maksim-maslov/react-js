@@ -6,6 +6,7 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const OrderDone = (props) => {
   const order = props.location.state;
+  
   return(
     <div>
       {order && (

@@ -4,8 +4,7 @@ import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 import Basket from './Basket';
 
-const HiddenPanel = ({productsInBasket = [], updateBasket}) => {
-
+const HiddenPanel = ({ productsInBasket, updateBasket }) => {
   return(
     <div className="header-main__hidden-panel hidden-panel">
       <div className="wrapper">

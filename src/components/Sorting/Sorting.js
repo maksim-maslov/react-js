@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const Sorting = ({updateFilters}) => {
+const Sorting = ({ updateFilters }) => {
   return(
     <div className="product-catalogue__sort-by" onChange={event => updateFilters(event)}>
       <p className="sort-by">Сортировать</p>

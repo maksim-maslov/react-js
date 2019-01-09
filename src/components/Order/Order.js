@@ -11,7 +11,7 @@ class Order extends Component {
     super(props);  
     this.state = {
       total: 0
-    }  
+    }; 
   }
 
   componentDidMount() {
@@ -32,14 +32,24 @@ class Order extends Component {
     }); 
   }
 
-  render() {    
+  render() {  
+    const { productsInBasket, updateBasket } = this.props; 
+    const { total } = this.state;
     return( 
       <div className="wrapper order-wrapper">
         <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '', text: 'Koрзина'}, {link: '', text: 'Оформление заказа'}]} />                
         <section className="order-process">
           <h2 className="order-process__title">Оформление заказа</h2>   
-          {this.props.productsInBasket && <ProductsInBasket productsInBasket={this.props.productsInBasket} total={this.state.total} />}
-          <OrderForm  updateBasket={this.props.updateBasket} total={this.state.total} />            
+          {productsInBasket.length > 0 && 
+            <ProductsInBasket 
+              productsInBasket={productsInBasket} 
+              total={total} 
+            />
+          }
+          <OrderForm 
+            total={total}
+            updateBasket={updateBasket}  
+          />            
         </section>
       </div>
     );    

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-const BasketItem = ({product}) => {
+const BasketItem = ({ product }) => {
   return(
     <div className="basket-item">
       <div className="basket-item__pic"><img src={product.item.images[0]} alt="product_1"/></div>

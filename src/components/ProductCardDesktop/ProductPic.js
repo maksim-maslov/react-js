@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const ProductPic= ({pic}) => {
+const ProductPic= ({ pic }) => {
   return(
     <div className="main-screen__favourite-product-pic">
       <a><img src={pic} alt=""/></a>

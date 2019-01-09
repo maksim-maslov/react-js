@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import BasketItem from './BasketItem';
 
-const ProductsInBasket = ({productsInBasket, total}) => {
+const ProductsInBasket = ({ productsInBasket, total }) => {
   return(
     <div className="order-process__basket order-basket">
       <div className="order-basket__title">в вашей корзине:</div>

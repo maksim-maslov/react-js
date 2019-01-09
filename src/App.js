@@ -32,39 +32,43 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.changeFavorites = this.changeFavorites.bind(this);
+    this.updateBasket = this.updateBasket.bind(this);    
+    this.updateBrowsedProducts = this.updateBrowsedProducts.bind(this);
+    this.updateFavorites = this.updateFavorites.bind(this);
+    this.updateFilters = this.updateFilters.bind(this);
+
     this.state = {
-      productsInBasket: [],
-      categories: [],
-      favorites: {},
       browsedProducts: [],
-      filters: {}
+      browsedProductsIdList: localStorage.browsedProducts 
+        ? JSON.parse(localStorage.browsedProducts) 
+        : [],
+      categories: [],
+      favorites: {},  
+      favoritesIdList: localStorage.favorites 
+        ? JSON.parse(localStorage.favorites) 
+        : [],       
+      filters: {},
+      productsInBasket: [],
+      cartId: localStorage.cartId 
+        ? localStorage.cartId
+        : ''
     };
+
+    console.log(this.state)
   }
 
 
   componentDidMount() {              
-    const cartId = localStorage.cartId;
-    if (cartId) {
-      const params = {method: 'GET'};
-      this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, params);      
-    } 
-    this.getCategories();
+    // const cartId = localStorage.cartId;
+    this.getCategories();     
     this.updateFavorites();
     this.updateBrowsedProducts();
-  } 
-
-  changeFavorites(productId) {
-    const favoriteIdList = JSON.parse(localStorage.favorites);
-    const removeElementIndex = favoriteIdList.findIndex(el => el.id == productId);
-    if (removeElementIndex != -1) {
-      favoriteIdList.splice(removeElementIndex, 1);      
-    } else {
-      favoriteIdList.push({id: productId});      
-    }
-    localStorage.favorites = JSON.stringify(favoriteIdList);
-    this.updateFavorites();
+    this.state.cartId
+    ? this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${this.state.cartId}`, {method: 'GET'})   
+    : null;
   }
-
+  
   joinProductIdsToQueryString(products = []) {
     return new Promise((done, fail) => {
       const queryString = products.reduce((memo, el) => {
@@ -75,15 +79,21 @@ class App extends Component {
     });
   }
 
-  updateFavorites(page = 1) {  
-    const favoriteIdList = localStorage.favorites 
-    ? JSON.parse(localStorage.favorites) 
-    : [];
+  changeFavorites(productId) {
+    const { favoritesIdList } = this.state;
+    const removeElementIndex = favoritesIdList.findIndex(el => el.id == productId);
+    removeElementIndex != -1
+    ? favoritesIdList.splice(removeElementIndex, 1)
+    : favoritesIdList.push({id: productId});    
+    this.setState({favoritesIdList: favoritesIdList}); 
+    localStorage.favorites = JSON.stringify(favoritesIdList);
+    this.updateFavorites();
+  }
 
-    if (favoriteIdList.length === 0) {
-      this.setState({ favorites: [] });         
-    } else {
-      this.joinProductIdsToQueryString(favoriteIdList)
+  updateFavorites(page = 1) {  
+    const { favoritesIdList } = this.state;
+    if (favoritesIdList.length) {
+      this.joinProductIdsToQueryString(favoritesIdList)
         .then(queryString => {
           if (this.state.filters.sortBy) {
             queryString = queryString + `&sortBy=${this.state.filters.sortBy}`;
@@ -91,32 +101,38 @@ class App extends Component {
           return fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}&page[]=${page}`)
         })
         .then(response => response.json())
-        .then(data => this.setState({ favorites: data })); 
+        .then(data => this.setState({favorites: data})); 
     }
   }
 
   getCategories() {
     fetch('https://neto-api.herokuapp.com/bosa-noga/categories')
       .then(response => response.json())
-      .then(data => {this.setState({categories: data.data})});
+      .then(data => this.setState({categories: data.data}));
   }
 
-  getProductsInBasket(url, params, product = []) {
+  updateBasket(product) {
+    const params = {
+      method: 'POST', 
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(product)
+    };
+    const cartId = localStorage.cartId;
+    cartId
+    ? this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, params)
+    : this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/`, params);        
+    
+  }
+
+  getProductsInBasket(url, params) {
     fetch(url, params)
       .then(response => response.json())
       .then(data => {
         if (data.status == 'ok') {
-          let productArray = [];
-          if (product.length === 0) {
-            productArray = data.data.products; 
-            return productArray;                  
-          } else {
-            localStorage.cartId = data.data.id;
-            productArray = product;
-            return productArray;                     
-          }          
-        } 
-        else {
+          return /\S+cart\/\S+/.test(url)
+          ? data.data.products
+          : JSON.parse(params.body);       
+        } else {
           localStorage.cartId = '';
           this.setState({productsInBasket: []})
           throw new Error(`abort promise: status '${data.status}'`);
@@ -137,45 +153,22 @@ class App extends Component {
      
   }
 
-  updateBasket(product) {
-    const params = {
-      method: 'POST', 
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(product)
-    };
-    const cartId = localStorage.getItem('cartId');
-    if (cartId) {      
-      this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, params);
-    } else {
-      this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/`, params, [product]);        
-    }
-  }
-
-  updateBrowsedProducts() {  
-    const browsedProducts = localStorage.browsedProducts 
-    ? JSON.parse(localStorage.browsedProducts) 
-    : [];
-
-    if (browsedProducts.length === 0) {
-      this.setState({ browsedProducts: [] });         
-    } else {
-      this.joinProductIdsToQueryString(browsedProducts)
+  updateBrowsedProducts(id) { 
+    const { browsedProductsIdList } = this.state;
+    if (browsedProductsIdList.length) {
+      this.joinProductIdsToQueryString(browsedProductsIdList)
         .then(queryString => fetch(`http://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
         .then(response => response.json())
-        .then(data => {
-          if (data) {
-            this.setState({ browsedProducts: data.data }); 
-
-          }
-        });
-    }
+        .then(data => this.setState({ browsedProducts: data.data.filter(el => el.id != id) }));
+    }    
   }
 
   updateFilters(event) {
 
-    let filters = this.state.filters;
+    let { filters } = this.state;
 
     if (event.currentTarget.classList.contains('sidebar__size')) {
+
       const size = event.target.value;
       if (filters.hasOwnProperty('size[]')) {
         const index = filters['size[]'].indexOf(size);
@@ -211,9 +204,11 @@ class App extends Component {
       }
 
     } else if (event.currentTarget.classList.contains('checkbox-discount')) {
+
       filters.hasOwnProperty('discounted')
       ? delete filters['discounted']
       : filters.discounted = 'true'; 
+
     } else {
 
       event.preventDefault();
@@ -237,8 +232,7 @@ class App extends Component {
       if (event.currentTarget.classList.contains('product-catalogue__sort-by')) {
         filters.sortBy = event.target.value;
         this.updateFavorites();
-      }
-      
+      }     
 
       if (event.currentTarget.classList.contains('brand-search')) {
         
@@ -269,64 +263,67 @@ class App extends Component {
 
   }
 
-  render() {
+  render() {    
+    const { browsedProducts, categories, favorites, favoritesIdList, filters, productsInBasket } = this.state;
     return (
       <HashRouter>
         <div className="container">
           <Header 
-            categories={this.state.categories} 
-            productsInBasket={this.state.productsInBasket} 
-            updateBasket={this.updateBasket.bind(this)}            
+            categories={categories} 
+            productsInBasket={productsInBasket} 
+            updateBasket={this.updateBasket}            
           />          
           <Switch>
             <Route path="/catalogue" 
               render={props => <Catalogue 
                 {...props} 
-                browsedProducts={this.state.browsedProducts} 
-                categories={this.state.categories}                 
-                favorites={this.state.favorites}                 
-                filters={this.state.filters}
-                changeFavorites={this.changeFavorites.bind(this)}
-                updateFilters={this.updateFilters.bind(this)} 
+                browsedProducts={browsedProducts} 
+                categories={categories}    
+                changeFavorites={this.changeFavorites}             
+                favorites={favorites} 
+                favoritesIdList={favoritesIdList}                                
+                filters={filters}                
+                updateFilters={this.updateFilters} 
               />} 
             />
             <Route path="/favorite" 
               render={props => <Favorite 
                 {...props} 
-                favorites={this.state.favorites} 
-                changeFavorites={this.changeFavorites.bind(this)}
-                updateFavorites={this.updateFavorites.bind(this)} 
-                updateFilters={this.updateFilters.bind(this)}                 
+                changeFavorites={this.changeFavorites}                
+                favorites={favorites}                 
+                updateFavorites={this.updateFavorites} 
+                updateFilters={this.updateFilters}                 
               />} 
             /> 
             <Route path="/product-card-desktop/:id" 
               render={props => <ProductCardDesktop 
                 {...props} 
-                browsedProducts={this.state.browsedProducts}
-                categories={this.state.categories} 
-                favorites={this.state.favorites}                  
-                changeFavorites={this.changeFavorites.bind(this)}
-                updateBasket={this.updateBasket.bind(this)} 
-                updateBrowsedProducts={this.updateBrowsedProducts.bind(this)} 
+                browsedProducts={browsedProducts}
+                categories={categories} 
+                changeFavorites={this.changeFavorites}                
+                favorites={favorites}    
+                favoritesIdList={favoritesIdList}              
+                updateBasket={this.updateBasket} 
+                updateBrowsedProducts={this.updateBrowsedProducts} 
               />} 
             />
             <Route path="/order" 
               render={props => <Order 
                 {...props} 
-                categories={this.state.categories}                 
-                productsInBasket={this.state.productsInBasket} 
-                updateBasket={this.updateBasket.bind(this)} 
+                categories={categories}                 
+                productsInBasket={productsInBasket} 
+                updateBasket={this.updateBasket} 
               />} 
             />
             <Route path="/order-done" component={OrderDone} />
-            {/* <Route path="/search" component={Search} /> */}
             <Route path="/" 
               render={props => <MainPage 
                 {...props} 
-                categories={this.state.categories} 
-                favorites={this.state.favorites}                 
-                changeFavorites={this.changeFavorites.bind(this)}
-                updateFavorites={this.updateFavorites.bind(this)}                 
+                categories={categories} 
+                changeFavorites={this.changeFavorites}                
+                favorites={favorites}  
+                favoritesIdList={favoritesIdList}                               
+                updateFavorites={this.updateFavorites}                 
               />}
             />
           </Switch>          

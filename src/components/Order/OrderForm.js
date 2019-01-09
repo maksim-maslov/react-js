@@ -19,6 +19,7 @@ class OrderForm extends Component {
     event.preventDefault();
 
     const {name, phone, address, paid} = this.formData;
+    
     this.order = {
       name: name.value,
       phone: phone.value,

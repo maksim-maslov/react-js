@@ -6,7 +6,7 @@ import HiddenPanel from './HiddenPanel';
 import MainMenu from './MainMenu';
 import DroppedMenu from './DroppedMenu';
 
-import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, headerMainSearchVisibility, mainSubmenuVisibility} from './js/script.js';
+// import {headerHiddenPanelProfileVisibility, headerHiddenPanelBasketVisibility, headerMainSearchVisibility, mainSubmenuVisibility} from './js/script.js';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 

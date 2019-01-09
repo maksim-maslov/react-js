@@ -533,16 +533,17 @@ li.active {
 .product-catalogue__overlooked-slider {
   width: 995px;
   height: 180px;
-  margin: 45px auto 62px;
+  margin: 45px auto 55px;
 }
 
 .product-catalogue__overlooked-slider h3 {
   position: relative;
-  top: -5px;
+  /* top: -5px; */
   font-family: 'Roboto' sans-serif;
   font-weight: 700;
   font-size: 20px;
   text-align: left;
+  padding: 0 0 0 10px;
 }
 
 .overlooked-slider {
@@ -570,7 +571,7 @@ li.active {
 
 .arrow:hover {
   cursor: pointer;
-  outline: solid 1px #cccccc;
+  outline: none;
 }
 
 .overlooked-slider__arrow_left {

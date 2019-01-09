@@ -5,11 +5,17 @@ import NewDeals from './NewDeals';
 import SalesAndNews from './SalesAndNews';
 import AboutUs from './AboutUs';
 
-const MainPage = ({updateFavorites, categories, favorites, changeFavorites}) => {
+const MainPage = ({ categories, changeFavorites, favorites, favoritesIdList, updateFavorites }) => {
   return(
     <div className="container">  
       <Slider />
-      <NewDeals updateFavorites={updateFavorites} categories={categories} favorites={favorites} changeFavorites={changeFavorites} />
+      <NewDeals 
+        categories={categories} 
+        changeFavorites={changeFavorites}        
+        favorites={favorites} 
+        favoritesIdList={favoritesIdList}
+        updateFavorites={updateFavorites}         
+      />
       <SalesAndNews />
       <AboutUs />
     </div>

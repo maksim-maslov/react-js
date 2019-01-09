@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-const ListBreadcrumbs = ({list = []}) => {
+const ListBreadcrumbs = ({list}) => {
   return list.map((el, index) => 
     <li key={index} className="site-path__item">
       {index + 1 != list.length

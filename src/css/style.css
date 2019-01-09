@@ -114,7 +114,8 @@ li a:hover {
   color: #A1B3BF;
 }
 .header .header-main__phone a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  cursor: auto;
 }
 .header .header-main__phone p {
   font-weight: 300;
@@ -600,6 +601,9 @@ li a:hover {
   color: #333333;
   text-decoration: none;
 }
+.new-deals-product-info__title:hover {
+  text-decoration: none;
+}
 .new-deals__product-info p {
   font-size: 14px;
   text-align: center;
@@ -1023,7 +1027,7 @@ li a:hover {
   margin-right: 5px;
 }
 .hidden-panel__profile a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 .hidden-panel__basket {
   display: none;
@@ -1031,6 +1035,16 @@ li a:hover {
 .hidden-panel__basket_visible {
   display: flex;
 }
+
+.basket-dropped__wrapper {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .basket-dropped {
   justify-content: space-between;
   align-items: center;
@@ -1123,5 +1137,5 @@ li a:hover {
 }
 
 .subscribe__ok {
-  margin-left: 0;
+  margin-right: 300px;
 }

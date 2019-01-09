@@ -10,7 +10,7 @@ class MainMenu extends Component {
   }
 
   render() {
-    const categories = this.props.categories;
+    const { categories } = this.props;
     return(
       <nav className="main-menu">
         <div className="wrapper">

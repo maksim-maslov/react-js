@@ -5,8 +5,7 @@ import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 class ProductsBasket extends Component {
 
   constructor(props) {
-    super(props)
-    this.product = props.product; 
+    super(props); 
   }
 
 
@@ -20,21 +19,28 @@ class ProductsBasket extends Component {
   }
 
   render() {        
-    const productInfo = this.props.product; 
+    const { product } = this.props; 
     return(
       <div className="product-list__item">
         <a className="product-list__pic">
-          <img src={productInfo ? productInfo.item.images[0] : ""} alt="product"/> 
+          <img src={product.item.images[0]} alt="product"/> 
         </a>
-        <Link to={`/product-card-desktop/${productInfo.item.id}`} className="product-list__product">
-          {productInfo.item.title}
+        <Link to={`/product-card-desktop/${product.item.id}`} className="product-list__product">
+          {product.item.title}
         </Link>
         <div className="product-list__fill"></div>
-        <div className="product-list__price">{productInfo.item.price}
+        <div className="product-list__price">{product.item.price}
           <i className="fa fa-rub" aria-hidden="true"></i>
         </div>
         <div className="product-list__delete">
-          <i className="fa fa-times" aria-hidden="true" onClick={this.removeProduct.bind(this)} data-id={productInfo.item.id} data-size={productInfo.size} data-amount={productInfo.amount}></i>
+          <i 
+            className="fa fa-times" 
+            aria-hidden="true" 
+            data-id={product.item.id} 
+            data-size={product.size} 
+            data-amount={product.amount}
+            onClick={this.removeProduct.bind(this)} 
+          ></i>
         </div>
       </div>
     )
