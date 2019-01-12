@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import logo from './img/header-logo.png';
 
 import './css/normalize.css';
 import './css/font-awesome.min.css';
@@ -19,13 +18,6 @@ import Order from './components/Order/Order';
 import OrderDone from './components/OrderDone/OrderDone';
 
 import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
-
-// const ReactRouter = window.ReactRouterDOM;
-// const Router = ReactRouterDOM.HashRouter;
-// const Route = ReactRouterDOM.Route;
-// const Switch = ReactRouterDOM.Switch;
-// const NavLink = ReactRouterDOM.NavLink;
-
 
 class App extends Component {
 
@@ -55,17 +47,15 @@ class App extends Component {
         : ''
     };
 
-    console.log(this.state)
   }
 
 
   componentDidMount() {              
-    // const cartId = localStorage.cartId;
     this.getCategories();     
     this.updateFavorites();
     this.updateBrowsedProducts();
     this.state.cartId
-    ? this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${this.state.cartId}`, {method: 'GET'})   
+    ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${this.state.cartId}`, {method: 'GET'})   
     : null;
   }
   
@@ -106,7 +96,7 @@ class App extends Component {
   }
 
   getCategories() {
-    fetch('https://neto-api.herokuapp.com/bosa-noga/categories')
+    fetch('https://api-neto.herokuapp.com/bosa-noga/categories')
       .then(response => response.json())
       .then(data => this.setState({categories: data.data}));
   }
@@ -119,8 +109,8 @@ class App extends Component {
     };
     const cartId = localStorage.cartId;
     cartId
-    ? this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/${cartId}`, params)
-    : this.getProductsInBasket(`https://neto-api.herokuapp.com/bosa-noga/cart/`, params);        
+    ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${cartId}`, params)
+    : this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/`, params);        
     
   }
 
@@ -164,12 +154,12 @@ class App extends Component {
   }
 
   updateFilters(event) {
-
     let { filters } = this.state;
 
     if (event.currentTarget.classList.contains('sidebar__size')) {
 
       const size = event.target.value;
+
       if (filters.hasOwnProperty('size[]')) {
         const index = filters['size[]'].indexOf(size);
         if (index !== -1) {
@@ -188,6 +178,7 @@ class App extends Component {
     } else if (event.currentTarget.classList.contains('sidebar__heel-height')) {
 
       const heelSize = event.target.value;
+
       if (filters.hasOwnProperty('heelSize[]')) {
         const index = filters['heelSize[]'].indexOf(heelSize);
         if (index !== -1) {
@@ -265,6 +256,7 @@ class App extends Component {
 
   render() {    
     const { browsedProducts, categories, favorites, favoritesIdList, filters, productsInBasket } = this.state;
+    
     return (
       <HashRouter>
         <div className="container">

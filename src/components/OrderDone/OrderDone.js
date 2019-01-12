@@ -46,7 +46,7 @@ const OrderDone = (props) => {
                 </div>
               </div>
               <p className="order-done__notice">Данные о заказе отправлены на адрес <span>notbosaanymore@gmail.com.  </span></p>
-              <Link to="main-page"><button className="order-done__continue">продолжить покупки</button></Link>
+              <Link to="/"><button className="order-done__continue">продолжить покупки</button></Link>
           </section>    
         </div>)
       }    

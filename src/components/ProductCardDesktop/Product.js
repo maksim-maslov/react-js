@@ -49,9 +49,9 @@ class Product extends Component {
           <h2 className="section-name">{categoryTitle}</h2>
           <section className="product-card-content__main-screen">
 
-            {product.images.length > 0 && <ProductSlider list={product.images} />}         
-                    
-            <ProductPic pic={product.images.length > 0 ? product.images[0] : '' } />
+            {product.hasOwnProperty('images') && <ProductSlider images={product.images} />}        
+
+            {product.hasOwnProperty('images') && <ProductPic pic={product.images[0]} />}  
                 
             <div className="main-screen__product-info">
               <div className="product-info-title">

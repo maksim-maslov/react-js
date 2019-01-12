@@ -48,8 +48,10 @@ class DroppedMenu extends Component {
   }
 
   render() {
+    const { droppedMenuVisible } = this.props;
+    
     return(
-      <div className="dropped-menu">
+      <div className={`dropped-menu ${droppedMenuVisible ? 'dropped-menu_visible' : ''}`}>
         <div className="wrapper">
           <div className="dropped-menu__lists dropped-menu__lists_women">
             <h3 className="dropped-menu__list-title">Повод:</h3>

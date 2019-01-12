@@ -10,10 +10,10 @@ class Basket extends Component {
   }
   
   render() {
-    const { productsInBasket, updateBasket } = this.props;
+    const { basketVisibility, productsInBasket, updateBasket } = this.props;
 
     return(        
-      <div className="hidden-panel__basket basket-dropped">
+      <div className={`hidden-panel__basket basket-dropped ${basketVisibility ? 'hidden-panel__basket_visible' : ''}`}>
         {productsInBasket.length > 0
         ?
         <div className="basket-dropped__wrapper">

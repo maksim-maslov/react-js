@@ -56,7 +56,7 @@ class Catalogue extends Component {
       this.title = 'Результаты поиска';
     }
 
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/products?${queryString}`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
       .then(response => response.json())
       .then(data => this.setState({products: data}));  
 

@@ -8,6 +8,7 @@ import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
 class ProductCardDesktop extends Component {
   constructor(props) {
     super(props);
+    this.id = '';
     this.state = {
       product: {},
       similarProducts: []
@@ -23,20 +24,20 @@ class ProductCardDesktop extends Component {
   }
 
   init(props) {
-    const id = props.match.params.id;
+    this.id = props.match.params.id;
     this.getProductInfo();
     this.getSimilarProducts();
-    this.props.updateBrowsedProducts(id);
+    this.props.updateBrowsedProducts(this.id);
   }
 
   getProductInfo() {
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/products/${this.id}`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/products/${this.id}`)
     .then(response => response.json())
     .then(data => this.setState({product: data.data}));
   }
 
   getSimilarProducts() {
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`)
     .then(response => response.json())
     .then(data => this.setState({similarProducts: data.data.filter(el => el.id != this.id)}));
   }
@@ -44,11 +45,11 @@ class ProductCardDesktop extends Component {
   render() {
     const { product, similarProducts } = this.state;
     const { browsedProducts, categories, changeFavorites, favorites, favoritesIdList, updateBasket, updateBrowsedProducts } = this.props;
-    const categoryTitle = product.categoryId && categories.length ? categories.find(el => el.id === product.categoryId).title : '';
+    const categoryTitle = product.hasOwnProperty('categoryId') && categories.length ? categories.find(el => el.id === product.categoryId).title : '';
 
     return(
       <div>
-        {product.id && 
+        {product.hasOwnProperty('id') && 
           <div>
             <Breadcrumbs links={[
               {link: '/main-page', text: 'Главная'}, 

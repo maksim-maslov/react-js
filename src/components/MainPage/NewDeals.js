@@ -29,7 +29,7 @@ class NewDeals extends Component {
 
   updateMenuItems() {
 
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/featured`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
       .then(data => { 
 
@@ -75,7 +75,7 @@ class NewDeals extends Component {
       categoryId = event.target.dataset.categoryid;
     } 
 
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/featured`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
       .then(data => {
 
@@ -99,20 +99,16 @@ class NewDeals extends Component {
 
   movePicture(event) {
 
-    if (event.currentTarget.classList.contains('new-deals__arrow_left')) {
+    const ev = event.currentTarget;
 
-      this.position = this.position + 284 + 14;
+    if (ev.classList.contains('new-deals__arrow_left') || ev.classList.contains('new-deals__arrow_right')) {
+      const shift = ev.classList.contains('new-deals__arrow_left')
+      ? 1
+      : -1;        
+      this.position = this.position + ((284 + 14) * shift);        
       this.setState({
-        activeItem: this.state.activeItem - 1
-      });        
-        
-    } else if (event.currentTarget.classList.contains('new-deals__arrow_right')) {
-     
-      this.position = this.position - 284 - 14;        
-      this.setState({
-        activeItem: this.state.activeItem + 1
+        activeItem: this.state.activeItem - (1 * shift)
       });
-      
     }
     
   }

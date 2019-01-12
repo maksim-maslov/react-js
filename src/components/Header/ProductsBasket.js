@@ -8,7 +8,6 @@ class ProductsBasket extends Component {
     super(props); 
   }
 
-
   removeProduct(event) {
     const item = event.currentTarget;        
     const id =  Number(item.dataset.id);  
@@ -20,6 +19,7 @@ class ProductsBasket extends Component {
 
   render() {        
     const { product } = this.props; 
+    
     return(
       <div className="product-list__item">
         <a className="product-list__pic">

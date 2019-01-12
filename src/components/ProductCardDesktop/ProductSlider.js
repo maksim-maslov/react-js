@@ -6,7 +6,7 @@ const ProductSlider = ({ images }) => {
   return(
     <section className="main-screen__favourite-product-slider">
       <div className="favourite-product-slider">
-        <div className={`favourite-product-slider__arrow ${images.length > 3 ? 'favourite-product-slider__arrow_up arrow-up' : ''}`}></div>
+        <div className={`favourite-product-slider__arrow favourite-product-slider__arrow_up arrow-up ${images.length <= 3 ? 'hidden' : ''}`}></div>
         
         {images.map((el, index) => {
           return(
@@ -16,7 +16,7 @@ const ProductSlider = ({ images }) => {
           )
         })}         
         
-        <div className={`favourite-product-slider__arrow ${images.length > 3 ? 'favourite-product-slider__arrow_down arrow-down' : ''}`}></div>
+        <div className={`favourite-product-slider__arrow favourite-product-slider__arrow_down arrow-down ${images.length <= 3 ? 'hidden' : ''}`}></div>
       </div>
     </section>
   )     

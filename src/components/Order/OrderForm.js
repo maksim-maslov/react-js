@@ -18,7 +18,7 @@ class OrderForm extends Component {
   submit(event) {
     event.preventDefault();
 
-    const {name, phone, address, paid} = this.formData;
+    const { name, phone, address, paid } = this.formData;
     
     this.order = {
       name: name.value,
@@ -35,7 +35,7 @@ class OrderForm extends Component {
       body: JSON.stringify(this.order)
     };
 
-    fetch(`https://neto-api.herokuapp.com/bosa-noga/order`, params)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/order`, params)
       .then(response => response.json())
       .then(data => {        
         this.setState({

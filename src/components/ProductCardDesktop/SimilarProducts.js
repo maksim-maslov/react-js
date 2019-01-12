@@ -26,20 +26,16 @@ class SimilarProducts extends Component {
   
   movePicture(event) {
 
-    if (event.currentTarget.classList.contains('similar-products-slider__arrow_left')) {
+    const ev = event.currentTarget;
 
-      this.position = this.position + 318 + 14;
+    if (ev.classList.contains('similar-products-slider__arrow_left') || ev.classList.contains('similar-products-slider__arrow_right')) {
+      const shift = ev.classList.contains('similar-products-slider__arrow_left')
+      ? 1
+      : -1;        
+      this.position = this.position + ((318 + 14) * shift);        
       this.setState({
-        activeItem: this.state.activeItem - 1
-      });        
-        
-    } else if (event.currentTarget.classList.contains('similar-products-slider__arrow_right')) {
-     
-      this.position = this.position - 318 - 14;        
-      this.setState({
-        activeItem: this.state.activeItem + 1
+        activeItem: this.state.activeItem - (1 * shift)
       });
-      
     }
     
   }
