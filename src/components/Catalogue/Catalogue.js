@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import Sorting from '../Sorting/Sorting';
 import Sidebar from './Sidebar';
 import Pagination from '../Pagination/Pagination';
@@ -56,7 +56,7 @@ class Catalogue extends Component {
       this.title = 'Результаты поиска';
     }
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
+    fetch(`/products?${queryString}`)
       .then(response => response.json())
       .then(data => this.setState({products: data}));  
 
@@ -75,7 +75,7 @@ class Catalogue extends Component {
       <div>
         {products.status === 'ok' && favorites.data && 
           <div>
-            <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: `${this.title}`}]}/> 
+            <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: `${this.title}`}]}/> 
             <main className="product-catalogue">            
               <Sidebar updateFilters={updateFilters} />            
               <section className="product-catalogue-content">                

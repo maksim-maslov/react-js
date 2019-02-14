@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch, Redirect } from 'react-router-dom';
 
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 
 const OrderDone = (props) => {
   const order = props.location.state;
@@ -11,7 +11,7 @@ const OrderDone = (props) => {
     <div>
       {order && (
         <div className="wrapper order-wrapper"> 
-          <Breadcrumbs links={[{link: "/main-page", text: "Главная"}, {link: "#", text: "Koрзина"}, {link: "#", text: "Оформление заказа"}, {link: "#", text: "Заказ принят"}]} />                
+          <Breadcrumb links={[{link: "/main-page", text: "Главная"}, {link: "#", text: "Koрзина"}, {link: "#", text: "Оформление заказа"}, {link: "#", text: "Заказ принят"}]} />                
           <section className="order-done">
               <h2 className="order-done__title order-process__title">Заказ принят, спасибо!</h2>
               <div className="order-done__information order-info">

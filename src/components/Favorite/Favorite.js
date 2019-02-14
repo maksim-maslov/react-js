@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import Sorting from '../Sorting/Sorting';
 import Pagination from '../Pagination/Pagination';
 
@@ -24,7 +24,7 @@ class Favorite extends Component {
     return(
       <div className="wrapper wrapper_favorite">
         {favorites.status === 'ok' &&  <div>
-        <Breadcrumbs links={[{link: "/main-page", text: "Главная"}, {link: "/favorite", text: "Избранное"}]} />
+        <Breadcrumb links={[{link: "/main-page", text: "Главная"}, {link: "/favorite", text: "Избранное"}]} />
         <main className="product-catalogue product-catalogue_favorite">
           <section className="product-catalogue__head product-catalogue__head_favorite">
             <div className="product-catalogue__section-title">

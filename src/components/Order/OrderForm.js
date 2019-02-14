@@ -35,7 +35,7 @@ class OrderForm extends Component {
       body: JSON.stringify(this.order)
     };
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/order`, params)
+    fetch(`/order`, params)
       .then(response => response.json())
       .then(data => {        
         this.setState({

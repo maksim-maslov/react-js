@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import OrderForm from './OrderForm';
 import ProductsInBasket from './ProductsInBasket';
 
@@ -37,7 +37,7 @@ class Order extends Component {
     const { total } = this.state;
     return( 
       <div className="wrapper order-wrapper">
-        <Breadcrumbs links={[{link: '/main-page', text: 'Главная'}, {link: '', text: 'Koрзина'}, {link: '', text: 'Оформление заказа'}]} />                
+        <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '', text: 'Koрзина'}, {link: '', text: 'Оформление заказа'}]} />                
         <section className="order-process">
           <h2 className="order-process__title">Оформление заказа</h2>   
           {productsInBasket.length > 0 && 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import Product from './Product';
 import SimilarProducts from './SimilarProducts';
 import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
@@ -31,13 +31,13 @@ class ProductCardDesktop extends Component {
   }
 
   getProductInfo() {
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/products/${this.id}`)
+    fetch(`/products/${this.id}`)
     .then(response => response.json())
     .then(data => this.setState({product: data.data}));
   }
 
   getSimilarProducts() {
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`)
+    fetch(`/products?type=${this.state.product.type}&color=${this.state.product.color}`)
     .then(response => response.json())
     .then(data => this.setState({similarProducts: data.data.filter(el => el.id != this.id)}));
   }
@@ -51,7 +51,7 @@ class ProductCardDesktop extends Component {
       <div>
         {product.hasOwnProperty('id') && 
           <div>
-            <Breadcrumbs links={[
+            <Breadcrumb links={[
               {link: '/main-page', text: 'Главная'}, 
               {link: `/catalogue?categoryId=${product.categoryId}`, text: categoryTitle },
               {link: `/products/${product.id}`, text: product.title }
