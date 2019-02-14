@@ -109,7 +109,7 @@ class App extends Component {
     };
     const cartId = localStorage.cartId;
     cartId
-    ? this.getProductsInBasket(`/cart/${cartId}`, params)
+    ? this.getProductsInBasket(`/cart/${cartId }`, params)
     : this.getProductsInBasket(`/cart/`, params);        
     
   }
