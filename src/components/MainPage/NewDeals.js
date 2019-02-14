@@ -29,7 +29,7 @@ class NewDeals extends Component {
 
   updateMenuItems() {
 
-    fetch(`/featured`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
       .then(data => { 
 
@@ -75,7 +75,7 @@ class NewDeals extends Component {
       categoryId = event.target.dataset.categoryid;
     } 
 
-    fetch(`/featured`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
       .then(data => {
 

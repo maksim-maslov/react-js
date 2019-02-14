@@ -31,13 +31,13 @@ class ProductCardDesktop extends Component {
   }
 
   getProductInfo() {
-    fetch(`/products/${this.id}`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/products/${this.id}`)
     .then(response => response.json())
     .then(data => this.setState({product: data.data}));
   }
 
   getSimilarProducts() {
-    fetch(`/products?type=${this.state.product.type}&color=${this.state.product.color}`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`)
     .then(response => response.json())
     .then(data => this.setState({similarProducts: data.data.filter(el => el.id != this.id)}));
   }
