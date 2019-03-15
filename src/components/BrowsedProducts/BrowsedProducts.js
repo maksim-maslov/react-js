@@ -6,59 +6,43 @@ class BrowsedProducts extends Component {
   constructor(props) {
     super(props);
     
-    this.firstPicIndex = 0;
-    this.init(props);
-
     this.state = {
-      activeItem: 1
-    }; 
+      activeItem: 0
+    };
 
     this.movePicture = this.movePicture.bind(this); 
   } 
 
   componentWillReceiveProps(newProps) {
-    this.init(newProps);
-    this.setState({
-      activeItem: 1
-    }); 
+    this.props = newProps; 
   } 
-  
-  init(props) {
-    this.position = 0; 
-    this.lastPicIndex = props.browsedProducts.length - 1;
-  }
 
-  movePicture(event) {
-
+  movePicture(event, shift) {
     const ev = event.currentTarget;
-
-    if (ev.classList.contains('overlooked-slider__arrow_left') || ev.classList.contains('overlooked-slider__arrow_right')) {
-      const shift = ev.classList.contains('overlooked-slider__arrow_left')
-      ? 1
-      : -1;        
-      this.position = this.position + ((185 + 14) * shift);        
+    if (ev.classList.contains('overlooked-slider__arrow_left') || ev.classList.contains('overlooked-slider__arrow_right')) {  
       this.setState({
         activeItem: this.state.activeItem - (1 * shift)
       });
-    }
-    
+    }    
   }
 
   render() {
     const { activeItem } = this.state;
     const { browsedProducts } = this.props;
+    this.position = -(activeItem * (185 + 14));
+
     return(
       <section className="product-catalogue__overlooked-slider">
         <h3>Вы смотрели:</h3>
         <div className="overlooked-slider">
           <div 
             className={`overlooked-slider__arrow overlooked-slider__arrow_left arrow 
-              ${activeItem - 1 === this.firstPicIndex 
+              ${activeItem === 0 
                 ? 'hidden' 
                 : ''
               }`
             } 
-            onClick={this.movePicture}
+            onClick={ev => this.movePicture(ev, 1)}
           >
           </div>
             <div className="overlooked-slider__gallery">
@@ -82,12 +66,12 @@ class BrowsedProducts extends Component {
             </div>
           <div 
             className={`overlooked-slider__arrow overlooked-slider__arrow_right arrow 
-              ${browsedProducts.length < 5 || activeItem + 3 == this.lastPicIndex 
+              ${browsedProducts.length < 5 || activeItem + 5 === browsedProducts.length 
                 ? 'hidden' 
                 : ''
               }`
             } 
-            onClick={this.movePicture}
+            onClick={ev => this.movePicture(ev, -1)}
           >
           </div>                                 
         </div>

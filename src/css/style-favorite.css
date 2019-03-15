@@ -4,6 +4,16 @@
 .site-path {
   margin-left: 39px;
 }
+
+.product-catalogue__items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+.product-catalogue__item {
+  list-style: none;
+}
+
 .product-catalogue_favorite {
   width: inherit;
   /* text-align: center; */

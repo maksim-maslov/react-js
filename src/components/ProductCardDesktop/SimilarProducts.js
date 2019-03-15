@@ -3,46 +3,35 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 class SimilarProducts extends Component {
+
+
   constructor(props) {
     super(props);
-
-    this.firstPicIndex = 0;
-    this.position = 0; 
-    this.lastPicIndex = props.similarProducts.length - 1;
-
-    this.state = {
-      activeItem: 1
-    }
     
+    this.state = {
+      activeItem: 0
+    };
+
+    this.movePicture = this.movePicture.bind(this); 
   } 
 
   componentWillReceiveProps(newProps) {
-    this.position = 0; 
-    this.lastPicIndex = newProps.similarProducts.length - 1;
-    this.setState({
-      activeItem: 1
-    });
-  }  
-  
-  movePicture(event) {
-
+    this.props = newProps;  
+  } 
+ 
+  movePicture(event, shift) {
     const ev = event.currentTarget;
-
-    if (ev.classList.contains('similar-products-slider__arrow_left') || ev.classList.contains('similar-products-slider__arrow_right')) {
-      const shift = ev.classList.contains('similar-products-slider__arrow_left')
-      ? 1
-      : -1;        
-      this.position = this.position + ((318 + 14) * shift);        
+    if (ev.classList.contains('similar-products-slider__arrow_left') || ev.classList.contains('similar-products-slider__arrow_right')) {   
       this.setState({
         activeItem: this.state.activeItem - (1 * shift)
       });
-    }
-    
+    }    
   }
 
   render() {
     const { activeItem } = this.state;
     const { similarProducts } = this.props;
+    this.position = -(activeItem * (318 + 14));
 
     return(
       <section className="product-card__similar-products-slider">
@@ -50,12 +39,12 @@ class SimilarProducts extends Component {
         <div className="similar-products-slider">
           <div 
             className={`similar-products-slider__arrow similar-products-slider__arrow_left arrow 
-              ${activeItem - 1 == this.firstPicIndex 
+              ${activeItem === 0 
                 ? 'hidden' 
                 : ''
               }`
             }  
-            onClick={this.movePicture.bind(this)}
+            onClick={ev => this.movePicture(ev, 1)}
           >
           </div>
             <div className="similar-products-slider__gallery">
@@ -88,12 +77,12 @@ class SimilarProducts extends Component {
             </div>
           <div 
             className={`similar-products-slider__arrow similar-products-slider__arrow_right arrow 
-              ${similarProducts.length < 3 || activeItem + 1 === this.lastPicIndex 
+              ${similarProducts.length < 3 || activeItem + 3 === similarProducts.length
                 ? 'hidden' 
                 : ''
               }`
             } 
-            onClick={this.movePicture.bind(this)}
+            onClick={ev => this.movePicture(ev, -1)}
           >
           </div>                       
         </div>

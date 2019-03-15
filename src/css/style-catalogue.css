@@ -149,6 +149,17 @@ select {
   margin-bottom: 50px;
 }
 
+
+.product-catalogue__items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+.product-catalogue__item {
+  list-style: none;
+}
+
+
 /*Сердечки для избранного товара с эффектами*/
 .product-catalogue .product-catalogue__product_favorite a,
 .product-catalogue .product-catalogue__product_favorite p {

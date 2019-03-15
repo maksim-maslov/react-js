@@ -9,13 +9,13 @@ import Pagination from '../Pagination/Pagination';
 class Favorite extends Component {
   constructor(props) {
     super(props);
-
+    
     this.changeFavorites = this.changeFavorites.bind(this);
   }
 
-  changeFavorites(event) {  
+  changeFavorites(event, id) {  
     event.preventDefault(); 
-    this.props.changeFavorites(event.currentTarget.dataset.id);    
+    this.props.changeFavorites(id);    
   }
   
   render() {    
@@ -33,22 +33,26 @@ class Favorite extends Component {
             <Sorting updateFilters={updateFilters} />
           </section>
           <section className="product-catalogue__item-list product-catalogue__item-list_favorite"> 
-            {favorites.data.map((el, index) => {
-              return(
-                <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
-                  <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
-                    <div className="product-catalogue__product_favorite">
-                      <p data-id={el.id} onClick={this.changeFavorites} ></p>
-                    </div>                    
-                  </div>
-                  <div className="item-desc">
-                    <h4 className="item-name">{el.title}</h4>
-                    <p className="item-producer">Производитель: <span className="producer">{el.brand}</span></p>
-                    <p className="item-price">{el.price}</p>
-                  </div>
-                </Link> 
-              );
-            })}  
+            <ul className="product-catalogue__items">    
+              {favorites.data.map((el, index) => {
+                return(
+                  <li key={el.id} className="product-catalogue__item">
+                    <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
+                      <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
+                        <div className="product-catalogue__product_favorite">
+                          <p onClick={ev => this.changeFavorites(ev, el.id)}></p>
+                        </div>                    
+                      </div>
+                      <div className="item-desc">
+                        <h4 className="item-name">{el.title}</h4>
+                        <p className="item-producer">Производитель: <span className="producer">{el.brand}</span></p>
+                        <p className="item-price">{el.price}</p>
+                      </div>
+                    </Link> 
+                  </li>
+                );
+              })}  
+            </ul> 
           </section> 
           <Pagination pages={favorites.pages} page={favorites.page} changePage={updateFavorites} />
         </main>

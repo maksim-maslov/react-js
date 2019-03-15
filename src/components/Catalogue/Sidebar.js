@@ -4,52 +4,56 @@ import React, { Component } from 'react';
 class Sidebar extends Component {
   constructor(props) {
     super(props);
-    this.type = [
-      'Балетки',
-      'Босоножки и сандалии',
-      'Ботильоны',
-      'Ботинки',
-      'Ботфорты',
-      'Галоши',
-      'Тапочки',
-      'Туфли',
-      'Сапоги'
-    ];
-    this.color = [
-      {color: 'beige', title: 'Бежевый'},
-      {color: 'whitesnake', title: 'Белый'},
-      {color: 'shocking-blue', title: 'Голубой'},
-      {color: 'yellow', title: 'Жёлтый'},
-      {color: 'king-crimson', title: 'Алый'},
-      {color: 'deep-purple', title: 'Фиолетовый'},
-      {color: 'black-sabbath', title: 'Чёрный'}
-    ];
-    this.size = [
-      [8, 10, 12, 14],
-      [15, 16, 18, 20]
-    ];
-    this.heelSize = [
-      [1, 2, 3, 4, 5],
-      [6, 7, 8, 9, 10]
-    ];
-    this.reason = [
-      'Офис',
-      'Вечеринка',
-      'Свадьба',
-      'Спорт',
-      'Путешествие',
-      'Свидание',
-      'Дома',
-      'Произвести впечатление'
-    ];
-    this.season = [
-      'Лето',
-      'Осень'
-    ];
+    this.state = {
+      type: [
+        'Балетки',
+        'Босоножки и сандалии',
+        'Ботильоны',
+        'Ботинки',
+        'Ботфорты',
+        'Галоши',
+        'Тапочки',
+        'Туфли',
+        'Сапоги'
+      ],
+      color: [
+        {color: 'beige', title: 'Бежевый'},
+        {color: 'whitesnake', title: 'Белый'},
+        {color: 'shocking-blue', title: 'Голубой'},
+        {color: 'yellow', title: 'Жёлтый'},
+        {color: 'king-crimson', title: 'Алый'},
+        {color: 'deep-purple', title: 'Фиолетовый'},
+        {color: 'black-sabbath', title: 'Чёрный'}
+      ],
+      size: [
+        [8, 10, 12, 14],
+        [15, 16, 18, 20]
+      ],
+      heelSize: [
+        [1, 2, 3, 4, 5],
+        [6, 7, 8, 9, 10]
+      ],
+      reason: [
+        'Офис',
+        'Вечеринка',
+        'Свадьба',
+        'Спорт',
+        'Путешествие',
+        'Свидание',
+        'Дома',
+        'Произвести впечатление'
+      ],
+      season: [
+        'Лето',
+        'Осень'
+      ]
+    };
   }
 
   render() {
     const { updateFilters } = this.props;
+    const { type, color, size, heelSize, reason, season } = this.state;
+
     return(
       <section className="sidebar">
           <section className="sidebar__division">
@@ -59,7 +63,7 @@ class Sidebar extends Component {
                 <div className="opener-down"></div>
               </div>
               <ul>
-                {this.type.map((el, index) => <li key={index}><a href="#">{el}</a></li>)}
+                {type.map((el, index) => <li key={index}><a href="#">{el}</a></li>)}
               </ul>
             </div>
           </section>
@@ -97,7 +101,7 @@ class Sidebar extends Component {
                 <div className="opener-down"></div>
               </div>
               <ul>    
-                {this.color.map((el, index) => <li key={index}><a href="#"><div className={`color ${el.color}`}></div><span className="color-name">{el.title}</span></a></li>)}
+                {color.map((el, index) => <li key={index}><a href="#"><div className={`color ${el.color}`}></div><span className="color-name">{el.title}</span></a></li>)}
               </ul>
             </div>
           </section>
@@ -110,7 +114,7 @@ class Sidebar extends Component {
                 <h3>Размер</h3><div className="opener-down"></div>
               </div>
               <ul>
-                {this.size.map((element, index) => {
+                {size.map((element, index) => {
                   return(
                     <div className={`list-${index + 1}`}>
                       {element.map((el, idx) => <li key={idx}><label><input type="checkbox" className="checkbox" name={`checkbox-${el}`} value={el}/><span className="checkbox-custom"></span> <span className="label">{el}</span></label></li>)}
@@ -128,7 +132,7 @@ class Sidebar extends Component {
               <div className="sidebar__division-title">
                 <h3>Размер каблука</h3><div className="opener-down"></div>
                 <ul>
-                  {this.size.map((element, index) => {
+                  {heelSize.map((element, index) => {
                     return(
                       <div className={`list-${index + 1}`}>
                         {element.map((el, idx) => <li><label><input type="checkbox" className="checkbox" name={`checkbox-${el}`} value={el}/><span className="checkbox-custom"></span> <span className="label">{el}</span></label></li>)}
@@ -148,7 +152,7 @@ class Sidebar extends Component {
                 <h3>Повод</h3><div className="opener-down"></div>
               </div>
               <ul>
-                {this.reason.map((el, index) => <li key={index}><a href="#">{el}</a></li>)}                
+                {reason.map((el, index) => <li key={index}><a href="#">{el}</a></li>)}                
               </ul>
             </div>
           </section>
@@ -161,7 +165,7 @@ class Sidebar extends Component {
                 <h3>Сезон</h3><div className="opener-down"></div>                
               </div>
               <ul>
-                {this.season.map((el, index) => <li><a href="#">{el}</a></li>)}                 
+                {season.map((el, index) => <li><a href="#">{el}</a></li>)}                 
               </ul>
             </div>
           </section>
