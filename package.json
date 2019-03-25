@@ -5,7 +5,6 @@
   "homepage": "https://netology-code.github.io/ra-13-maksim-maslov",
   "dependencies": {
     "gh-pages": "^1.2.0",
-    "http-proxy-middleware": "^0.19.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router": "^4.3.1",
@@ -18,11 +17,5 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "proxy": "https://api-neto.herokuapp.com/bosa-noga/",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "proxy": "https://api-neto.herokuapp.com/bosa-noga/"
 }
