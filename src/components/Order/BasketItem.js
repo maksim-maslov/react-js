@@ -8,8 +8,8 @@ const BasketItem = ({ product }) => {
       <div className="basket-item__pic"><img src={product.item.images[0]} alt="product_1"/></div>
       <div className="basket-item__product">
         <div className="basket-item__product-name">
-          <Link to={`/product-card-desktop/${product.item.id}`}>{product.item.title}</Link
-        ></div>
+          <Link to={`/product-card-desktop/${product.item.id}`}>{product.item.title}</Link>
+        </div>
         <div className="basket-item__product-features">
           <div className="basket-item__size">Размер: <span>{product.size}</span></div>
           <div className="basket-item__producer">Производитель: <span>{product.item.brand}</span></div>

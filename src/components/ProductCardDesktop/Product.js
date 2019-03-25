@@ -104,7 +104,8 @@ class Product extends Component {
                   className={favoritesIdList.findIndex(element => element.id == product.id) != -1 
                   ? 'favourite favourite_chosen' 
                   : 'favourite'}
-                ></div>
+                >
+                </div>
                 <p className="in-favourites">
                   {favoritesIdList.findIndex(element => element.id == product.id) != -1 
                     ? 'В избранном' 

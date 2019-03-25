@@ -40,7 +40,8 @@ class ProductsBasket extends Component {
             data-size={product.size} 
             data-amount={product.amount}
             onClick={this.removeProduct.bind(this)} 
-          ></i>
+          >
+          </i>
         </div>
       </div>
     )

@@ -7,13 +7,15 @@ class NewDeals extends Component {
   constructor(props) {
     super(props);
 
-    this.firstPicIndex = 0;
-
     this.state = {
       categories: {},
       featured: [],
-      activeItem: 1     
+      activeItem: 0   
     };   
+
+    this.movePicture = this.movePicture.bind(this);
+    this.changeFavorites = this.changeFavorites.bind(this);
+    this.updateFeatured = this.updateFeatured.bind(this);
 
   }
   
@@ -29,7 +31,7 @@ class NewDeals extends Component {
 
   updateMenuItems() {
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
+    fetch(`/featured`)
       .then(response => response.json())
       .then(data => { 
 
@@ -55,27 +57,25 @@ class NewDeals extends Component {
      
   }
 
-  changeFavorites(event) {  
+  changeFavorites(event, id) {  
     event.preventDefault(); 
-    this.props.changeFavorites(event.currentTarget.dataset.id);    
+    this.props.changeFavorites(id);    
   }
 
-  updateFeatured(event) {
-
-    this.position = 0; 
+  updateFeatured(event, categoryid) {
 
     this.setState({
-      activeItem: 1
+      activeItem: this.state.activeItem
     });
 
     let categoryId = '';
 
     if (event) {
       event.preventDefault();
-      categoryId = event.target.dataset.categoryid;
+      categoryId = categoryid;
     } 
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
+    fetch(`/featured`)
       .then(response => response.json())
       .then(data => {
 
@@ -87,8 +87,6 @@ class NewDeals extends Component {
             featured = data.data;
           }
 
-          this.lastPicIndex = featured.length - 1;
-
           this.setState({ 
             featured: featured 
           });
@@ -97,15 +95,11 @@ class NewDeals extends Component {
           
   }
 
-  movePicture(event) {
+  movePicture(event, shift) {
 
     const ev = event.currentTarget;
 
-    if (ev.classList.contains('new-deals__arrow_left') || ev.classList.contains('new-deals__arrow_right')) {
-      const shift = ev.classList.contains('new-deals__arrow_left')
-      ? 1
-      : -1;        
-      this.position = this.position + ((284 + 14) * shift);        
+    if (ev.classList.contains('new-deals__arrow_left') || ev.classList.contains('new-deals__arrow_right')) {     
       this.setState({
         activeItem: this.state.activeItem - (1 * shift)
       });
@@ -116,18 +110,18 @@ class NewDeals extends Component {
   render() {
     const { categories, featured, activeItem } = this.state;
     const { favorites, favoritesIdList } = this.props;
+    this.position = -(activeItem * (284 + 14));    
     
     return(
       <section className="new-deals wave-bottom">
         <h2 className="h2">Новинки</h2>
         <div className="new-deals__menu">
           <ul className="new-deals__menu-items">
-            {categories.length > 0 && categories.map((el, index) => 
+            {categories.length && categories.map((el, index) => 
               <li key={index} className="new-deals__menu-item">
                 <a 
                   href="#" 
-                  data-categoryid={el.id} 
-                  onClick={this.updateFeatured.bind(this)} 
+                  onClick={ev => this.updateFeatured(ev, el.id)} 
                 >{el.title}</a>
               </li>                
             )}
@@ -138,78 +132,80 @@ class NewDeals extends Component {
             <div className="new-deals__slider" >
               <div 
                 className={`new-deals__arrow new-deals__arrow_left arrow 
-                  ${activeItem - 1 === this.firstPicIndex 
+                  ${activeItem === 0 
                     ? 'hidden' 
                     : ''
                   }`
                 }
-                onClick={this.movePicture.bind(this)}
-              ></div>
-                <div className="new-deals__gallery">
-                  <ul style={{marginLeft: this.position + 'px'}}>  
-                    {featured.map((el, index) => {                       
-                      return(
-                        <li key={index}>
-                          <Link to={`/product-card-desktop/${el.id}`}>
-                            <div 
-                              className={`new-deals__product 
-                                ${index === activeItem 
-                                  ? 'new-deals__product_active' 
-                                  : ''
-                                }
-                                ${index === activeItem - 1 
-                                  ? 'new-deals__product_first' 
-                                  : ''
-                                }
-                                ${index === activeItem + 1 
-                                  ? 'new-deals__product_last' 
-                                  : ''
-                                }`
-                              }>
-                              <img 
-                                className="new-deals-product__pic" 
-                                src={el.images[0]} 
-                                alt={el.title}
-                              />
-                              {index === activeItem &&                      
-                                <div 
-                                  className={`new-deals__product_favorite 
-                                    ${favoritesIdList.findIndex(element => element.id == el.id) === -1 
-                                      ? '' 
-                                      : 'favourite_chosen'
-                                    }`
-                                  } 
-                                  data-id={el.id} 
-                                  onClick={this.changeFavorites.bind(this)} 
-                                >
-                                </div>
+                onClick={ev => this.movePicture(ev, 1)}
+              >
+              </div>
+              <div className="new-deals__gallery">
+                <ul style={{marginLeft: this.position + 'px'}}>  
+                  {featured.map((el, index) => {                       
+                    return(
+                      <li key={index}>
+                        <Link to={`/product-card-desktop/${el.id}`}>
+                          <div 
+                            className={`new-deals__product 
+                              ${index === activeItem + 1 
+                                ? 'new-deals__product_active' 
+                                : ''
                               }
-                            </div>
-                          </Link>
-                        </li>
-                      );
-                    })}                     
-                  </ul>
-                </div>
+                              ${index === activeItem 
+                                ? 'new-deals__product_first' 
+                                : ''
+                              }
+                              ${index === activeItem + 2 
+                                ? 'new-deals__product_last' 
+                                : ''
+                              }`
+                            }>
+                            <img 
+                              className="new-deals-product__pic" 
+                              src={el.images[0]} 
+                              alt={el.title}
+                            />
+                            {index === activeItem + 1 &&                      
+                              <div 
+                                className={`new-deals__product_favorite 
+                                  ${favoritesIdList.findIndex(element => element.id == el.id) === -1 
+                                    ? '' 
+                                    : 'favourite_chosen'
+                                  }`
+                                } 
+                                onClick={ev => this.changeFavorites(ev, el.id)} 
+                              >
+                              </div>
+                            }
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}                     
+                </ul>
+              </div>
               <div 
                 className={`new-deals__arrow new-deals__arrow_right arrow 
-                  ${activeItem + 1 === this.lastPicIndex 
+                  ${featured.length < 3 || activeItem + 3 === featured.length
                     ? 'hidden' 
                     : ''
                   }`
                 } 
-                onClick={this.movePicture.bind(this)}
-              ></div>
+                onClick={ev => this.movePicture(ev, -1)}
+              >
+              </div>
             </div>          
             <div className="new-deals__product-info">
               <Link 
-                to={`/product-card-desktop/${featured[activeItem]}`} 
+                to={`/product-card-desktop/${featured[activeItem + 1]}`} 
                 className="new-deals-product-info__title"
-              >{featured[activeItem].title}</Link>
+              >{featured[activeItem + 1].title}
+              </Link>
               <p>Производитель: 
-                <span className="new-deals-product-info__brand">{featured[activeItem].brand}</span>
+                <span className="new-deals-product-info__brand">{featured[activeItem + 1].brand}</span>
               </p>
-              <h3 className="new-deals-product-info__price">{featured[activeItem].price} ₽</h3>
+              <h3 className="new-deals-product-info__price">{featured[activeItem + 1].price} ₽</h3>
             </div>
           </div>
         }

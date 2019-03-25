@@ -40,7 +40,7 @@ class Order extends Component {
         <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '', text: 'Koрзина'}, {link: '', text: 'Оформление заказа'}]} />                
         <section className="order-process">
           <h2 className="order-process__title">Оформление заказа</h2>   
-          {productsInBasket.length > 0 && 
+          {productsInBasket.length && 
             <ProductsInBasket 
               productsInBasket={productsInBasket} 
               total={total} 
