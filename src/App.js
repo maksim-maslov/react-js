@@ -55,7 +55,7 @@ class App extends Component {
     this.updateFavorites();
     this.updateBrowsedProducts();
     this.state.cartId
-    ? this.getProductsInBasket(`/cart/${this.state.cartId}`, {method: 'GET'})   
+    ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${this.state.cartId}`, {method: 'GET'})   
     : null;
   }
   
@@ -88,7 +88,7 @@ class App extends Component {
           if (this.state.filters.sortBy) {
             queryString = queryString + `&sortBy=${this.state.filters.sortBy}`;
           }          
-          return fetch(`/products?${queryString}&page[]=${page}`)
+          return fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}&page[]=${page}`)
         })
         .then(response => response.json())
         .then(data => this.setState({favorites: data})); 
@@ -96,7 +96,7 @@ class App extends Component {
   }
 
   getCategories() {
-    fetch('/categories')
+    fetch('https://api-neto.herokuapp.com/bosa-noga/categories')
       .then(response => response.json())
       .then(data => this.setState({categories: data.data}));
   }
@@ -109,8 +109,8 @@ class App extends Component {
     };
     const cartId = localStorage.cartId;
     cartId
-    ? this.getProductsInBasket(`/cart/${cartId }`, params)
-    : this.getProductsInBasket(`/cart/`, params);        
+    ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${cartId }`, params)
+    : this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/`, params);        
     
   }
 
@@ -130,7 +130,7 @@ class App extends Component {
       })
       .then(productArray => {
         return this.joinProductIdsToQueryString(productArray)
-          .then(queryString => fetch(`/products?${queryString}`))
+          .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
           .then(response => response.json())
           .then(data => {
             return data.data.map((el, index) => {
@@ -147,7 +147,7 @@ class App extends Component {
     const { browsedProductsIdList } = this.state;
     if (browsedProductsIdList.length) {
       this.joinProductIdsToQueryString(browsedProductsIdList)
-        .then(queryString => fetch(`/products?${queryString}`))
+        .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
         .then(response => response.json())
         .then(data => this.setState({ browsedProducts: data.data.filter(el => el.id != id) }));
     }    

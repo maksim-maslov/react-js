@@ -31,7 +31,7 @@ class NewDeals extends Component {
 
   updateMenuItems() {
 
-    fetch(`/featured`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
       .then(data => { 
 
@@ -75,7 +75,7 @@ class NewDeals extends Component {
       categoryId = categoryid;
     } 
 
-    fetch(`/featured`)
+    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
       .then(data => {
 
@@ -88,7 +88,8 @@ class NewDeals extends Component {
           }
 
           this.setState({ 
-            featured: featured 
+            featured: featured,
+            activeItem: 0 
           });
                     
       });      
