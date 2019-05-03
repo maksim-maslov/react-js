@@ -6,10 +6,9 @@ class ProductSizes extends Component {
   }
 
   render() {
-    const { changeSize } = this.props;
-    const { sizes } = this.props; 
+    const { sizes, size, changeSize } = this.props;
     const availableSizes = sizes.filter(el => el.available == true); 
-    return availableSizes.map((el, index) => <li key={index} className={el.size === this.props.size ? 'active' : ''} onClick={() => changeSize(el.size)}>{el.size}</li>);
+    return availableSizes.map((el, index) => <li key={index} className={el.size === size ? 'active' : ''} onClick={() => changeSize(el.size)}>{el.size}</li>);
   }
 
 } 

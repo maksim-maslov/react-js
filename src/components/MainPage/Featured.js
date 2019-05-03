@@ -2,59 +2,62 @@ import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-class NewDeals extends Component {
+class Featured extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      categories: {},
-      featured: [],
+      featuredCategories: [],
+      featuredProducts: [],
+      categoryId: '',      
       activeItem: 0   
-    };   
+    };  
 
-    this.movePicture = this.movePicture.bind(this);
     this.changeFavorites = this.changeFavorites.bind(this);
-    this.updateFeatured = this.updateFeatured.bind(this);
+    this.updateCategory = this.updateCategory.bind(this);
 
   }
+
   
   componentDidMount() {
-    this.updateMenuItems();
-    this.updateFeatured();    
+    this.props.categories.length && this.getFeatured();
   }
 
-  componentWillReceiveProps() {
-    this.updateMenuItems();
-    this.updateFeatured();
+  componentWillReceiveProps(newProps) {
+
+    if (newProps.categories.length != this.props.categories.length) {
+      this.props = newProps;
+      this.props.categories.length && this.getFeatured();
+    }
+
   }
 
-  updateMenuItems() {
+  filterArrayOnValue(array, valueToCheck) {
+    const result = array.reduce((memo, el) => {
+      memo[el[valueToCheck]] = true;
+      return memo;
+    }, {});
+    return Object.keys(result); 
+  }
+
+
+  getFeatured() {
+
+    const { categories } = this.props; 
 
     fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
       .then(response => response.json())
-      .then(data => { 
-
-        const featuredCategoriesList = data.data.reduce((memo, el) => { 
-          memo.find(element => element == el.categoryId)
-          ? null
-          : memo.push(el.categoryId);
-          return memo;            
-        }, []);
-
-        const categories = this.props.categories.map(el => {          
-          return featuredCategoriesList.find(element => element == el.id)
-          ? {id: el.id, title: el.title}
-          : null;
-        })
-        .filter(el => el != null);
-        
-        this.setState({ 
-          categories: categories
+      .then(data => {
+        const featuredCategoryIds = this.filterArrayOnValue(data.data, 'categoryId');
+        const featuredCategories = categories.filter(el => featuredCategoryIds.includes(String(el.id)));
+        this.setState({
+          featuredCategories: featuredCategories,
+          categoryId: featuredCategories[0].id,
+          featuredProducts: data.data
         });
+      });
 
-      }); 
-     
   }
 
   changeFavorites(event, id) {  
@@ -62,55 +65,19 @@ class NewDeals extends Component {
     this.props.changeFavorites(id);    
   }
 
-  updateFeatured(event, categoryid) {
-
-    this.setState({
-      activeItem: this.state.activeItem
-    });
-
-    let categoryId = '';
-
-    if (event) {
-      event.preventDefault();
-      categoryId = categoryid;
-    } 
-
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
-      .then(response => response.json())
-      .then(data => {
-
-          let featured;
-
-          if (categoryId) {
-            featured = data.data.filter(el => el.categoryId == categoryId);
-          } else {
-            featured = data.data;
-          }
-
-          this.setState({ 
-            featured: featured,
-            activeItem: 0 
-          });
-                    
-      });      
-          
-  }
-
-  movePicture(event, shift) {
-
-    const ev = event.currentTarget;
-
-    if (ev.classList.contains('new-deals__arrow_left') || ev.classList.contains('new-deals__arrow_right')) {     
+  updateCategory(categoryId) {
+    if (categoryId != this.state.categoryId) {
       this.setState({
-        activeItem: this.state.activeItem - (1 * shift)
-      });
-    }
-    
+        categoryId: categoryId, 
+        activeItem: 0
+      });      
+    }    
   }
 
   render() {
-    const { categories, featured, activeItem } = this.state;
-    const { favorites, favoritesIdList } = this.props;
+    const { featuredCategories, categoryId, activeItem } = this.state;
+    const { favoritesIdList } = this.props;
+    const featuredProducts = this.state.featuredProducts.filter(el => el.categoryId == categoryId);
     this.position = -(activeItem * (284 + 14));    
     
     return(
@@ -118,17 +85,16 @@ class NewDeals extends Component {
         <h2 className="h2">Новинки</h2>
         <div className="new-deals__menu">
           <ul className="new-deals__menu-items">
-            {categories.length && categories.map((el, index) => 
+            {featuredCategories.length && featuredCategories.map((el, index) => 
               <li key={index} className="new-deals__menu-item">
-                <a 
-                  href="#" 
-                  onClick={ev => this.updateFeatured(ev, el.id)} 
+                <a                   
+                  onClick={ev => this.updateCategory(el.id)} 
                 >{el.title}</a>
               </li>                
             )}
           </ul>
         </div>
-        {featured.length &&        
+        {featuredProducts.length &&        
           <div>          
             <div className="new-deals__slider" >
               <div 
@@ -138,12 +104,12 @@ class NewDeals extends Component {
                     : ''
                   }`
                 }
-                onClick={ev => this.movePicture(ev, 1)}
+                onClick={ev => this.setState({activeItem: activeItem - (1 * 1)})}
               >
               </div>
               <div className="new-deals__gallery">
-                <ul style={{marginLeft: this.position + 'px'}}>  
-                  {featured.map((el, index) => {                       
+                <ul style={{transform: `translate(${this.position}px)`}}>  
+                  {featuredProducts.map((el, index) => {                       
                     return(
                       <li key={index}>
                         <Link to={`/product-card-desktop/${el.id}`}>
@@ -188,25 +154,25 @@ class NewDeals extends Component {
               </div>
               <div 
                 className={`new-deals__arrow new-deals__arrow_right arrow 
-                  ${featured.length < 3 || activeItem + 3 === featured.length
+                  ${featuredProducts.length < 3 || activeItem + 3 === featuredProducts.length
                     ? 'hidden' 
                     : ''
                   }`
                 } 
-                onClick={ev => this.movePicture(ev, -1)}
+                onClick={ev => this.setState({activeItem: activeItem - (1 * (-1))})}
               >
               </div>
             </div>          
             <div className="new-deals__product-info">
               <Link 
-                to={`/product-card-desktop/${featured[activeItem + 1]}`} 
+                to={`/product-card-desktop/${featuredProducts[activeItem + 1]}`} 
                 className="new-deals-product-info__title"
-              >{featured[activeItem + 1].title}
+              >{featuredProducts[activeItem + 1].title}
               </Link>
               <p>Производитель: 
-                <span className="new-deals-product-info__brand">{featured[activeItem + 1].brand}</span>
+                <span className="new-deals-product-info__brand">{featuredProducts[activeItem + 1].brand}</span>
               </p>
-              <h3 className="new-deals-product-info__price">{featured[activeItem + 1].price} ₽</h3>
+              <h3 className="new-deals-product-info__price">{featuredProducts[activeItem + 1].price} ₽</h3>
             </div>
           </div>
         }
@@ -216,4 +182,4 @@ class NewDeals extends Component {
 
 }
 
-export default NewDeals;
+export default Featured;

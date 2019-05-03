@@ -49,7 +49,6 @@ class App extends Component {
 
   }
 
-
   componentDidMount() {              
     this.getCategories();     
     this.updateFavorites();
@@ -74,7 +73,7 @@ class App extends Component {
     const removeElementIndex = favoritesIdList.findIndex(el => el.id == productId);
     removeElementIndex != -1
     ? favoritesIdList.splice(removeElementIndex, 1)
-    : favoritesIdList.push({id: productId});    
+    : favoritesIdList.push({id: productId});   
     this.setState({favoritesIdList: favoritesIdList}); 
     localStorage.favorites = JSON.stringify(favoritesIdList);
     this.updateFavorites();
@@ -92,6 +91,8 @@ class App extends Component {
         })
         .then(response => response.json())
         .then(data => this.setState({favorites: data})); 
+    } else {
+      this.setState({favorites: []})
     }
   }
 
@@ -101,7 +102,7 @@ class App extends Component {
       .then(data => this.setState({categories: data.data}));
   }
 
-  updateBasket(product) {
+  updateBasket(ev, product) {
     const params = {
       method: 'POST', 
       headers: {'Content-Type': 'application/json'},
@@ -119,10 +120,20 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.status == 'ok') {
-          return /\S+cart\/\S+/.test(url)
-          ? data.data.products
-          : JSON.parse(params.body);       
-        } else {
+          let result;          
+          if (/\S+cart\/\S+/.test(url)) {
+            result = data.data.products;
+          } else {
+            const response = JSON.parse(params.body);
+            if (response instanceof Array) {
+              result = response;
+            } else {
+              result = new Array(response);
+              localStorage.cartId = data.data.id;
+            }            
+          }
+          return result;     
+        } else if (/Корзина.+/.test(data.message)) {
           localStorage.cartId = '';
           this.setState({productsInBasket: []})
           throw new Error(`abort promise: status '${data.status}'`);
@@ -133,8 +144,8 @@ class App extends Component {
           .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
           .then(response => response.json())
           .then(data => {
-            return data.data.map((el, index) => {
-              return {item: el, size: productArray[index].size, amount: productArray[index].amount};
+            return productArray.map((el, index) => {
+              return {item: data.data.filter(element => element.id == el.id)[0], size: el.size, amount: el.amount};
             });
           })
           .then(data => this.setState({ productsInBasket: data }));           
@@ -143,111 +154,66 @@ class App extends Component {
      
   }
 
-  updateBrowsedProducts(id) { 
+  updateBrowsedProducts() { 
     const { browsedProductsIdList } = this.state;
     if (browsedProductsIdList.length) {
       this.joinProductIdsToQueryString(browsedProductsIdList)
         .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
         .then(response => response.json())
-        .then(data => this.setState({ browsedProducts: data.data.filter(el => el.id != id) }));
+        .then(data => this.setState({ browsedProducts: data.data }));
     }    
   }
 
-  updateFilters(event) {
+  updateFilters(type = '', value = '') {
+    
     let { filters } = this.state;
 
-    if (event.currentTarget.classList.contains('sidebar__size')) {
+    if (type == 'size' || type == 'heelSize') {
 
-      const size = event.target.value;
+      const size = value;
 
-      if (filters.hasOwnProperty('size[]')) {
-        const index = filters['size[]'].indexOf(size);
+      if (filters.hasOwnProperty(type)) {
+        const index = filters[type].indexOf(size);
         if (index !== -1) {
-          filters['size[]'].splice(index, 1);
-          filters['size[]'].length === 0
-          ? delete filters['size[]']
+          filters[type].splice(index, 1);
+          filters[type].length === 0
+          ? delete filters[type]
           : null;
         } else {
-          filters['size[]'].push(size);
+          filters[type].push(size);
         }
       } else {
-        filters['size[]'] = [];
-        filters['size[]'].push(size);
+        filters[type] = [];
+        filters[type].push(size);
       }
 
-    } else if (event.currentTarget.classList.contains('sidebar__heel-height')) {
+    } else if (type == 'discounted') {
 
-      const heelSize = event.target.value;
-
-      if (filters.hasOwnProperty('heelSize[]')) {
-        const index = filters['heelSize[]'].indexOf(heelSize);
-        if (index !== -1) {
-          filters['heelSize[]'].splice(index, 1);
-          filters['heelSize[]'].length === 0
-          ? delete filters['heelSize[]']
-          : null;
-        } else {
-          filters['heelSize[]'].push(heelSize);
-        }
-      } else {
-        filters['heelSize[]'] = [];
-        filters['heelSize[]'].push(heelSize);
-      }
-
-    } else if (event.currentTarget.classList.contains('checkbox-discount')) {
-
-      filters.hasOwnProperty('discounted')
-      ? delete filters['discounted']
-      : filters.discounted = 'true'; 
-
-    } else {
-
-      event.preventDefault();
+      value == true
+      ? filters.discounted = 'true'
+      : delete filters['discounted'];
       
-      if (event.currentTarget.classList.contains('sidebar__catalogue-list')) {
-        filters.type = event.target.textContent;
-      }
+    } else if (type == 'brand') {
 
-      if (event.currentTarget.classList.contains('sidebar__color')) {
-        filters.color = event.target.textContent;
-      }
-
-      if (event.currentTarget.classList.contains('sidebar__occasion')) {
-        filters.reason = event.target.textContent;
-      }
-
-      if (event.currentTarget.classList.contains('sidebar__season')) {
-        filters.season = event.target.textContent;
-      }
-
-      if (event.currentTarget.classList.contains('product-catalogue__sort-by')) {
-        filters.sortBy = event.target.value;
-        this.updateFavorites();
-      }     
-
-      if (event.currentTarget.classList.contains('brand-search')) {
-        
-        const {search, button} = event.currentTarget;
-        if (search.value == '') {
-          delete filters['brand'];
-        } else {
-          filters.brand = search.value;
-        }
-
-      }
-
-      if (event.currentTarget.classList.contains('drop-down')) {
-        for (let key in filters) {
-          delete filters[key];
-        } 
-        const checkboxes = document.querySelectorAll(`.sidebar [type="checkbox"]`);
-        Array.from(checkboxes).forEach(el => el.checked = false);
-        const search = document.querySelector(`.sidebar [name="search"]`);
-        search.value = '';
-      }
-
-    }   
+      value != '' 
+      ? filters[type] = value
+      : delete filters[type];  
     
+    } else if (type == 'sortBy') {
+
+      filters.sortBy = value;
+      this.updateFavorites();
+
+    } else if (type == 'reset') {
+
+      for (let key in filters) {
+        delete filters[key];
+      } 
+      
+    } else {
+      filters[type] = value;
+    } 
+      
     this.setState({
       filters: filters
     });
@@ -313,7 +279,6 @@ class App extends Component {
                 {...props} 
                 categories={categories} 
                 changeFavorites={this.changeFavorites}                
-                favorites={favorites}  
                 favoritesIdList={favoritesIdList}                               
                 updateFavorites={this.updateFavorites}                 
               />}

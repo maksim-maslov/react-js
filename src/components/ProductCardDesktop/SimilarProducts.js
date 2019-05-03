@@ -48,7 +48,7 @@ class SimilarProducts extends Component {
           >
           </div>
             <div className="similar-products-slider__gallery">
-              <ul style={{marginLeft: this.position + 'px'}}>
+              <ul style={{transform: `translate(${this.position}px)`}}>
                 {similarProducts.map((el, index) => {
                   return(
                     <li key={index} >

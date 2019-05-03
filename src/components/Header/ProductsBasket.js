@@ -8,17 +8,8 @@ class ProductsBasket extends Component {
     super(props); 
   }
 
-  removeProduct(event) {
-    const item = event.currentTarget;        
-    const id =  Number(item.dataset.id);  
-    const size = Number(item.dataset.size);
-    const amount = 0;      
-    const product = {id, size, amount};         
-    this.props.updateBasket(product);
-  }
-
   render() {        
-    const { product } = this.props; 
+    const { product, updateBasket } = this.props; 
     
     return(
       <div className="product-list__item">
@@ -36,10 +27,7 @@ class ProductsBasket extends Component {
           <i 
             className="fa fa-times" 
             aria-hidden="true" 
-            data-id={product.item.id} 
-            data-size={product.size} 
-            data-amount={product.amount}
-            onClick={this.removeProduct.bind(this)} 
+            onClick={ev => updateBasket(ev, {id: Number(product.item.id), size: Number(product.size), amount: 0})} 
           >
           </i>
         </div>

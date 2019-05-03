@@ -15,9 +15,12 @@ class Catalogue extends Component {
 
     this.title = '';
     this.state = {
-      products: []
+      products: [],
+      brands: []
     };
+
     this.getProducts = this.getProducts.bind(this);
+    this.changeFavorites = this.changeFavorites.bind(this);
 
     this.init(props);
   }
@@ -26,21 +29,23 @@ class Catalogue extends Component {
     this.init(newProps);    
   }
 
-  init(props) {
-    this.search = new URLSearchParams(props.history.location.search).get('search');
-    this.categoryId = new URLSearchParams(props.history.location.search).get('categoryId');
-    this.getProducts();
+  init(newProps) {
+    this.search = new URLSearchParams(newProps.history.location.search).get('search');
+    this.categoryId = new URLSearchParams(newProps.history.location.search).get('categoryId');
+    this.getProducts(1, newProps.brand);
   }
 
-  getProducts(page = 1) {
+  getProducts(page = 1, newPropsBrand = '') {
     const { categories, filters } = this.props;
     let queryString = '';
     let filtersParams = '';
 
     for (let key in filters) {
-      filtersParams = (key == 'size[]' || key == 'heelSize[]')
-      ? filters[key].reduce((memo, el) => memo + `&${key}=${el}`, filters)
-      : `${filters}&${key}=${filters[key]}`;     
+      if (key == 'size' || key == 'heelSize') {
+        filtersParams = filters[key].reduce((memo, el) => memo + `&${key}[]=${el}`, filtersParams);
+      } else if (filters[key]) {
+        filtersParams = `${filtersParams}&${key}=${filters[key]}`;
+      } 
     }
 
     if (!this.search) {
@@ -57,19 +62,50 @@ class Catalogue extends Component {
     }
 
     fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
-      .then(response => response.json())
-      .then(data => this.setState({products: data}));  
+    .then(response => response.json())
+    .then(data => {
+      
+      this.setState({
+        products: data
+      });   
+
+      if (this.state.brands == '' || filters.brand == newPropsBrand) {
+        let brands = data.data.reduce((memo, el) => {
+          memo[el.brand] = true;
+          return memo;
+        }, {});
+        this.setState({
+          brands: Object.keys(brands)
+        });       
+      }     
+
+    });
 
   }
 
-  changeFavorites(event) {  
+  changeFavorites(event, id) {  
     event.preventDefault(); 
-    this.props.changeFavorites(event.currentTarget.dataset.id);    
+    this.props.changeFavorites(id);    
   } 
 
+  getTextOfGoods(goods) {
+
+    const lastSymbol = Number(String(goods).slice(-1));
+    let result = 'товар';
+
+    if ((goods >= 11 && goods <= 14) || (lastSymbol >= 5 && lastSymbol <= 9) || lastSymbol == 0) {
+      result = 'товаров';
+    } else if (lastSymbol >= 2 && lastSymbol <= 4) {
+      result = 'товара';
+    } 
+    
+    return `${goods} ${result}`;    
+  }
+
   render() {
-    const { products } = this.state; 
-    const { browsedProducts, favorites, favoritesIdList, updateFilters } = this.props;
+    
+    const { products, brands } = this.state; 
+    const { browsedProducts, favorites, favoritesIdList, updateFilters, filters } = this.props;     
     
     return(
       <div>
@@ -77,11 +113,14 @@ class Catalogue extends Component {
           <div>
             <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '/catalogue', text: `${this.title}`}]}/> 
             <main className="product-catalogue">            
-              <Sidebar updateFilters={updateFilters} />            
+              <Sidebar updateFilters={updateFilters} filters={filters} brands={brands} />            
               <section className="product-catalogue-content">                
                 <section className="product-catalogue__head">
                   <div className="product-catalogue__section-title">
-                    <h2 className="section-name">{this.title}</h2><span className="amount"> {products.goods} товаров</span>
+                    <h2 className="section-name">{this.title}</h2>
+                    <span className="amount">
+                     {this.getTextOfGoods(products.goods)}  
+                    </span>
                   </div>
                   <Sorting updateFilters={updateFilters} />                    
                 </section>            
@@ -93,7 +132,7 @@ class Catalogue extends Component {
                           <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
                             <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
                               <div className="product-catalogue__product_favorite">
-                                <p className={favoritesIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen'} data-id={el.id} onClick={this.changeFavorites.bind(this)} ></p>
+                                <p className={favoritesIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen'} onClick={ev => this.changeFavorites(ev, el.id)} ></p>
                               </div>
                             </div>
                             <div className="item-desc">
@@ -107,10 +146,18 @@ class Catalogue extends Component {
                     })}
                   </ul>
                 </section>              
-                <Pagination pages={products.pages} page={products.page} changePage={this.getProducts} />
+                <Pagination 
+                  pages={products.pages} 
+                  page={products.page} 
+                  changePage={this.getProducts} 
+                />
               </section>
             </main>
-            {browsedProducts.length != 0 && <BrowsedProducts browsedProducts={browsedProducts} />}    
+            {
+              browsedProducts.length 
+              ? <BrowsedProducts browsedProducts={browsedProducts} />
+              : ''
+            }    
           </div>
         }
       </div>

@@ -46,7 +46,7 @@ class BrowsedProducts extends Component {
           >
           </div>
             <div className="overlooked-slider__gallery">
-              <ul style={{marginLeft: this.position + 'px'}}>
+              <ul style={{transform: `translate(${this.position}px)`}}>
                 {browsedProducts.map((el, index) => {
                   return(
                     <li key={index}>

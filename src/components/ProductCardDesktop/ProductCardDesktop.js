@@ -26,26 +26,24 @@ class ProductCardDesktop extends Component {
   init(props) {
     this.id = props.match.params.id;
     this.getProductInfo();
-    this.getSimilarProducts();
-    this.props.updateBrowsedProducts(this.id);
   }
 
   getProductInfo() {
     fetch(`https://api-neto.herokuapp.com/bosa-noga/products/${this.id}`)
     .then(response => response.json())
-    .then(data => this.setState({product: data.data}));
-  }
-
-  getSimilarProducts() {
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`)
+    .then(data => {
+      this.setState({product: data.data});
+      return fetch(`https://api-neto.herokuapp.com/bosa-noga/products?type=${this.state.product.type}&color=${this.state.product.color}`);
+    })
     .then(response => response.json())
-    .then(data => this.setState({similarProducts: data.data.filter(el => el.id != this.id)}));
+    .then(data => this.setState({similarProducts: data.data.filter(el => el.id != this.id)}));;
   }
 
   render() {
     const { product, similarProducts } = this.state;
-    const { browsedProducts, categories, changeFavorites, favorites, favoritesIdList, updateBasket, updateBrowsedProducts } = this.props;
+    const { categories, changeFavorites, favorites, favoritesIdList, updateBasket, updateBrowsedProducts } = this.props;
     const categoryTitle = product.hasOwnProperty('categoryId') && categories.length ? categories.find(el => el.id === product.categoryId).title : '';
+    const browsedProducts = this.props.browsedProducts.filter(el => el.id != this.id);
 
     return(
       <div>
@@ -57,16 +55,24 @@ class ProductCardDesktop extends Component {
               {link: `/products/${product.id}`, text: product.title }
             ]}/>
             <Product 
-              categoryTitle={categoryTitle} 
+              categoryTitle={categoryTitle}
               changeFavorites={changeFavorites}
               favorites={favorites}
-              favoritesIdList={favoritesIdList}                 
-              product={product} 
+              favoritesIdList={favoritesIdList}
+              product={product}
               updateBasket={updateBasket}                 
               updateBrowsedProducts={updateBrowsedProducts}                 
             />
-            {browsedProducts.length != 0 && <BrowsedProducts browsedProducts={browsedProducts} />}        
-            {similarProducts.length != 0 && <SimilarProducts similarProducts={similarProducts} />}     
+            {
+              browsedProducts.length 
+              ? <BrowsedProducts browsedProducts={browsedProducts} />
+              : ''
+            }        
+            {
+              similarProducts.length 
+              ? <SimilarProducts similarProducts={similarProducts} />
+              : ''
+            }     
           </div>
         }
       </div>

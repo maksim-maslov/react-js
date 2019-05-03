@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const Sorting = ({ updateFilters }) => {
   return(
-    <div className="product-catalogue__sort-by" onChange={updateFilters}>
+    <div className="product-catalogue__sort-by" onChange={ev => updateFilters('sortBy', ev.target.value)}>
       <p className="sort-by">Сортировать</p>
       <select name="" id="sorting">
         <option value="price">по цене</option>

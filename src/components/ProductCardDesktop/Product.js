@@ -11,6 +11,10 @@ class Product extends Component {
     this.state = {
       size: ''
     };
+
+    this.changeFavorites = this.changeFavorites.bind(this);
+    this.changeSize = this.changeSize.bind(this);
+    this.addCart = this.addCart.bind(this);
     
   }
 
@@ -26,17 +30,14 @@ class Product extends Component {
     });
   }  
 
-  addCart(event) {
-    event.preventDefault();
-    const size = this.state.size;
-    const id = this.props.product.id;        
+  addCart(event, id, size) { 
     const product = {id: id, size: size, amount: 1};     
-    this.props.updateBasket(product);
+    this.props.updateBasket(event, product);
   }
 
-  changeFavorites(event) {      
+  changeFavorites(event, id) {      
     event.preventDefault(); 
-    this.props.changeFavorites(event.currentTarget.dataset.id);
+    this.props.changeFavorites(id);
   }
 
   render() {
@@ -92,22 +93,25 @@ class Product extends Component {
                 <ProductSizes 
                   sizes={product.sizes} 
                   size={size} 
-                  changeSize={this.changeSize.bind(this)} 
+                  changeSize={this.changeSize} 
                 />
 
               </ul>
               <div className="size-wrapper">
                 <a href=""><span className="size-rule"></span><p className="size-table">Таблица размеров</p></a>
               </div>
-              <a className="in-favourites-wrapper" data-id={product.id} onClick={this.changeFavorites.bind(this)}>
+              <a className="in-favourites-wrapper" onClick={ev => this.changeFavorites(ev, product.id)}>
                 <div 
-                  className={favoritesIdList.findIndex(element => element.id == product.id) != -1 
-                  ? 'favourite favourite_chosen' 
-                  : 'favourite'}
+                  className={
+                    favoritesIdList.findIndex(element => element.id == product.id) != -1 
+                    ? 'favourite favourite_chosen' 
+                    : 'favourite'
+                  }
                 >
                 </div>
                 <p className="in-favourites">
-                  {favoritesIdList.findIndex(element => element.id == product.id) != -1 
+                  {
+                    favoritesIdList.findIndex(element => element.id == product.id) != -1 
                     ? 'В избранном' 
                     : 'В избранное'
                   }
@@ -121,13 +125,15 @@ class Product extends Component {
               <div className="price">{product.price} ₽</div>
               <button 
                 className={`in-basket in-basket-click 
-                  ${size 
+                  ${
+                    size 
                     ? '' 
                     : 'in-basket_disabled'
                   }`
                 } 
-                onClick={this.addCart.bind(this)}
-              >В корзину</button>
+                onClick={ev => this.addCart(ev, product.id, size)}
+              >В корзину
+              </button>
             </div>
 
           </section>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Slider from './Slider';
-import NewDeals from './NewDeals';
+import Featured from './Featured';
 import SalesAndNews from './SalesAndNews';
 import AboutUs from './AboutUs';
 
@@ -9,7 +9,7 @@ const MainPage = ({ categories, changeFavorites, favorites, favoritesIdList, upd
   return(
     <div className="container">  
       <Slider />
-      <NewDeals 
+      <Featured 
         categories={categories} 
         changeFavorites={changeFavorites}        
         favorites={favorites} 
