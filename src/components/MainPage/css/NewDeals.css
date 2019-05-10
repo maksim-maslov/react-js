@@ -1,0 +1,189 @@
+.new-deals {
+  max-width: 1036px;
+  margin: 0 auto;
+  padding: 44px 20px 50px;
+}
+
+.new-deals__menu {
+  padding-top: 23px;
+  border-bottom: 2px solid #F4F5F2;
+}
+
+.new-deals__menu-items {
+  height: 100%;
+  display: flex;
+  margin: 0 103px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-deals__menu-item {
+  padding-bottom: 10px;
+  list-style: none;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.new-deals__menu-item a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #D4D4D4;
+}
+
+.new-deals__menu-item a:hover {
+  color: #333333;
+  cursor: pointer;
+  text-decoration: none;  
+}
+
+.new-deals__menu-item_active {
+  background-image: linear-gradient(90deg, #FF65A5 0%, #FF8076 100%);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100% 4px;
+}
+
+.new-deals__menu-item_active a {
+  font-weight: bold;
+  color: #333333;
+}
+
+.new-deals__slider {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 52px;
+}
+
+.new-deals__arrow_left {
+  background-position: -60px 0;
+  left: -45px;
+}
+
+.new-deals__arrow_right {
+  background-position: -90px 0;
+  right: -45px;
+}
+
+.new-deals__gallery {
+  width: 996px;
+  overflow: hidden;
+}
+
+.new-deals__gallery ul {
+  height: 260px;
+  width: 9999px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: transform 500ms ease;
+  font-size: 0;  
+}
+
+.new-deals__gallery li {
+  display: inline-block;
+  margin: 7px;
+}
+
+.new-deals__product {
+  width: 284px;
+  height: 186px;
+  line-height: 186px;
+  text-align: center;
+}
+
+.new-deals__product a {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.new-deals__product_active {
+  position: relative;
+  width: 383px;
+  height: 252px;
+  line-height: 252px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.new-deals__product_first {
+  opacity: 0.6;
+  margin: auto;
+  overflow: hidden;
+  
+}
+.new-deals__product_last {
+  opacity: 0.6;
+  margin: auto;
+  overflow: hidden;
+}
+.new-deals-product__pic {
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
+}
+
+.favourite_chosen {
+  background: url(../../../img/catalogue-pics/product-catalogue__product_favorite_chosen.png) no-repeat;
+  background-repeat: no-repeat;
+}
+
+.new-deals__product_favorite {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  height: 29px;
+  width: 29px;
+  background-image: url(../../../img/new-deals__product_favorite.png);
+  background-repeat: no-repeat;
+}
+
+.new-deals__product_favorite:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.new-deals__product-info {
+  padding-top: 8px;
+  text-align: center;
+}
+
+.new-deals-product-info__title {
+  font-weight: 500;
+  font-size: 24px;
+  color: #333333;
+  text-decoration: none;
+} 
+
+.new-deals-product-info__title:hover {
+  text-decoration: none;
+}
+
+.new-deals-product-info__brand {
+  font-weight: 300;
+  font-size: 16px;
+  color: #D4D4D4;
+  text-decoration: none;
+} 
+
+.new-deals-product-info__price {
+  font-weight: 400;
+  font-size: 24px;
+  color: #333333;
+  text-decoration: none;
+}
+
+.new-deals__product-info p {
+  font-size: 14px;
+  text-align: center;
+  font-weight: normal;
+  color: #cccccc;
+}
+
+.wave-bottom {
+  background-image: url(../../../img/new-deals-background-wave.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}

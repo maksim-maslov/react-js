@@ -1,0 +1,15 @@
+.container {
+  margin: 0 auto;
+}
+
+.arrow {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-image: url(../../../img/slider_sprite.png);
+  background-repeat: no-repeat;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}

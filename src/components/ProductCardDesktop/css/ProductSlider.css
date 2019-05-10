@@ -1,0 +1,72 @@
+/*Слайдеры*/
+
+/*Слайдер выбранного товара*/
+.main-screen__favourite-product-slider {
+  height: 500px;
+}
+
+.favourite-product-slider {
+  position: relative;
+  top: 27px;
+  left: 2px;
+  width: 142px;
+  height: 440px;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.arrow-up,
+.arrow-down {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-image: url(../../../img/product-card-pics/drop-down-up-chevron-sprite.png);
+  background-repeat: no-repeat;
+}
+
+.favourite-product-slider__arrow {
+  right: 57px;
+}
+
+.favourite-product-slider__arrow:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+.favourite-product-slider__arrow_up {
+  background-position: -65px 8px;
+  top: -32px;
+}
+
+.favourite-product-slider__arrow_down {
+  background-position: -5px 9px;
+  bottom: -32px;
+}
+
+.favourite-product-slider__item {
+  width: 142px;
+  height: 128px;
+  /* border: 1px solid #C4C4C4; */
+  margin: 12px 0;
+  text-align: center;
+  line-height: 124px;
+  cursor: pointer;
+}
+
+.favourite-product-slider__item:hover {
+  opacity: 0.6;
+}
+
+.favourite-product-slider__item img {
+  display: inline-block;  
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+
+

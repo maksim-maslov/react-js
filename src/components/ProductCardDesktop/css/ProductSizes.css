@@ -1,0 +1,66 @@
+/*Блок с размерами*/
+.size {
+  position: relative;
+  top: 19px;
+  /* left: 16px; */
+  display: inline-block;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  color: #333333;
+  width: 200px;
+  padding: 0 0 0 16px;
+  /* margin: 0; */
+}
+
+.main-screen__product-info .sizes {
+  position: relative;
+  top: 19px;
+  /* left: 135px; */
+  display: inline-block;
+  width: 249px;
+}
+
+.sizes li {
+  display: inline-block;
+  list-style: none;
+  padding: 7px;
+  cursor: pointer;
+}
+
+li.active {
+  background: #A1B3BF;
+  border-radius: 50%;
+}
+
+.size-wrapper {
+  position: relative;
+  top: 25px;
+  /* right: -110px; */
+  display: inline-block;
+  width: 449px;
+  padding: 0 0 0 205px;
+}
+
+.size-rule {
+  display: inline-block;
+  width: 22px;
+  height: 14px;
+  vertical-align: middle;
+  background: url(../../../img/product-card-pics/product-card__size-ruler.png) no-repeat;
+}
+
+.size-table {
+  display: inline-block;
+  padding-left: 5px;
+  text-align: right;
+  vertical-align: middle;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
+
+
+.main-screen__product-info .basket-item__quantity {
+  top: 50px;
+}

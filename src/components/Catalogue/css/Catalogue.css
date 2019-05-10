@@ -1,0 +1,132 @@
+html,
+body {
+  /* max-width: 1438px; */
+  min-width: 1205px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #333333;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+/* Основной контент */
+/* Каталог */
+/*Общее*/
+
+.product-catalogue {
+  width: 1200px;
+  min-height: 1850px;
+  /* height: auto; */
+  /* min-height: 1600px; */
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+.product-catalogue-content {
+  display: inline-block;
+  width: 910px;
+  margin-right: 0px;
+  text-align: center;
+}
+
+
+/*Голова каталога*/
+.product-catalogue__head {
+  display: flex;
+  justify-content: space-between;
+  width: 880px;
+  height: 28px;
+  margin-top: -2px;
+  margin-left: 24px;
+}
+
+/*.product-catalogue__section-title {
+  outline: 1px solid red;
+}
+*/
+
+
+.product-catalogue h2.section-name {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  text-align: left;
+  /* text-transform: uppercase; */
+  display: inline-block;
+  color: #333333;
+}
+
+.product-catalogue span.amount {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: left;
+  padding-top: 10px;
+  color: #848484;
+}
+
+
+
+
+
+/*Основная часть каталога с фотками товара*/
+.product-catalogue__item-list {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
+  /* width: 892px; */
+  /* margin-left: 22px; */
+  border-top: 1px solid #F4F4F4;
+  margin-bottom: 50px;
+  /* max-width: 1200px; */
+  width: unset;
+  /* margin-left: 0; */
+  /* outline: none; */
+  /* border-top: none; */
+}
+
+/* .product-catalogue__item-list_favorite {
+  max-width: 1200px;
+  width: unset;
+  margin-left: 0;
+  outline: none;
+  border-top: none;
+} */
+
+
+.product-catalogue__items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+/* .product-catalogue__item {
+  list-style: none;
+} */
+
+
+
+
+
+
+
+
+
+
+
+

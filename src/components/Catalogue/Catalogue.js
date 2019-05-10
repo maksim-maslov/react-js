@@ -1,3 +1,5 @@
+import './css/Catalogue.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
@@ -7,6 +9,8 @@ import Sorting from '../Sorting/Sorting';
 import Sidebar from './Sidebar';
 import Pagination from '../Pagination/Pagination';
 import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
+import ProductCard from '../ProductCard/ProductCard';
+
 
 class Catalogue extends Component {
 
@@ -20,7 +24,7 @@ class Catalogue extends Component {
     };
 
     this.getProducts = this.getProducts.bind(this);
-    this.changeFavorites = this.changeFavorites.bind(this);
+    // this.updateFavorites = this.updateFavorites.bind(this);
 
     this.init(props);
   }
@@ -83,29 +87,29 @@ class Catalogue extends Component {
 
   }
 
-  changeFavorites(event, id) {  
-    event.preventDefault(); 
-    this.props.changeFavorites(id);    
-  } 
+  // updateFavorites(event, id) {  
+  //   event.preventDefault(); 
+  //   this.props.updateFavorites(id);    
+  // } 
 
-  getTextOfGoods(goods) {
+  changeTextGoods(goods) {
 
     const lastSymbol = Number(String(goods).slice(-1));
-    let result = 'товар';
+    let result = 'Товар';
 
     if ((goods >= 11 && goods <= 14) || (lastSymbol >= 5 && lastSymbol <= 9) || lastSymbol == 0) {
-      result = 'товаров';
+      result = 'Товаров';
     } else if (lastSymbol >= 2 && lastSymbol <= 4) {
-      result = 'товара';
+      result = 'Товара';
     } 
     
-    return `${goods} ${result}`;    
+    return `${result}: ${goods}`;    
   }
 
   render() {
     
     const { products, brands } = this.state; 
-    const { browsedProducts, favorites, favoritesIdList, updateFilters, filters } = this.props;     
+    const { browsedProducts, favorites, favoritesIdList, updateFilters, filters, updateFavorites } = this.props;     
     
     return(
       <div>
@@ -119,31 +123,14 @@ class Catalogue extends Component {
                   <div className="product-catalogue__section-title">
                     <h2 className="section-name">{this.title}</h2>
                     <span className="amount">
-                     {this.getTextOfGoods(products.goods)}  
+                     {`Товаров: ${products.goods}`}  
                     </span>
                   </div>
                   <Sorting updateFilters={updateFilters} />                    
                 </section>            
-                <section className="product-catalogue__item-list product-catalogue__item-list_favorite">
+                <section className="product-catalogue__item-list">
                   <ul className="product-catalogue__items">    
-                    {products.data.map((el, index) => {
-                      return(
-                        <li key={el.id} className="product-catalogue__item">
-                          <Link to={`/product-card-desktop/${el.id}`} className="item-list__item-card item">
-                            <div className="item-pic"><img className={`item-pic-${index + 1}`} src={el.images[0]} alt={el.title}/>
-                              <div className="product-catalogue__product_favorite">
-                                <p className={favoritesIdList.findIndex(element => element.id == el.id) === -1 ? '' : 'favourite_chosen'} onClick={ev => this.changeFavorites(ev, el.id)} ></p>
-                              </div>
-                            </div>
-                            <div className="item-desc">
-                              <h4 className="item-name">{el.title}</h4>
-                              <p className="item-producer">Производитель: <span className="producer">{el.brand}</span></p>
-                              <p className="item-price">{el.price}</p>
-                            </div>
-                          </Link>   
-                        </li>         
-                      );
-                    })}
+                    {products.data.map((el, index) => <ProductCard index={index} product={el} updateFavorites={updateFavorites} favoritesIdList={favoritesIdList} />)}
                   </ul>
                 </section>              
                 <Pagination 

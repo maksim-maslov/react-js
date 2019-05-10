@@ -1,3 +1,5 @@
+import './css/AboutUs.css';
+
 import React, { Component } from 'react';
 
 const AboutUs = () => {

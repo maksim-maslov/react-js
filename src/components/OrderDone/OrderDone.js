@@ -1,8 +1,11 @@
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
+import './css/OrderDone.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch, Redirect } from 'react-router-dom';
 
-import Breadcrumb from '../Breadcrumb/Breadcrumb';
+
 
 const OrderDone = (props) => {
   const order = props.location.state;

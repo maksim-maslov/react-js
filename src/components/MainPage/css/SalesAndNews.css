@@ -1,0 +1,123 @@
+
+.sales-and-news {
+  max-width: 1036px;
+  margin: 0 auto;
+  padding: 35px 20px 60px;
+}
+
+.sales-and-news__items {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 285px 385px auto;
+  grid-template-rows: 185px 185px;
+  margin-top: 22px;
+}
+
+.sales-and-news__item {
+  background-repeat: no-repeat;
+}
+
+.sales-and-news__item:hover {
+  box-shadow: 3px 3px 4px 1px rgba(255, 101, 165, 0.25);
+}
+
+.sales-and-news__item a {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+
+.sales-and-news__item a:hover {
+  text-decoration: none;
+}
+
+.sales-and-news__item .h3 {
+  width: 100%;
+  padding: 12px 0;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: rgba(235, 229, 233, 0.5);
+}
+
+.sales-and-news__item_1 {
+  background-image: url(../../../img/sales-and-news__item_1.jpg);
+}
+
+.sales-and-news__item_2 {
+  outline: 2px solid #FFFFFF;
+  outline-offset: -14px;
+  background-image: url(../../../img/sales-and-news__item_2.jpg);
+}
+
+.sales-and-news__item_2 .h3 {
+  margin-top: 16px;
+  align-self: flex-start;
+  font-size: 32px;
+  line-height: 1;
+  background-color: unset;
+}
+
+.sales-and-news__item_2 .h3 span {
+  font-size: 18px;
+}
+
+.sales-and-news__item_3 {
+  background-image: url(../../../img/sales-and-news__item_3.jpg);
+}
+
+.sales-and-news__item_4 {
+  outline: 2px solid #FFFFFF;
+  outline-offset: -14px;
+  background-image: url(../../../img/sales-and-news__item_4.jpg);
+}
+
+.sales-and-news__item_4 .h3 {
+  align-self: center;
+}
+
+.sales-and-news__news {
+  position: relative;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column: 3;
+  padding: 10px 20px;
+  background: #EEEEEE;
+}
+
+.sales-and-news__new {
+  margin: 40px 0;
+}
+
+.sales-and-news__new time {
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+}
+
+.sales-and-news__new a {
+  display: block;
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333333;
+}
+
+.sales-and-news__new a:hover {
+  text-decoration: none;
+}
+
+.sales-and-news__arrow_up {
+  background-position: -90px -30px;
+  left: 45%;
+}
+
+.sales-and-news__arrow_down {
+  background-position: -60px -30px;
+  left: 45%;
+  bottom: 5px;
+}

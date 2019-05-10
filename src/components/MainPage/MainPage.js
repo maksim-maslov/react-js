@@ -1,7 +1,9 @@
+import './css/MainPage.css';
+
 import React, { Component } from 'react';
 
 import Slider from './Slider';
-import Featured from './Featured';
+import NewDeals from './NewDeals';
 import SalesAndNews from './SalesAndNews';
 import AboutUs from './AboutUs';
 
@@ -9,9 +11,8 @@ const MainPage = ({ categories, changeFavorites, favorites, favoritesIdList, upd
   return(
     <div className="container">  
       <Slider />
-      <Featured 
-        categories={categories} 
-        changeFavorites={changeFavorites}        
+      <NewDeals 
+        categories={categories}       
         favorites={favorites} 
         favoritesIdList={favoritesIdList}
         updateFavorites={updateFavorites}         

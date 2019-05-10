@@ -41,7 +41,7 @@ class ProductCardDesktop extends Component {
 
   render() {
     const { product, similarProducts } = this.state;
-    const { categories, changeFavorites, favorites, favoritesIdList, updateBasket, updateBrowsedProducts } = this.props;
+    const { categories, updateFavorites, favorites, favoritesIdList, updateBasket, updateBrowsedProducts } = this.props;
     const categoryTitle = product.hasOwnProperty('categoryId') && categories.length ? categories.find(el => el.id === product.categoryId).title : '';
     const browsedProducts = this.props.browsedProducts.filter(el => el.id != this.id);
 
@@ -56,7 +56,7 @@ class ProductCardDesktop extends Component {
             ]}/>
             <Product 
               categoryTitle={categoryTitle}
-              changeFavorites={changeFavorites}
+              updateFavorites={updateFavorites}
               favorites={favorites}
               favoritesIdList={favoritesIdList}
               product={product}

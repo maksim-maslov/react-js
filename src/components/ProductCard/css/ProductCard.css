@@ -1,0 +1,121 @@
+.product-catalogue__item {
+  list-style: none;
+}
+
+.item-list__item-card:hover {
+  box-shadow: 2px 2px 2px 2px #cccccc;
+  text-decoration: none;
+}
+
+.item-list__item-card {
+  display: inline-block;
+  width: 283px;
+  height: 402px;
+  margin-top: 27px;
+  margin-bottom: -17px;
+  padding-bottom: 53px;
+  text-decoration: none;
+}
+
+.item-list__item-card.item {
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.item-pic {
+  position: relative;
+  display: block;
+  width: 283px;
+  height: 247px;
+  line-height: 247px;
+  text-align: center;
+  margin: auto;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.item-pic img {
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
+}
+
+.item-pic__favorite {
+  position: absolute;
+  top: 9px;
+  right: 6px;
+  z-index: 10;
+}
+
+.item-pic-favorite__like {
+  position: static;
+  width: 33px;
+  height: 30px;
+  background-repeat: no-repeat;  
+}
+
+.item-pic-favorite__like_favorites {
+  background-image: url(../../../img/new-deals__product_favorite_chosen.png);
+}
+
+.item-pic-favorite__like_favorites:hover {
+  background-image: url(../../../img/new-deals__product_favorite_refuse.png);
+  cursor: pointer;
+}
+
+.item-pic-favorite__like_not-favorites {
+  background-image: url(../../../img/catalogue-pics/product-catalogue__product_favorite.png);
+}
+
+.item-pic-favorite__like_not-favorites:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.item-pic-favorite__like_not-favorites-choosen {
+  background-image: url(../../../img/catalogue-pics/product-catalogue__product_favorite_chosen.png);
+}
+
+
+.item-desc {
+  position: relative;
+  width: 283px;
+  outline: none;
+}
+
+.item-name {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  padding: 14px 0 5px;
+  border-top: rgb(244, 244, 244) 1px solid ;
+}
+
+.item-producer {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  padding-bottom: 3px;
+  text-align: center;
+  color: #848484;
+}
+
+.item-price {
+  padding-left: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  color: #333333;
+}
+
+.item-price::after {
+  content: " ₽";
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  color: #333333;
+}
+
+

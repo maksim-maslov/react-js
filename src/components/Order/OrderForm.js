@@ -1,3 +1,5 @@
+import './css/OrderForm.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch, Redirect } from 'react-router-dom';
@@ -11,12 +13,23 @@ class OrderForm extends Component {
     this.order = {};
 
     this.state = {
-      doRedirect: false
+      doRedirect: false,
+      validateFormOk: false
     };
+
+    this.submit = this.submit.bind(this);
+    this.validateForm = this.validateForm.bind(this);
   }
   
   submit(event) {
+
+    const { updateBasket } = this.props;
+
     event.preventDefault();
+
+    if (!this.state.validateFormOk) {
+      return;
+    }    
 
     const { name, phone, address, paid } = this.formData;
     
@@ -38,53 +51,90 @@ class OrderForm extends Component {
     fetch(`https://api-neto.herokuapp.com/bosa-noga/order`, params)
       .then(response => response.json())
       .then(data => {        
-        this.setState({
-          doRedirect: true
-        });
+        this.setState({doRedirect: true});
         localStorage.cartId = '';
-        this.props.updateBasket();
+        updateBasket();        
       });    
 
   }
 
+  validateForm() {    
+    const { name, phone, address } = this.formData;
+    name.value && phone.value && address.value
+    ? this.setState({validateFormOk: true})
+    : this.setState({validateFormOk: false});
+  }
+
   render() {
+    const { validateFormOk } = this.state;
     return(
       <div className="order-process__confirmed">
-        <form ref={element => this.formData = element}>
-          <div className="order-process__delivery">
-            <h3 className="h3">кому и куда доставить?</h3>
-            <div className="order-process__delivery-form">
-              <label className="order-process__delivery-label">
-                <div className="order-process__delivery-text">Имя</div>
-                <input className="order-process__delivery-input" type="text" name="name" placeholder="Представьтесь, пожалуйста" defaultValue="Mr" />
-              </label>
-              <label className="order-process__delivery-label">
-                <div className="order-process__delivery-text">Телефон</div>
-                <input className="order-process__delivery-input" type="tel" name="phone" placeholder="Номер в любом формате" defaultValue="88007008070"/>
-              </label>
-              <label className="order-process__delivery-label">
-                <div className="order-process__delivery-text">Адрес</div>
-                <input className="order-process__delivery-input order-process__delivery-input_adress" type="text" name="address" placeholder="Ваша покупка будет доставлена по этому адресу" defaultValue="Address"/>
-              </label>
+        {/* <Link to="order-done"> */}
+          <form ref={element => this.formData = element} onSubmit={ev => this.submit(ev)} >
+            <div className="order-process__delivery">
+              <h3 className="h3">кому и куда доставить?</h3>
+              <div className="order-process__delivery-form">
+                <label className="order-process__delivery-label">
+                  <div className="order-process__delivery-text">Имя</div>
+                  <input 
+                    className="order-process__delivery-input" 
+                    type="text" 
+                    name="name" 
+                    placeholder="Представьтесь, пожалуйста" 
+                    onChange={this.validateForm}
+                  />
+                </label>
+                <label className="order-process__delivery-label">
+                  <div className="order-process__delivery-text">Телефон</div>
+                  <input 
+                    className="order-process__delivery-input" 
+                    type="tel" 
+                    name="phone" 
+                    placeholder="Номер в любом формате" 
+                    onChange={this.validateForm}
+                  />
+                </label>
+                <label className="order-process__delivery-label">
+                  <div className="order-process__delivery-text">Адрес</div>
+                  <input 
+                    className="order-process__delivery-input order-process__delivery-input_adress" 
+                    type="text" 
+                    name="address" 
+                    placeholder="Ваша покупка будет доставлена по этому адресу" 
+                    onChange={this.validateForm}
+                  />
+                </label>
+              </div>
+              <p>Все поля обязательны для заполнения. Наш оператор свяжется с вами для уточнения деталей заказа.</p>
             </div>
-            <p>Все поля обязательны для заполнения. Наш оператор свяжется с вами для уточнения деталей заказа.</p>
-          </div>
-          <div className="order-process__paid">
-            <h3 className="h3">хотите оплатить онлайн или курьеру при получении?</h3>
-            <div className="order-process__paid-form">
-              <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="onlineCard" /><span className="order-process__paid-text">Картой онлайн</span>
-              </label>
-              <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCard" checked /><span className="order-process__paid-text">Картой курьеру</span>
-              </label>
-              <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCash" /><span className="order-process__paid-text">Наличными курьеру</span>
-              </label>
+            <div className="order-process__paid">
+              <h3 className="h3">хотите оплатить онлайн или курьеру при получении?</h3>
+              <div className="order-process__paid-form">
+                <label className="order-process__paid-label">
+                  <input className="order-process__paid-radio" type="radio" name="paid" value="onlineCard" /><span className="order-process__paid-text">Картой онлайн</span>
+                </label>
+                <label className="order-process__paid-label">
+                  <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCard" checked /><span className="order-process__paid-text">Картой курьеру</span>
+                </label>
+                <label className="order-process__paid-label">
+                  <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCash" /><span className="order-process__paid-text">Наличными курьеру</span>
+                </label>
+              </div>
             </div>
-          </div>
-          <Link to="order-done"><button className="order-process__form-submit order-process__form-submit_click" onClick={this.submit.bind(this)} >Подтвердить заказ</button></Link>
-        </form>
+            
+            <button 
+              className={`order-process__form-submit order-process__form-submit_click 
+                ${
+                  validateFormOk 
+                  ? '' 
+                  : 'order-process__form-submit_disabled'
+                }`
+              }               
+              type="submit"
+            >Подтвердить заказ
+            </button>            
+          </form>
+        {/* </Link>         */}
         {this.state.doRedirect && <Redirect to={{pathname: "order-done", state: this.order}} />} 
       </div>      
     );

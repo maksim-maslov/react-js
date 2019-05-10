@@ -1,7 +1,4 @@
 //Слайдер
-
-
-
 function slider(f, img, button, V, Vo, arrows) {
     var iii = 0,
         start = null,
@@ -66,7 +63,5 @@ function slider(f, img, button, V, Vo, arrows) {
         }
     }
 }
-
-
 
 export default slider;

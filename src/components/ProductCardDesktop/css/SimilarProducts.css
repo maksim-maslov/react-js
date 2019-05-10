@@ -1,0 +1,160 @@
+
+/*Слайдер "Похожие товары"*/
+.product-card__similar-products-slider {
+  width: 995px;
+  margin: 50px auto 73px;
+}
+
+.product-card__similar-products-slider h3 {
+  position: relative;
+  /* top: 24px; */
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 0 0 0 10px;
+}
+
+.similar-products-slider {
+  position: relative;
+  top: 23px;
+  right: -1px;
+  width: 995px;
+  height: 367px;
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* .arrow {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-image: url(../../../img/slider_sprite.png);
+  background-repeat: no-repeat;
+} */
+
+.similar-products-slider__arrow:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+.similar-products-slider__arrow {
+  position: absolute;
+  top: 100px;
+  height: 30px;
+  width: 30px;
+  background-image: url(../../../img/slider_sprite.png);
+  background-repeat: no-repeat;
+}
+
+.similar-products-slider__arrow_left {
+  background-position: -60px 0;
+  left: -45px;
+}
+
+.similar-products-slider__arrow_right {
+  background-position: -90px 0;
+  right: -45px;
+}
+
+.similar-products-slider__gallery {
+  width: 996px;
+  overflow: hidden;
+}
+
+.similar-products-slider__gallery ul {
+  height: auto;
+  width: 9999px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: transform 500ms ease;
+  font-size: 0;
+}
+
+.similar-products-slider__gallery li {
+  display: inline-block;
+  margin: 7px;
+}
+
+
+.similar-products-slider__item {
+  position: relative;
+  /* top: -3px; */
+  width: 318px;
+  height: 230px;
+  line-height: 230px;
+  /* outline: solid 0.5px rgba(41, 42, 58, 0.25); */
+  text-align: center;
+  /* background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  overflow: hidden; */
+}
+
+.similar-products-slider__item:hover {
+  opacity: 0.6;
+}
+
+.similar-products-slider__item a {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.similar-products-slider__item-list__item-card {
+  width: 318px;
+  height: auto;
+}
+
+.similar-products-slider__item-pic {
+  position: relative;
+  max-width: 99%;
+  max-height: 99%;
+  vertical-align: middle;
+}
+
+.similar-products-slider__item-desc {
+  position: relative;
+  top: -4px;
+  left: 3px;
+  width: 317px;
+}
+
+.similar-products-slider__item-name {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  padding: 14px 0 5px;
+  /* color: #D4D4D4; */
+}
+
+.similar-products-slider__item-producer {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  padding-bottom: 3px;
+  text-align: center;
+  color: #D4D4D4;
+}
+
+.similar-products-slider__item-price {
+  padding-left: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #333333;
+}
+
+.similar-products-slider__item-price::after {
+  position: relative;
+  content: " ₽";
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #333333;
+}

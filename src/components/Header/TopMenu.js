@@ -1,3 +1,5 @@
+import './css/TopMenu.css';
+
 import React, { Component } from 'react';
 
 const TopMenu = () => {

@@ -1,3 +1,5 @@
+import './css/ProductSizes.css';
+
 import React, { Component } from 'react';
 
 class ProductSizes extends Component {

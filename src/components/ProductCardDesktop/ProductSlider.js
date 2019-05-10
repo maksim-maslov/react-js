@@ -1,8 +1,10 @@
+import './css/ProductSlider.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
-const ProductSlider = ({ images }) => {
+const ProductSlider = ({ images, changeImage }) => {
   return(
     <section className="main-screen__favourite-product-slider">
       <div className="favourite-product-slider">
@@ -10,7 +12,7 @@ const ProductSlider = ({ images }) => {
         
         {images.map((el, index) => {
           return(
-            <div className={`favourite-product-slider__item`}>
+            <div className={`favourite-product-slider__item`} onClick={() => changeImage(el)} >
               <img src={el} />
             </div>                       
           )

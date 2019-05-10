@@ -1,3 +1,5 @@
+import './css/Pagination.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
@@ -23,11 +25,11 @@ class Pagination extends Component {
     return(
       <div className="product-catalogue__pagination">
         <div className="page-nav-wrapper">
-          <div className={`angle-back ${page != 1 ? '' : 'hidden'}`} ><a onClick={() => this.changePage(page - 1)}></a></div>
+          <div className={`angle-back ${page != 1 ? '' : 'hidden'}`} ><a onClick={() => this.changePage(page - 1)}>←</a></div>
           <ul>
             <PaginationPagesList pages={pages} page={page} changePage={this.changePage} />          
           </ul>
-          <div className={`angle-forward ${page != pages ? '' : 'hidden'}`} ><a onClick={() => this.changePage(page + 1)}></a></div>
+          <div className={`angle-forward ${page != pages ? '' : 'hidden'}`} ><a onClick={() => this.changePage(page + 1)}>→</a></div>
         </div>
       </div>        
     );

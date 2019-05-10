@@ -1,0 +1,115 @@
+.subscribe {
+  min-height: 92px;
+  height: 1px;
+  margin: 0 auto;
+  background: url(../../../img/footer-waves.png) top center repeat-x, linear-gradient(92.54deg, #EBE5E9 5.3%, #D1E3E5 95.53%);
+}
+.subscribe__wrapper {
+  display: flex;
+  height: 100%;
+  max-width: 996px;
+  margin: 0 auto;
+  padding-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.subscribe__title {
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #333333;
+  mix-blend-mode: normal;
+}
+.subscribe__radios {
+  display: flex;
+  align-items: center;
+}
+.subscribe__radio {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  margin: 10px 0 0 7px;
+}
+.subscribe__radio:checked + .subscribe__radio_text:after {
+  opacity: 1;
+}
+.subscribe__radio_label {
+  margin-right: 10px;
+  font-weight: 300;
+  font-size: 16px;
+  color: #333333;
+}
+.subscribe__radio_text {
+  position: relative;
+  padding: 0 0 0 25px;
+  cursor: pointer;
+}
+.subscribe__radio_text::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #FFF;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: #dde4e8;
+}
+.subscribe__radio_text::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #A1B3BF;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: .2s;
+}
+.subscribe__email {
+  width: 204px;
+  height: 30px;
+  padding: 0 10px;
+  margin-left: 8px;
+  font-weight: 300;
+  font-size: 14px;
+  vertical-align: middle;
+  color: #333333;
+  background: #FFFFFF;
+  border: none;
+  outline: none;
+}
+.subscribe__email::placeholder {
+  font-weight: 300;
+  font-size: 14px;
+  color: #D6D6D6;
+}
+.subscribe__submit {
+  width: 101px;
+  height: 30px;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  color: #FFFFFF;
+  border: none;
+  background: #A1B3BF;
+  outline: none;
+}
+.subscribe__submit:not(.subscribe__submit_disabled) {
+  color: #000000;
+  cursor: pointer;
+}
+
+.subscribe__submit_disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.subscribe__ok {
+  margin-right: 300px;
+}

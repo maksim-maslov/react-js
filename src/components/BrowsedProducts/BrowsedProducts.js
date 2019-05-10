@@ -1,3 +1,5 @@
+import './css/BrowsedProducts.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
@@ -7,42 +9,30 @@ class BrowsedProducts extends Component {
     super(props);
     
     this.state = {
-      activeItem: 0
+      first: 0
     };
 
-    this.movePicture = this.movePicture.bind(this); 
   } 
 
-  componentWillReceiveProps(newProps) {
-    this.props = newProps; 
-  } 
-
-  movePicture(event, shift) {
-    const ev = event.currentTarget;
-    if (ev.classList.contains('overlooked-slider__arrow_left') || ev.classList.contains('overlooked-slider__arrow_right')) {  
-      this.setState({
-        activeItem: this.state.activeItem - (1 * shift)
-      });
-    }    
-  }
 
   render() {
-    const { activeItem } = this.state;
+    const { first } = this.state;
     const { browsedProducts } = this.props;
-    this.position = -(activeItem * (185 + 14));
+    this.position = -(first * (185 + 14));
+    const last = browsedProducts.length;
 
     return(
-      <section className="product-catalogue__overlooked-slider">
-        <h3>Вы смотрели:</h3>
+      <section className="product__overlooked-slider">
+        <h3>Вы смотрели</h3>
         <div className="overlooked-slider">
           <div 
-            className={`overlooked-slider__arrow overlooked-slider__arrow_left arrow 
-              ${activeItem === 0 
+            className={`overlooked-slider__arrow overlooked-slider__arrow_left 
+              ${first === 0 
                 ? 'hidden' 
                 : ''
               }`
             } 
-            onClick={ev => this.movePicture(ev, 1)}
+            onClick={ev => this.setState({first: first - 1})}
           >
           </div>
             <div className="overlooked-slider__gallery">
@@ -65,13 +55,13 @@ class BrowsedProducts extends Component {
               </ul>
             </div>
           <div 
-            className={`overlooked-slider__arrow overlooked-slider__arrow_right arrow 
-              ${browsedProducts.length < 5 || activeItem + 5 === browsedProducts.length 
+            className={`overlooked-slider__arrow overlooked-slider__arrow_right 
+              ${last < 5 || first + 5 === last 
                 ? 'hidden' 
                 : ''
               }`
             } 
-            onClick={ev => this.movePicture(ev, -1)}
+            onClick={ev => this.setState({first: first + 1})}
           >
           </div>                                 
         </div>

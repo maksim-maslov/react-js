@@ -1,3 +1,5 @@
+import './css/ProductPic.css';
+
 import React, { Component } from 'react';
 
 const ProductPic= ({ pic }) => {

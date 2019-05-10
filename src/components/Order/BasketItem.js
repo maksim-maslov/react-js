@@ -1,3 +1,5 @@
+import './css/BasketItem.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';

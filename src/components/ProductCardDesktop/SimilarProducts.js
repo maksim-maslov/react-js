@@ -1,50 +1,38 @@
+import './css/SimilarProducts.css';
+
 import React, { Component } from 'react';
 
 import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 class SimilarProducts extends Component {
 
-
   constructor(props) {
     super(props);
     
     this.state = {
-      activeItem: 0
+      first: 0
     };
 
-    this.movePicture = this.movePicture.bind(this); 
   } 
-
-  componentWillReceiveProps(newProps) {
-    this.props = newProps;  
-  } 
- 
-  movePicture(event, shift) {
-    const ev = event.currentTarget;
-    if (ev.classList.contains('similar-products-slider__arrow_left') || ev.classList.contains('similar-products-slider__arrow_right')) {   
-      this.setState({
-        activeItem: this.state.activeItem - (1 * shift)
-      });
-    }    
-  }
 
   render() {
-    const { activeItem } = this.state;
+    const { first } = this.state;
     const { similarProducts } = this.props;
-    this.position = -(activeItem * (318 + 14));
+    this.position = -(first * (318 + 14));
+    const last = similarProducts.length;    
 
     return(
       <section className="product-card__similar-products-slider">
-        <h3>Похожие товары:</h3>
+        <h3>Похожие товары</h3>
         <div className="similar-products-slider">
           <div 
-            className={`similar-products-slider__arrow similar-products-slider__arrow_left arrow 
-              ${activeItem === 0 
+            className={`similar-products-slider__arrow similar-products-slider__arrow_left 
+              ${first === 0 
                 ? 'hidden' 
                 : ''
               }`
             }  
-            onClick={ev => this.movePicture(ev, 1)}
+            onClick={ev => this.setState({first: first - 1})}
           >
           </div>
             <div className="similar-products-slider__gallery">
@@ -66,7 +54,7 @@ class SimilarProducts extends Component {
                         </Link>
                         <div className="similar-products-slider__item-desc">
                           <h4 className="similar-products-slider__item-name">{el.title}</h4>
-                          <p className="similar-products-slider__item-producer">Производитель: <span className="producer">{el.brand}</span></p>
+                          <p className="similar-products-slider__item-producer"><span className="producer">{el.brand}</span></p>
                           <p className="similar-products-slider__item-price">{el.price}</p>
                         </div>    
                       </div> 
@@ -76,13 +64,13 @@ class SimilarProducts extends Component {
               </ul>
             </div>
           <div 
-            className={`similar-products-slider__arrow similar-products-slider__arrow_right arrow 
-              ${similarProducts.length < 3 || activeItem + 3 === similarProducts.length
+            className={`similar-products-slider__arrow similar-products-slider__arrow_right 
+              ${last < 3 || first + 3 === last
                 ? 'hidden' 
                 : ''
               }`
             } 
-            onClick={ev => this.movePicture(ev, -1)}
+            onClick={ev => this.setState({first: first + 1})}
           >
           </div>                       
         </div>

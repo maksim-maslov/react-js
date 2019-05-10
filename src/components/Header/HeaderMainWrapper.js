@@ -1,3 +1,5 @@
+import './css/HeaderMainWrapper.css';
+
 import React, { Component } from 'react';
 import logo from './img/header-logo.png';
 

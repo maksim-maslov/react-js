@@ -1,3 +1,5 @@
+import './css/Slider.css';
+
 import React, { Component } from 'react';
 
 import slider from './js/slider.js';
@@ -30,16 +32,16 @@ class Slider extends Component {
       <section className="slider">
         <div className="wrapper">
           <div className="slider__pictures">
-          <a className="slider__image" href="#">
+          <a className="slider__image">
             <img src={slide1} alt="slide picture"/>
           </a>
-          <a className="slider__image" href="#">
+          <a className="slider__image">
             <img src={slide2} alt="slide picture"/>
           </a>
-          <a className="slider__image" href="#">
+          <a className="slider__image">
             <img src={slide1} alt="slide picture"/>
           </a>
-          <a className="slider__image" href="#">
+          <a className="slider__image">
             <img src={slide2} alt="slide picture"/>
           </a>
           <div className="arrow slider__arrow slider__arrow_left"></div>

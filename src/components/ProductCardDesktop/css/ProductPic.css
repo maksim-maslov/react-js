@@ -1,0 +1,44 @@
+/*Картинка товара*/
+.main-screen__favourite-product-pic {
+  position: relative;
+  width: 500px;
+  height: 440px;
+  margin: 45px 0;
+  text-align: center;
+  line-height: 440px;  
+}
+
+.main-screen__favourite-product-pic a {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.main-screen__favourite-product-pic img {
+  position: relative;
+  /* top: 23px; */
+  /* left: 14px; */
+  max-width: 99%;
+  max-height: 99%;  
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.main-screen__favourite-product-pic:hover {
+  box-shadow: 2px 2px 2px 2px #cccccc;
+}
+.main-screen__favourite-product-pic:hover > a.main-screen__favourite-product-pic__zoom {
+  display: inherit;
+}
+
+a.main-screen__favourite-product-pic__zoom {
+  display: block;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  height: 29px;
+  width: 29px;
+  background-image: url(../../../img/product-card-pics/zoom.png);
+  background-repeat: no-repeat;
+  display: none;
+}

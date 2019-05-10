@@ -1,3 +1,7 @@
+import './css/Header.css';
+
+import Loader from '../Loader/Loader';
+
 import React, { Component } from 'react';
 
 import TopMenu from './TopMenu';
@@ -23,7 +27,8 @@ class Header extends Component {
       droppedMenuVisible: false,
       basketVisibility: false,
       profileVisibility: false,
-      searchVisibility: false      
+      searchVisibility: false,
+      itemMenu: -1      
     }
   }
 
@@ -38,11 +43,11 @@ class Header extends Component {
     }
   }
 
-  updateDroppedMenuVisible() {
-    this.setState({
-      droppedMenuVisible: !this.state.droppedMenuVisible
-    });
-  }
+  // updateDroppedMenuVisible(isVisible) {
+  //   this.setState({
+  //     droppedMenuVisible: isVisible
+  //   });
+  // }
 
   updateProfileVisibility() {
     this.setState({
@@ -61,9 +66,24 @@ class Header extends Component {
     });
   }
 
+  updateDroppedMenuVisible(itemMenu, isVisible) {
+    if (itemMenu == 0) {
+      this.setState({itemMenu: itemMenu});
+      return;
+    }
+    this.setState({
+      itemMenu: itemMenu,
+      droppedMenuVisible: isVisible
+    });
+    // if (event.target.classList.contains('main-menu__item_active')) {
+    //   event.target.classList.remove('main-menu__item_active');
+    // }
+    // this.props.updateDroppedMenuVisible(isVisible);
+  }
+
   render() {
     const { categories, productsInBasket, updateBasket } = this.props;
-    const { droppedMenuVisible, basketVisibility, profileVisibility, searchVisibility } = this.state;
+    const { droppedMenuVisible, basketVisibility, profileVisibility, searchVisibility, itemMenu } = this.state;
 
     return(
       <header className="header">   
@@ -72,8 +92,10 @@ class Header extends Component {
           <HeaderMainWrapper basketVisibility={basketVisibility} profileVisibility={profileVisibility} searchVisibility={searchVisibility} updateBasketVisibility={this.updateBasketVisibility} updateProfileVisibility={this.updateProfileVisibility} updateSearchVisibility={this.updateSearchVisibility} />
           <HiddenPanel basketVisibility={basketVisibility} profileVisibility={profileVisibility} productsInBasket={productsInBasket} updateBasket={updateBasket} />
         </div>
-        <MainMenu categories={categories} updateDroppedMenuVisible={this.updateDroppedMenuVisible} />
-        <DroppedMenu droppedMenuVisible={droppedMenuVisible} />
+        {categories.length
+        ? <MainMenu categories={categories} updateDroppedMenuVisible={this.updateDroppedMenuVisible} itemMenu={itemMenu} droppedMenuVisible={droppedMenuVisible} />
+        : <Loader />}
+        <DroppedMenu droppedMenuVisible={droppedMenuVisible} updateDroppedMenuVisible={this.updateDroppedMenuVisible} />
       </header>
     );
   }

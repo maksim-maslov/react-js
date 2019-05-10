@@ -24,7 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.changeFavorites = this.changeFavorites.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
     this.updateBasket = this.updateBasket.bind(this);    
     this.updateBrowsedProducts = this.updateBrowsedProducts.bind(this);
     this.updateFavorites = this.updateFavorites.bind(this);
@@ -51,49 +51,71 @@ class App extends Component {
 
   componentDidMount() {              
     this.getCategories();     
-    this.updateFavorites();
+    this.getFavorites();
     this.updateBrowsedProducts();
-    this.state.cartId
-    ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${this.state.cartId}`, {method: 'GET'})   
-    : null;
+    this.updateBasket();
   }
   
   joinProductIdsToQueryString(products = []) {
+
     return new Promise((done, fail) => {
+
       const queryString = products.reduce((memo, el) => {
+
         memo = memo + `id[]=${el.id}&`;
+
         return memo;
+
       }, '');
+
       done(queryString);
+
     });
   }
 
-  changeFavorites(productId) {
+  updateFavorites(productId) {
+
     const { favoritesIdList } = this.state;
+
     const removeElementIndex = favoritesIdList.findIndex(el => el.id == productId);
+
     removeElementIndex != -1
     ? favoritesIdList.splice(removeElementIndex, 1)
     : favoritesIdList.push({id: productId});   
+
     this.setState({favoritesIdList: favoritesIdList}); 
+
     localStorage.favorites = JSON.stringify(favoritesIdList);
-    this.updateFavorites();
+
+    this.getFavorites();
+
   }
 
-  updateFavorites(page = 1) {  
+  getFavorites(page = 1) {  
+
     const { favoritesIdList } = this.state;
+
     if (favoritesIdList.length) {
+
       this.joinProductIdsToQueryString(favoritesIdList)
         .then(queryString => {
+
           if (this.state.filters.sortBy) {
             queryString = queryString + `&sortBy=${this.state.filters.sortBy}`;
-          }          
-          return fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}&page[]=${page}`)
+          }   
+
+          return fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}&page[]=${page}`);
+
         })
         .then(response => response.json())
         .then(data => this.setState({favorites: data})); 
+
     } else {
-      this.setState({favorites: []})
+
+      this.setState({favorites: []});
+
     }
+
   }
 
   getCategories() {
@@ -102,44 +124,71 @@ class App extends Component {
       .then(data => this.setState({categories: data.data}));
   }
 
-  updateBasket(ev, product) {
-    const params = {
-      method: 'POST', 
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(product)
-    };
+  updateBasket(product) {
+
     const cartId = localStorage.cartId;
-    cartId
-    ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${cartId }`, params)
-    : this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/`, params);        
+
+    if (product) {
+      if (!product.size) {
+        return;
+      } 
+      const params = {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(product)
+      };      
+      cartId
+      ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${cartId }`, params)
+      : this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/`, params);        
+    } else {
+      cartId
+      ? this.getProductsInBasket(`https://api-neto.herokuapp.com/bosa-noga/cart/${cartId}`, {method: 'GET'})   
+      : this.setState({ productsInBasket: [] });
+    }          
     
   }
 
   getProductsInBasket(url, params) {
+
     fetch(url, params)
       .then(response => response.json())
       .then(data => {
+
         if (data.status == 'ok') {
-          let result;          
+
+          let result; 
+
           if (/\S+cart\/\S+/.test(url)) {
+
             result = data.data.products;
+
           } else {
+
             const response = JSON.parse(params.body);
+
             if (response instanceof Array) {
               result = response;
             } else {
               result = new Array(response);
               localStorage.cartId = data.data.id;
-            }            
+            }  
+
           }
-          return result;     
+
+          return result;   
+
         } else if (/Корзина.+/.test(data.message)) {
+
           localStorage.cartId = '';
-          this.setState({productsInBasket: []})
+
+          this.setState({productsInBasket: []});
+
           throw new Error(`abort promise: status '${data.status}'`);
+
         }
       })
       .then(productArray => {
+
         return this.joinProductIdsToQueryString(productArray)
           .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
           .then(response => response.json())
@@ -148,7 +197,8 @@ class App extends Component {
               return {item: data.data.filter(element => element.id == el.id)[0], size: el.size, amount: el.amount};
             });
           })
-          .then(data => this.setState({ productsInBasket: data }));           
+          .then(data => this.setState({ productsInBasket: data }));  
+
       })
       .catch(error => console.log(error));     
      
@@ -173,7 +223,9 @@ class App extends Component {
       const size = value;
 
       if (filters.hasOwnProperty(type)) {
+
         const index = filters[type].indexOf(size);
+
         if (index !== -1) {
           filters[type].splice(index, 1);
           filters[type].length === 0
@@ -182,9 +234,12 @@ class App extends Component {
         } else {
           filters[type].push(size);
         }
+
       } else {
+
         filters[type] = [];
         filters[type].push(size);
+
       }
 
     } else if (type == 'discounted') {
@@ -211,7 +266,9 @@ class App extends Component {
       } 
       
     } else {
+
       filters[type] = value;
+
     } 
       
     this.setState({
@@ -236,19 +293,19 @@ class App extends Component {
               render={props => <Catalogue 
                 {...props} 
                 browsedProducts={browsedProducts} 
-                categories={categories}    
-                changeFavorites={this.changeFavorites}             
+                categories={categories}   
                 favorites={favorites} 
-                favoritesIdList={favoritesIdList}                                
-                filters={filters}                
+                favoritesIdList={favoritesIdList}   
+                filters={filters}                                             
+                updateFavorites={this.updateFavorites} 
                 updateFilters={this.updateFilters} 
               />} 
             />
             <Route path="/favorite" 
               render={props => <Favorite 
                 {...props} 
-                changeFavorites={this.changeFavorites}                
                 favorites={favorites}                 
+                // changeFavorites={this.changeFavorites}
                 updateFavorites={this.updateFavorites} 
                 updateFilters={this.updateFilters}                 
               />} 
@@ -258,9 +315,9 @@ class App extends Component {
                 {...props} 
                 browsedProducts={browsedProducts}
                 categories={categories} 
-                changeFavorites={this.changeFavorites}                
                 favorites={favorites}    
                 favoritesIdList={favoritesIdList}              
+                updateFavorites={this.updateFavorites}   
                 updateBasket={this.updateBasket} 
                 updateBrowsedProducts={this.updateBrowsedProducts} 
               />} 
@@ -277,9 +334,8 @@ class App extends Component {
             <Route path="/" 
               render={props => <MainPage 
                 {...props} 
-                categories={categories} 
-                changeFavorites={this.changeFavorites}                
-                favoritesIdList={favoritesIdList}                               
+                categories={categories}                              
+                favoritesIdList={favoritesIdList}   
                 updateFavorites={this.updateFavorites}                 
               />}
             />
