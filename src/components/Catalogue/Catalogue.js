@@ -166,7 +166,8 @@ class Catalogue extends Component {
               </section>
             </main>
 
-            <BrowsedProducts browsedProducts={browsedProducts} />
+            {browsedProducts.length ? <BrowsedProducts browsedProducts={browsedProducts} /> : ''} 
+
           </div>
 
         : <Loader />}
