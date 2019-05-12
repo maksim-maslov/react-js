@@ -7,7 +7,6 @@
 
 .product-card__similar-products-slider h3 {
   position: relative;
-  /* top: 24px; */
   font-family: Roboto;
   font-weight: 700;
   font-size: 20px;
@@ -20,19 +19,10 @@
   right: -1px;
   width: 995px;
   height: 367px;
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
 }
-
-/* .arrow {
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  background-image: url(../../../img/slider_sprite.png);
-  background-repeat: no-repeat;
-} */
 
 .similar-products-slider__arrow:hover {
   cursor: pointer;
@@ -78,19 +68,12 @@
   margin: 7px;
 }
 
-
 .similar-products-slider__item {
   position: relative;
-  /* top: -3px; */
   width: 318px;
   height: 230px;
   line-height: 230px;
-  /* outline: solid 0.5px rgba(41, 42, 58, 0.25); */
   text-align: center;
-  /* background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  overflow: hidden; */
 }
 
 .similar-products-slider__item:hover {
@@ -129,7 +112,6 @@
   font-size: 18px;
   text-align: center;
   padding: 14px 0 5px;
-  /* color: #D4D4D4; */
 }
 
 .similar-products-slider__item-producer {
@@ -144,15 +126,6 @@
 .similar-products-slider__item-price {
   padding-left: 5px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  text-align: center;
-  color: #333333;
-}
-
-.similar-products-slider__item-price::after {
-  position: relative;
-  content: " ₽";
   font-weight: 400;
   font-size: 20px;
   text-align: center;

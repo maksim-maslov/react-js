@@ -1,6 +1,6 @@
 import './css/ProductPic.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 
 const ProductPic= ({ pic }) => {
   return(

@@ -1,10 +1,7 @@
 import './css/Loader.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
-
-// import React, { Component } from 'react';s
 
 const Loader = props => {
   return(

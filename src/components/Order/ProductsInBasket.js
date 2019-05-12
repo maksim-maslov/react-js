@@ -1,8 +1,9 @@
 import './css/ProductInBasket.css';
 
-import React, { Component } from 'react';
-
 import BasketItem from './BasketItem';
+
+import React from 'react';
+
 
 const ProductsInBasket = ({ productsInBasket, total }) => {
   return(
@@ -11,7 +12,7 @@ const ProductsInBasket = ({ productsInBasket, total }) => {
       <div className="order-basket__item-list">
         {productsInBasket.map((el, index) => <BasketItem key={index} product={el} />)}              
       </div>
-      <div className="order-basket__summ">Итого:&nbsp;<span>{total} <i className="fa fa-rub" aria-hidden="true"></i></span></div>
+      <div className="order-basket__summ">Итого:&nbsp;<span>{total}&nbsp;<i className="fa fa-rub" aria-hidden="true"></i></span></div>
     </div>
   );
 }

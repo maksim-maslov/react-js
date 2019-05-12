@@ -1,17 +1,21 @@
+import slide1 from './img/slider.jpg';
+import slide2 from './img/slider180deg.jpeg';
+
+import slider from './js/slider.js';
+
 import './css/Slider.css';
 
 import React, { Component } from 'react';
 
-import slider from './js/slider.js';
-
-import slide1 from './img/slider.jpg';
-import slide2 from './img/slider180deg.jpeg';
-
 
 class Slider extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
 
   componentDidMount() {
-
     window.requestAnimationFrame = (function () { // для поддержки requestAnimationFrame всеми браузерами
       return window.requestAnimationFrame ||
         function (callback) {
@@ -24,8 +28,8 @@ class Slider extends Component {
       button = f.getElementsByClassName('slider__circles')[0].getElementsByClassName('slider__circle'),
       arrows = f.getElementsByClassName('slider__arrow');
     slider(f, a, button, '4000', '1000', arrows);
-
   }
+  
 
   render() {
     return(

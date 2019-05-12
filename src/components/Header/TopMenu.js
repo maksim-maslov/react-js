@@ -1,8 +1,10 @@
 import './css/TopMenu.css';
 
-import React, { Component } from 'react';
+import React from 'react';
+
 
 const TopMenu = () => {
+
   const topMenuItem = [
     'Возврат',
     'Доставка и оплата',

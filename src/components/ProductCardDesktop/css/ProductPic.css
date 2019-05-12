@@ -16,8 +16,6 @@
 
 .main-screen__favourite-product-pic img {
   position: relative;
-  /* top: 23px; */
-  /* left: 14px; */
   max-width: 99%;
   max-height: 99%;  
   vertical-align: middle;
@@ -27,6 +25,7 @@
 .main-screen__favourite-product-pic:hover {
   box-shadow: 2px 2px 2px 2px #cccccc;
 }
+
 .main-screen__favourite-product-pic:hover > a.main-screen__favourite-product-pic__zoom {
   display: inherit;
 }

@@ -1,5 +1,4 @@
 /* Cайдбар */
-
 /*Сепаратор между частями*/
 .separator-150 {
   position: relative;
@@ -7,28 +6,6 @@
   height: 1px;
   margin: 0 auto;
   background: #F4F5F2;
-}
-
-.separator-150-1 {
-  top: 5px;
-}
-.separator-150-2 {
-  top: 0;
-}
-.separator-150-3 {
-  top: 12px;
-}
-.separator-150-4 {
-  top: 14px;
-}
-.separator-150-5 {
-  top: -6px;
-}
-.separator-150-6 {
-  top: 2px;
-}
-.separator-150-7 {
-  top: -16px;
 }
 
 .separator-240 {
@@ -57,8 +34,9 @@
 .sidebar h3 {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   text-align: left;
+  padding: 20px;  
 }
 
 .sidebar__division {
@@ -78,6 +56,7 @@
   display: flex;
   border-radius: 10px;
   background: #F4F4F4;
+  padding-bottom: 12px;
 }
 
 .sidebar ul li {
@@ -99,24 +78,24 @@
   width: 30px;
   height: 30px;
   background: url(../../../img/catalogue-pics/product-catalogue-sprite-min.png);
-  background-position: -16px -145px;
+  background-position: -55px -155px;  
+  cursor: pointer;
 }
 
 .opener-down {
-  background-position: -55px -155px;
+  background-position: -16px -155px;
 }
 
+.sidebar__division .hide {
+  display: none;
+}
+
+.sidebar__division .show {
+  display: inherit;
+}
 
 /*Разделы сайдбара*/
-
 /*Каталог в сайдбаре*/
-.sidebar__catalogue-list h3 {
-  width: auto;
-  padding-top: 20px;
-  padding-left: 21px;
-  padding-bottom: 15px;
-}
-
 .sidebar__catalogue-list ul {
   height: 206px;
   display: flex;
@@ -138,14 +117,7 @@
   transition: color 300ms ease; 
 }
 
-
-
 /*Цена*/
-.sidebar__price h3 {
-  padding-top: 28px;
-  padding-left: 23px;
-}
-
 .sidebar__price .opener-down {
   top: 20px;
   background-position: -55px -152px;
@@ -165,38 +137,13 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 25px 0;
 }
 
 .counter {
   width: 100%;
   display: flex;
   justify-content: space-between;
-}
-
-.circle-container {
-  padding: 25px 0;
-}
-
-.circle-1,
-.circle-2 {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  border: 0.5px solid rgba(0, 0, 0, 0.101987);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.16), 0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 3px rgba(0, 0, 0, 0.05);
-  z-index: 5;
-}
-
-.circle-1 {
-  top: 12px;
-  left: 21px;
-}
-
-.circle-2 {
-  top: 12px;
-  right: 75px;
 }
 
 .line-white {
@@ -242,15 +189,79 @@
   background: #D4D4D4;
 }
 
-/*Цвет*/
-.sidebar__color h3 {
-  padding-top: 22px;
-  padding-left: 21px;
-  padding-bottom: 15px;
+#slider-range {
+  width: 245px;
+  margin: 0 20px 0 20px  ;
 }
 
+/*Контейнер слайдера*/
+.ui-slider {
+	position: relative;
+}
+
+/*Ползунок*/
+.ui-slider .ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	width: 20px;   
+	height: 20px;  
+  background-color: orange;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+  overflow: hidden;  
+}
+/*Горизонтальный слайдер (полоса по которой бегает ползунок)*/
+.ui-slider-horizontal {
+   height: 3px; 
+   cursor: pointer;
+}
+/*Позиционирование ползунков*/
+.ui-slider-horizontal .ui-slider-handle { 
+	top: -10px;
+	margin-left: -6px;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+	top: 0;
+	height: 100%;
+}
+
+.ui-slider-horizontal .ui-slider-range-min { 
+	left: 0;
+}
+
+.ui-slider-horizontal .ui-slider-range-max {
+	right: 0;
+}
+/*Оформление полосы по которой ходит ползунок*/
+.ui-widget-content { 
+	border: 1px solid #D4D4D4;
+	background: #fff;
+}
+/*Оформление активного участка (между двумя ползунками)*/
+.ui-widget-header { 
+	border: 1px solid #D4D4D4;
+	background: #f00;
+}
+/*Скругление для полосы слайдера*/
+.ui-corner-all {
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+/*Цвет*/
 .sidebar__color ul {
-  /* width: 242px; */
   height: 140px;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -263,13 +274,8 @@
 
 span.color-name {
   display: inline-block;
-  /* padding-top: 5px; */
   padding-left: 10px;
   vertical-align: bottom;
-}
-
-span.color-name:hover {
- /* text-decoration: underline; */
 }
 
 .sidebar__color .color {
@@ -313,22 +319,9 @@ span.color-name:hover {
 }
 
 /*Размер*/
-.sidebar__size h3 {
-  padding-top: 34px;
-  padding-bottom: 13px;
-  padding-left: 22px;
-}
-
 .sidebar__size ul {
   height: 130px;
-  /* padding-left: 1px; */
   overflow: auto;
-}
-
-.sidebar__size .opener-down {
-  top: 28px;
-  right: 17px;
-  background-position: -55px -155px;
 }
 
 /*Кастомизация чекбокса*/
@@ -346,11 +339,13 @@ span.color-name:hover {
 
 .list-1, .list-2 {
   width: 100px;
+  display: inline-block;
 }
 
-.list-1 li,
-.list-2 li {
+.sidebar .list-1 li,
+.sidebar .list-2 li {
   margin-top: 7px;
+  padding-left: 0; 
 }
 
 .list-1 .checkbox-custom,
@@ -366,7 +361,6 @@ span.color-name:hover {
 .list-2 .label {
   position: relative;
   top: 7px;
-  /* right: -35px; */
   margin-top: 0px;
   display: inline-block;
   vertical-align: middle;
@@ -387,89 +381,41 @@ span.color-name:hover {
 }
 
 /*Размер каблука*/
-.sidebar__heel-height h3 {
-  padding-top: 37px;
-  padding-bottom: 13px;
-  padding-left: 22px;
-}
-
 .sidebar__heel-height ul {
   height: 160px;
-  /* padding-left: 1px; */
   overflow: auto;
 }
 
-.sidebar__heel-height .opener-up {
-  top: 30px;
-  right: 16px;
-  background-position: -16px -151px;
-}
-
 /*Повод*/
-.sidebar__occasion h3 {
-  padding-top: 20px;
-  padding-left: 22px;
-  padding-bottom: 15px;
-}
-
 .sidebar__occasion ul {
   width: 240px;
   height: 145px;
   flex-direction: column;
   flex-wrap: nowrap;
   overflow: auto;
-
 }
 
 .sidebar__occasion ul li {
   padding-top: 12px;
 }
 
-.sidebar__occasion .opener-down {
-  top: 10px;
-  right: 17px;
-  background-position: -54px -153px;
-}
-
 /*Сезон*/
-.sidebar__season h3 {
-  padding-top: 20px;
-  padding-left: 22px;
-  padding-bottom: 15px;
-}
-
 .sidebar__season ul {
   width: 240px;
   height: 74px;
   flex-direction: column;
   flex-wrap: nowrap;
   overflow: auto;
-
 }
 
 .sidebar__season ul li {
   padding-top: 12px;
 }
 
-.sidebar__season .opener-up {
-  top: 20px;
-  right: 16px;
-  background-position: -16px -154px;
-}
-
 /*Бренд*/
-.sidebar__brand h3 {
-  padding-top: 20px;
-  padding-left: 22px;
-  padding-bottom: 15px;
-}
-
-.sidebar-brand__container {
-  
-  
+.sidebar-brand__container {  
   outline: none;
-  /* width: 220px; */
-  height: 21px;
+  height: 26px;
   border-radius: 5px;
   padding-left: 20px;
   font-size: 16px;
@@ -479,10 +425,8 @@ span.color-name:hover {
   text-align: center;
   background: url(../../../img/catalogue-pics/product-catalogue__sort-by-drop-down-chevron.png) no-repeat;
   background-color: #F4F4F4;
-  /* background-position: 195px center; */
   width: 240px;
   background-position: 215px center;
-
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 0.01px; 
@@ -492,61 +436,16 @@ span.color-name:hover {
   color: #333333;
 }
 
-/*Форма поиска по бренду*/
-form.brand-search {
-  position: relative;
-}
-
-input[type="search"] {
-  position: relative;
-  display: block;
-  width: 238px;
-  height: 38px;
-  margin: -1px 22px;
-  padding-left: 10px;
-  padding-right: 35px;
-  border-radius: 8px;
-  border: 1px solid #C4C4C4;
-  color: #333333;
-  outline: none;
-}
-
-/*Кастомизация плейсхолдера*/
-input::-webkit-input-placeholder { 
-  color: #D6D6D6; 
-  font-family: Roboto, sans-serif;
-  font-size: 14px;
-}
-
-input:-moz-placeholder {
-  color: #D6D6D6; 
-  font-family: Roboto, sans-serif;
-  font-size: 14px;
-}
-
-.submit {
-  position: absolute;
-  top: -1px;
-  right: 30px;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  background: url(../../../img/catalogue-pics/product-catalogue-sprite-min.png) no-repeat;
-  background-position: -14px -52px;
-}
-
 /*Чекбокс "Со скидкой"*/
 span.checkbox-discount {
   position: relative;
   display: inline-block;
   top: -2px;
-  left: 22px;
+  left: 10px;
   width: 19px;
   height: 19px;
   vertical-align: middle;
-  border: 1px solid #333333;
+  border: 1px solid #848484;
 }
 
 .checkbox:checked + .checkbox-discount::before {
@@ -561,11 +460,11 @@ span.checkbox-discount {
 
 .text-discount {
   display: inline-block;
-  margin-left: 25px;
+  margin-left: 18px;
   margin-top: 40px;
   margin-bottom: 23px;
   font-family: 'Roboto', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -582,7 +481,7 @@ span.checkbox-discount {
 
 .drop-down-icon {
   position: relative;
-  top: -1px;
+  top: -3px;
   right: 1px;
   display: inline-block;
   width: 20px;
@@ -597,105 +496,8 @@ span.checkbox-discount {
   top: 10px;
   right: 2px;
   display: inline-block;
-  /* text-decoration: underline; */
   vertical-align: top;
+  font-size: 16px;
+  font-weight: 700;
 }
 
-/*Кастомизация бегунков*/
-::-webkit-scrollbar-button {
-background-image: url('');
-background-repeat: no-repeat;
-width: 7px;
-height: 7px;
-}
-
-::-webkit-scrollbar-track {
-background-color: rgba(255, 255, 255, 0.5);
-}
-
-::-webkit-scrollbar-thumb {
--webkit-border-radius: 15px;
-border-radius: 15px;
-background-color: #A1B3BF;
-}
-
-::-webkit-scrollbar-thumb:hover {
-background-color: rgba(161, 179, 191, 0.5);
-}
-
-::-webkit-resizer {
-background-image: url('');
-background-repeat: no-repeat;
-width: 7px;
-}
-
-::-webkit-scrollbar{
-width: 7px;
-}
-
-
-
-#slider-range {
-  width: 245px;
-  margin: 0 20px 0 20px  ;
-}
-/* Контейнер слайдера */
-.ui-slider {
-	position: relative;
-}
-/* Ползунок */
-.ui-slider .ui-slider-handle {
-	position: absolute;
-	z-index: 2;
-	width: 20px;   /* Задаем нужную ширину */
-	height: 20px;  /* и высоту */
-  background-color: orange; /* картинка изображающая ползунок. Или можно залить цветом, задать бордюр и скругления */
-  border-radius: 10px;
-  cursor: pointer;
-  outline: none;
-  border: none;
-}
-.ui-slider .ui-slider-range {
-	position: absolute;
-	z-index: 1;
-	font-size: .7em;
-	display: block;
-	border: 0;
-  overflow: hidden;  
-}
-/* горизонтальный слайдер (сама полоса по которой бегает ползунок) */
-.ui-slider-horizontal {
-   height: 3px; /* задаем высоту согласно дизайна */
-   cursor: pointer;
-}
-/* позиционируем ползунки */
-.ui-slider-horizontal .ui-slider-handle { 
-	top: -10px;
-	margin-left: -6px;
-}
-.ui-slider-horizontal .ui-slider-range {
-	top: 0;
-	height: 100%;
-}
-.ui-slider-horizontal .ui-slider-range-min { 
-	left: 0;
-}
-.ui-slider-horizontal .ui-slider-range-max {
-	right: 0;
-}
-/* оформление полосы по которой ходит ползунок */
-.ui-widget-content { 
-	border: 1px solid #D4D4D4;
-	background: #fff;
-}
-/* оформление активного участка (между двумя ползунками) */
-.ui-widget-header { 
-	border: 1px solid #D4D4D4;
-	background: #f00;
-}
-/* скругление для полосы слайдера */
-.ui-corner-all {
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-}

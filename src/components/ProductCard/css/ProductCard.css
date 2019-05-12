@@ -76,7 +76,6 @@
   background-image: url(../../../img/catalogue-pics/product-catalogue__product_favorite_chosen.png);
 }
 
-
 .item-desc {
   position: relative;
   width: 283px;
@@ -109,13 +108,4 @@
   text-align: center;
   color: #333333;
 }
-
-.item-price::after {
-  content: " ₽";
-  font-weight: 700;
-  font-size: 16px;
-  text-align: center;
-  color: #333333;
-}
-
 

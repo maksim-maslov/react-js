@@ -1,18 +1,17 @@
 import './css/ProductSizes.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 
-class ProductSizes extends Component {
-  constructor(props) {
-    super(props);    
-  }
-
-  render() {
-    const { sizes, size, changeSize } = this.props;
-    const availableSizes = sizes.filter(el => el.available == true); 
-    return availableSizes.map((el, index) => <li key={index} className={el.size === size ? 'active' : ''} onClick={() => changeSize(el.size)}>{el.size}</li>);
-  }
-
+const ProductSizes = ({ sizes, size, changeSize }) => {
+  return sizes.filter(el => el.available == true).map((el, index) => {
+    return(
+      <li 
+        key={index} 
+        className={el.size === size ? 'active' : ''} 
+        onClick={() => changeSize(el.size)}
+      >{el.size}</li>
+    );
+  });  
 } 
 
 export default ProductSizes;

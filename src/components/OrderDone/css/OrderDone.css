@@ -1,22 +1,27 @@
 .order-wrapper {
   max-width: 1118px;
 }
+
 .order-done {
   padding-bottom: 70px;
 }
+
 .order-done__information {
   margin-top: 14px;
   max-width: 650px;
   background-color: #F4F4F4;
 }
+
 .order-done__notice {
   margin-top: 20px;
   font-size: 18px;
   font-weight: 300;
 }
+
 .order-done__notice span {
   font-weight: normal;
 }
+
 .order-done__continue {
   display: block;
   margin: 53px auto;
@@ -29,26 +34,32 @@
   border-radius: 19.5px;
   background-color: #ffffff;
 }
+
 .order-done__continue:hover {
   box-shadow: 2px 2px 1px 1px #cccccc;
   cursor: pointer;
 }
+
 .order-done__continue:focus {
   outline: none;
 }
+
 .order-info {
   padding: 1px 10px 28px 55px;
   color: #333333;
 }
+
 .order-info__item {
   display: flex;
   margin-top: 24px;
 }
+
 .order-info__item h3 {
   width: 31%;
   font-size: 18px;
   font-weight: 300;
 }
+
 .order-info__item p {
   font-weight: normal;
   font-size: 18px;

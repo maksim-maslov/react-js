@@ -1,5 +1,3 @@
-/*Слайдеры*/
-
 /*Слайдер выбранного товара*/
 .main-screen__favourite-product-slider {
   height: 500px;
@@ -11,7 +9,6 @@
   left: 2px;
   width: 142px;
   height: 440px;
-  /* display: flex; */
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -49,7 +46,6 @@
 .favourite-product-slider__item {
   width: 142px;
   height: 128px;
-  /* border: 1px solid #C4C4C4; */
   margin: 12px 0;
   text-align: center;
   line-height: 124px;

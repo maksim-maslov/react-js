@@ -1,5 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=cyrillic-ext');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=cyrillic-ext');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #D4D4D4;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+
+html,
+body {
+  min-width: 1205px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #333333;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.fa-ruble:before, .fa-rouble:before, .fa-rub:before {
+  font-size: 80%;
+}
+
+

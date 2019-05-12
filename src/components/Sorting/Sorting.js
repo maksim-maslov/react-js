@@ -1,6 +1,6 @@
 import './css/Sorting.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 
 const Sorting = ({ updateFilters }) => {
   return(

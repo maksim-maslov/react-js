@@ -3,6 +3,7 @@
   height: 1px;
   background: #A1B3BF;
 }
+
 .header .top-menu__items {
   height: 100%;
   display: flex;
@@ -10,18 +11,20 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .header .top-menu__item {
   list-style: none;
   flex: 1;
   text-align: center;
 }
+
 .header .top-menu__item a {
   text-decoration: none;
   font-size: 18px;
   color: #333333;
   transition: color 300ms ease;
 }
+
 .header .top-menu__item a:hover {
   color: #DBE4E7;
-  /* text-decoration: underline; */
 }

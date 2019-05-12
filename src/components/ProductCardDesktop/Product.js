@@ -1,25 +1,25 @@
 import './css/Product.css';
 
-import React, { Component } from 'react';
-
-import ProductSlider from './ProductSlider';
 import ProductPic from './ProductPic';
 import ProductSizes from './ProductSizes';
+import ProductSlider from './ProductSlider';
+
+import React, { Component } from 'react';
 
 
 class Product extends Component { 
   constructor(props) {
     super(props);
+
     this.state = {
       size: '',
       imageSrc: ''
     };
 
     this.changeSize = this.changeSize.bind(this);
-    this.changeImage = this.changeImage.bind(this);
-    // this.addCart = this.addCart.bind(this);
-    
+    this.changeImage = this.changeImage.bind(this);    
   }
+
 
   componentWillReceiveProps(newProps) {
     this.setState({
@@ -28,23 +28,16 @@ class Product extends Component {
     });
   }
 
+
   changeSize(size) {
     this.setState({size: size});
   }  
 
-  // addCart(event, id, size) { 
-  //   const product = {id: id, size: size, amount: 1};     
-  //   this.props.updateBasket(event, product);
-  // }
-
-  // changeFavorites(event, id) {      
-  //   event.preventDefault(); 
-  //   this.props.changeFavorites(id);
-  // }
 
   changeImage(imageSrc) {
     this.setState({imageSrc: imageSrc});
   } 
+
 
   render() {
     const { categoryTitle, favoritesIdList, product, updateFavorites, updateBasket } = this.props;
@@ -53,9 +46,10 @@ class Product extends Component {
     return(
       <main className="product-card">
         <section className="product-card-content">
-          <h2 className="section-name">{categoryTitle}</h2>
-          {product != '{}' && <section className="product-card-content__main-screen">
 
+          <h2 className="section-name">{categoryTitle}</h2>
+
+          <section className="product-card-content__main-screen">
             <ProductSlider 
               images={product.images} 
               changeImage={this.changeImage}
@@ -68,6 +62,7 @@ class Product extends Component {
                 <h2>{product.title}</h2>
                 <div className="in-stock">{product.sizes ? 'В наличии' : 'Нет в наличии'}</div>
               </div>
+
               <div className="product-features">
                 <table className="features-table">                  
                   <tr>
@@ -96,56 +91,48 @@ class Product extends Component {
                   </tr>
                 </table>
               </div>
+
               <p className="size">Размер</p>
-              <ul className="sizes">
-              
+
+              <ul className="sizes">              
                 <ProductSizes 
                   sizes={product.sizes} 
                   size={size} 
                   changeSize={this.changeSize} 
                 />
-
               </ul>
+
               <div className="size-wrapper">
                 <a><span className="size-rule"></span><p className="size-table">Таблица размеров</p></a>
               </div>
+
               <a className="in-favourites-wrapper" onClick={() => updateFavorites(product.id)}>
                 <div 
-                  className={
-                    favoritesIdList.findIndex(element => element.id == product.id) != -1 
-                    ? 'favourite favourite_chosen' 
-                    : 'favourite'
-                  }
-                >
-                </div>
+                  className={favoritesIdList.findIndex(element => element.id == product.id) != -1 
+                  ? 'favourite favourite_chosen' 
+                  : 'favourite'}
+                ></div>
                 <p className="in-favourites">
-                  {
-                    favoritesIdList.findIndex(element => element.id == product.id) != -1 
-                    ? 'В избранном' 
-                    : 'В избранное'
-                  }
+                  {favoritesIdList.findIndex(element => element.id == product.id) != -1 
+                  ? 'В избранном' 
+                  : 'В избранное'}
                 </p>
               </a>
+
               <div className="basket-item__quantity">
                 <div className="basket-item__quantity-change basket-item-list__quantity-change_minus">-</div>
                   <span>1</span>
                 <div className="basket-item__quantity-change basket-item-list__quantity-change_plus">+</div>
               </div>
-              <div className="price">{product.price} ₽</div>
+
+              <div className="price">{product.price}&nbsp;<i className="fa fa-rub" aria-hidden="true"></i></div>
+
               <button 
-                className={`in-basket in-basket-click 
-                  ${
-                    size 
-                    ? '' 
-                    : 'in-basket_disabled'
-                  }`
-                } 
+                className={`in-basket in-basket-click ${size ? '' : 'in-basket_disabled'}`} 
                 onClick={() => updateBasket({id: product.id, size: size, amount: 1})}
-              >В корзину
-              </button>
-            </div>
-            
-          </section>}
+              >В корзину</button>
+            </div>            
+          </section>
           
         </section>      
       </main>

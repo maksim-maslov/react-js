@@ -1,15 +1,17 @@
 import './css/ProductCard.css';
 
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { HashRouter, Route, Link, Nav, NavLink, Switch } from 'react-router-dom';
 
 const ProductCard = ({ index, product, updateFavorites, favoritesIdList }) => {
 
   let classNameFavorite = 'item-pic-favorite__like_favorites';
 
   if (favoritesIdList) {
-    classNameFavorite = favoritesIdList.findIndex(element => element.id == product.id) === -1 ? 'item-pic-favorite__like_not-favorites' : 'item-pic-favorite__like_not-favorites-choosen';
+    classNameFavorite = favoritesIdList.findIndex(element => element.id == product.id) === -1 
+    ? 'item-pic-favorite__like_not-favorites' 
+    : 'item-pic-favorite__like_not-favorites-choosen';
   }
 
   const handlerClick = (event, id) => {
@@ -20,6 +22,7 @@ const ProductCard = ({ index, product, updateFavorites, favoritesIdList }) => {
   return(
     <li key={product.id} className="product-catalogue__item">
       <Link to={`/product-card-desktop/${product.id}`} className="item-list__item-card item">
+
         <div className="item-pic">
           <img className={`item-pic-${index + 1}`} src={product.images[0]} alt={product.title}/>
           <div className="item-pic__favorite">          
@@ -29,11 +32,13 @@ const ProductCard = ({ index, product, updateFavorites, favoritesIdList }) => {
             ></p>
           </div>                    
         </div>
+
         <div className="item-desc">
           <h4 className="item-name">{product.title}</h4>
           <p className="item-producer"><span className="producer">{product.brand}</span></p>
-          <p className="item-price">{product.price}</p>
+          <p className="item-price">{product.price}&nbsp;<i className="fa fa-rub" aria-hidden="true"></i></p>
         </div>
+        
       </Link> 
     </li>
   );    

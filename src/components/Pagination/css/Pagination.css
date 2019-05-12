@@ -1,7 +1,6 @@
 /*Пагинация в каталоге*/
 .product-catalogue__pagination {
   display: inline-block;
-  /* width: auto; */
   margin: 20px 0 25px -80px;
   position: absolute;
   bottom: 0;
@@ -14,15 +13,7 @@
   align-items: center;
 }
 
-/* .product-catalogue__pagination ul {
-  width: 310px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-} */
-
 .product-catalogue__pagination ul {			   
-  /* margin: 0 20px; */
   display: flex;								
 }
 
@@ -42,9 +33,6 @@
   text-decoration: none;  
 }
 
-
-
-
 .product-catalogue__pagination ul li + li {
   margin-left: 2px;
 }
@@ -54,15 +42,8 @@
   position: relative;
   display: inline-block;
   top: 0;
-  /* right: -30px; */
   width: 20px;
-  height: 20px;
-  /* vertical-align: middle; */
-  /* background: url(../../../img/catalogue-pics/product-catalogue-sprite-min.png);
-  background-position: 80px -107px; */
-  /* background-repeat:no-repeat; */
-  /* background-size: 80%; */
-  /* background-position:50%; */
+  height: 20px;  
   font-family: 'Roboto', 'sans-serif';
   font-size: 18px;
   font-weight: 400;
@@ -73,7 +54,6 @@
 .angle-forward a:hover {
   text-decoration: none;
 }
-
 
 .hidden {
   visibility: hidden;

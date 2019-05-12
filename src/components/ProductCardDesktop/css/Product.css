@@ -1,6 +1,5 @@
 html,
 body {
-  /* max-width: 1438px; */
   min-width: 1205px;
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
@@ -20,8 +19,6 @@ a {
 a:hover {
   cursor: pointer;
 }
-
-
 
 /*Карточка товара*/
 .product-card {
@@ -50,8 +47,6 @@ h2.section-name {
   border-top: 1px solid #F4F4F4;
   border-bottom: 1px solid #F4F4F4;
 }
-
-
 
 /*Блок информации о товаре*/
 .main-screen__product-info {
@@ -93,7 +88,6 @@ h2.section-name {
   color: #A1B3BF;
 }
 
-
 /*Таблица особенностей товара*/
 .product-features {
   width: 449px;
@@ -114,11 +108,9 @@ tr {
   position: relative;
   vertical-align: top;
   display: inline-block;
-  /* vertical-align: bottom; */
   width: 58%;
   z-index: 1;
   padding: 0 20px 0 0;
-  /* padding-right: 20px;  */
 }
 
 .left-col:after {
@@ -144,13 +136,6 @@ tr {
   height: 200px;
   padding-top: 10px;
 }
-
-.features-table td {
-  /* padding-bottom: 23px;
-  vertical-align: bottom; */
-}
-
-
 
 /*Избранное*/
 .in-favourites-wrapper {  
@@ -192,7 +177,6 @@ tr {
 /*Счётчик для корзины*/
 .basket-item__quantity {
   position: relative;
-  /* top: 60px; */
   left: 5px;
   display: flex;
   justify-content: space-around;
@@ -244,8 +228,6 @@ tr {
   outline: none;
 }
 
-
-
 .in-basket:hover:not(.in-basket_disabled) {
   cursor: pointer;
 }
@@ -288,47 +270,34 @@ tr {
           transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-
-
-
-/* .in-basket:hover {
-  cursor: pointer;
-} */
-
-
-
-
-
-
-
 /*Кастомизация бегунков*/
 ::-webkit-scrollbar-button {
-background-image: url('');
-background-repeat: no-repeat;
-width: 7px;
-height: 7px;
+  background-image: url('');
+  background-repeat: no-repeat;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
--webkit-border-radius: 15px;
-border-radius: 15px;
-background-color: #A1B3BF;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  background-color: #A1B3BF;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-background-color: rgba(161, 179, 191, 0.5);
+  background-color: rgba(161, 179, 191, 0.5);
 }
 
 ::-webkit-resizer {
-background-image: url('');
-background-repeat: no-repeat;
-width: 7px;
+  background-image: url('');
+  background-repeat: no-repeat;
+  width: 7px;
 }
 
 ::-webkit-scrollbar{
-width: 7px;
+  width: 7px;
 }

@@ -1,13 +1,16 @@
 import './css/Footer.css';
 
-import React, { Component } from 'react';
-
 import Subscribe from './Subscribe';
+
+import React from 'react';
+
 
 const Footer = () => {
   return(
     <footer className="footer">
+
       <Subscribe />
+      
       <div className="footer__bottom">
         <div className="wrapper">
           <div className="footer__menus">
@@ -55,8 +58,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      
     </footer>
-
   );
 }
 

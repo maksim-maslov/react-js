@@ -1,20 +1,21 @@
 import './css/MainPage.css';
 
-import React, { Component } from 'react';
-
-import Slider from './Slider';
-import NewDeals from './NewDeals';
-import SalesAndNews from './SalesAndNews';
 import AboutUs from './AboutUs';
+import NewDeals from './NewDeals';
+import Slider from './Slider';
+import SalesAndNews from './SalesAndNews';
 
-const MainPage = ({ categories, changeFavorites, favorites, favoritesIdList, updateFavorites }) => {
+import React from 'react';
+
+
+const MainPage = ({ favoritesIdList, featuredCategories, featuredProducts, updateFavorites }) => {
   return(
     <div className="container">  
       <Slider />
       <NewDeals 
-        categories={categories}       
-        favorites={favorites} 
         favoritesIdList={favoritesIdList}
+        featuredCategories={featuredCategories} 
+        featuredProducts={featuredProducts}  
         updateFavorites={updateFavorites}         
       />
       <SalesAndNews />

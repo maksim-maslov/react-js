@@ -1,7 +1,7 @@
 a:hover {
-  /* text-decoration: underline; */
   cursor: pointer;
 }
+
 .h3 {
   text-transform: uppercase;
 }
@@ -9,17 +9,26 @@ a:hover {
 .order-process__delivery {
   margin-top: 40px;
 }
+
+.order-process__delivery .h3 {
+font-size: 18px;
+color: #333333;
+}
+
 .order-process__delivery-form {
   display: flex;
   margin-top: 25px;
 }
+
 .order-process__delivery-label:not(:last-child) {
   margin-right: 40px;
 }
+
 .order-process__delivery-text {
   font-size: 18px;
   color: #000000;
 }
+
 .order-process__delivery-input {
   height: 38px;
   width: 271px;
@@ -34,43 +43,58 @@ a:hover {
   border-radius: 8px;
   outline: none;
 }
+
 .order-process__delivery-input::placeholder {
   text-align: left;
   color: #D6D6D6;
 }
+
 .order-process__delivery-input_adress {
   width: 504px;
 }
+
 .order-process__delivery p {
   margin-top: 12px;
   font-size: 18px;
   color: #333333;
 }
+
 .order-process__paid {
   margin-top: 70px;
 }
+
+.order-process__paid .h3 {
+  font-size: 18px;
+  color: #333333;
+}
+
 .order-process__paid-form {
   display: flex;
   margin-top: 24px;
 }
+
 .order-process__paid-radio {
   position: absolute;
   z-index: -1;
   opacity: 0;
   margin: 10px 0 0 7px;
 }
+
 .order-process__paid-radio:checked + span:after {
   opacity: 1;
 }
+
 .order-process__paid-label {
   margin-right: 10px;
   font-weight: 300;
   font-size: 16px;
   color: #333333;
 }
+
 .order-process__paid-label:not(:first-of-type) {
   margin-left: 30px;
 }
+
 .order-process__paid-text {
   position: relative;
   margin-left: 5px;
@@ -90,6 +114,7 @@ a:hover {
   border-radius: 50%;
   background: #ffffff;
 }
+
 .order-process__paid-text::after {
   content: '';
   position: absolute;
@@ -103,6 +128,7 @@ a:hover {
   opacity: 0;
   transition: .2s;
 }
+
 .order-process__form-submit {
   position: relative;
   display: block;
@@ -117,37 +143,32 @@ a:hover {
   transition: background-position 1s;
 }
 
-
-
 .order-process__form-submit:hover {
   cursor: pointer;
   box-shadow: none;
   margin: 71px auto 69px;
 }
 
-
-
-
 .order-process__form-submit:hover:not(.order-process__form-submit_disabled) {
   cursor: pointer;
   box-shadow: none;
   margin: 71px auto 69px;
 }
+
 .order-process__form-submit_disabled {
   opacity: 0.65;
   cursor: not-allowed !important;
 }
 
-
-
-
 .order-process__form-submit_click {
   overflow: hidden;
   position: relative;
 }
+
 .order-process__form-submit_click span {
   z-index: 20;
 }
+
 .order-process__form-submit_click:after {
   position: absolute;
   top: -50px;
@@ -165,6 +186,7 @@ a:hover {
   -ms-transform: rotate(-35deg);
   transform: rotate(-35deg);
 }
+
 .order-process__form-submit_click:active:after {
   left: 120%;
   -webkit-transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
