@@ -27,7 +27,7 @@ p.sort-by {
   line-height: normal;
   text-align: center;
   background: url(../../../img/catalogue-pics/product-catalogue__sort-by-drop-down-chevron.png) no-repeat;
-  background-color: #A1B3BF;
+  /* background-color: #A1B3BF; */
   background-position: 195px center;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -35,7 +35,7 @@ p.sort-by {
   text-overflow: '';
   -ms-appearance: none;
   appearance: none;
-  color: #333333;
+  color: #848484;
 }
 
 

@@ -7,7 +7,7 @@ class Subscribe extends Component {
     super(props)
     this.state = {
       subscribe: false,
-      validateEmailOk: false
+      isValidEmail: false
     }
 
     this.subscribe = this.subscribe.bind(this);
@@ -18,7 +18,7 @@ class Subscribe extends Component {
   subscribe(event) {
     event.preventDefault();
 
-    if (this.state.validateEmailOk) {
+    if (this.state.isValidEmail) {
 
       this.setState({subscribe: !this.state.subscribe});
     } else {
@@ -31,14 +31,14 @@ class Subscribe extends Component {
   validateEmail(email) {
 
     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
-    ? this.setState({validateEmailOk: true})
-    : this.setState({validateEmailOk: false});
+    ? this.setState({isValidEmail: true})
+    : this.setState({isValidEmail: false});
 
   }
 
 
   render() {
-    const { validateEmailOk } = this.state;
+    const { isValidEmail } = this.state;
 
     return(
       <section className="subscribe">
@@ -70,7 +70,7 @@ class Subscribe extends Component {
               <input 
                 className={`subscribe__submit 
                   ${
-                    validateEmailOk 
+                    isValidEmail 
                     ? '' 
                     : 'subscribe__submit_disabled'
                   }`

@@ -30,6 +30,10 @@
   color: #333333;
 }
 
+.basket-item__product-name a:hover {
+  color: #FF8076;
+}
+
 .basket-item__product-features {
   display: flex;
   justify-content: flex-start;

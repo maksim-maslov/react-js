@@ -28,8 +28,8 @@ const OrderDone = (props) => {
               <div className="order-info__item order-info__item_pay-form"> 
                 <h3>Способ оплаты:</h3>
                 <p>
-                  {order.paymentType === 'onlineCard'
-                  ? 'Картой ``онлайн``'
+                  {order.paymentType ===  'onlineCard'
+                  ? 'Картой онлайн'
                   : order.paymentType === 'offlineCard'
                     ? 'Картой курьеру'
                     : order.paymentType === 'offlineCash'
@@ -59,7 +59,7 @@ const OrderDone = (props) => {
 
             <Link to="/"><button className="order-done__continue">продолжить покупки</button></Link>            
           </section> 
-             
+
         </div>
       )}    
     </div>

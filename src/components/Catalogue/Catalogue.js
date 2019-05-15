@@ -9,7 +9,6 @@ import Sorting from '../Sorting/Sorting';
 import Sidebar from './Sidebar';
 
 import React, { Component } from 'react';
-// import { HashRouter, Route, Link, Nav, Switch } from 'react-router-dom';
 
 
 class Catalogue extends Component {
@@ -66,7 +65,7 @@ class Catalogue extends Component {
       } 
     }
 
-    if (!this.search) {
+    if (this.search == null) {
 
       if (this.categoryId) {
 
@@ -146,6 +145,7 @@ class Catalogue extends Component {
 
                       return(
                         <ProductCard 
+                          key={index}
                           index={index}  
                           product={el}                                
                           favoritesIdList={favoritesIdList} 

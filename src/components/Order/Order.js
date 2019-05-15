@@ -34,7 +34,7 @@ class Order extends Component {
     }, 0);
     this.setState({total: total}); 
   }
-  
+
 
   render() {  
     const { productsInBasket, updateBasket } = this.props; 
@@ -43,18 +43,24 @@ class Order extends Component {
     return( 
       <div className="wrapper order-wrapper">
 
-        <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '#', text: 'Оформление заказа'}]} />  
+        <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '#', text: 'Оформление заказа'}]} /> 
 
         <section className="order-process">
-          <h2 className="order-process__title">Оформление заказа</h2>   
-          <ProductsInBasket 
-            productsInBasket={productsInBasket} 
-            total={total} 
-          />          
-          <OrderForm 
-            total={total}
-            updateBasket={updateBasket}  
-          />            
+
+          {productsInBasket.length
+          ? <div>
+              <h2 className="order-process__title">Оформление заказа</h2>   
+              <ProductsInBasket 
+                productsInBasket={productsInBasket} 
+                total={total} 
+              />          
+              <OrderForm 
+                total={total}
+                updateBasket={updateBasket}  
+              /> 
+            </div>
+          : <div className="order-process__basket-is-empty">В вашей корзине пока ничего нет</div>}  
+
         </section>
 
       </div>

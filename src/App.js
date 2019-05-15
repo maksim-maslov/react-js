@@ -12,7 +12,7 @@ import OrderDone from './components/OrderDone/OrderDone';
 import ProductCardDesktop from './components/ProductCardDesktop/ProductCardDesktop';
 
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 class App extends Component {
@@ -20,17 +20,17 @@ class App extends Component {
     super(props);
 
     this.state = {
-      browsedProducts: [],                                    // Массив просмотренных товаров (ответ от сервера)
-      browsedProductsIdList: localStorage.browsedProducts     // Массив объектов id просмотренных товаров /[{id: "11"}, {id: "22"},...]/
-        ? JSON.parse(localStorage.browsedProducts)            // (хранитися в localStorage)
+      browsedProducts: [],                                            // Массив просмотренных товаров (ответ от сервера)
+      browsedProductsIdList: localStorage.getItem('browsedProducts')  // Массив объектов id просмотренных товаров 
+        ? JSON.parse(localStorage.getItem('browsedProducts'))         // /[{id: "11"}, {id: "22"},...]/ (хранитися в localStorage)
         : [],
-      cartId: localStorage.cartId                             // id корзины (хранится в localStorage)
-        ? localStorage.cartId
+      cartId: localStorage.getItem('cartId')                          // id корзины (хранится в localStorage)
+        ? localStorage.getItem('cartId') 
         : '',
       categories: [],                                         // Массив категорий товаров (ответ от сервера)
       favorites: {},                                          // Добавленные в "Избранное" товары (ответ от сервера, вместе со статусом)
-      favoritesIdList: localStorage.favorites                 // Массив объектов id товаров, добавленных в "Избранное" /[{id: "11"}, {id: "22"},...]/
-        ? JSON.parse(localStorage.favorites)                  // (хранится в localStorage)
+      favoritesIdList: localStorage.getItem('favorites')      // Массив объектов id товаров, добавленных в "Избранное"
+        ? JSON.parse(localStorage.getItem('favorites') )      // /[{id: "11"}, {id: "22"},...]/ (хранится в localStorage)
         : [], 
       featuredCategories: [],                                 // Массив категорий товаров для блока "Новинки"
       featuredProducts: [],                                   // Массив товаров для блока "Новиники" (все категории)
@@ -144,7 +144,7 @@ class App extends Component {
 
     this.setState({favoritesIdList: favoritesIdList}); 
 
-    localStorage.favorites = JSON.stringify(favoritesIdList);
+    localStorage.setItem('favorites',JSON.stringify(favoritesIdList));
 
     this.getFavorites();
   }
@@ -190,7 +190,7 @@ class App extends Component {
 
     this.setState({browsedProductsIdList: browsedProductsIdList}); 
 
-    localStorage.browsedProductsIdList = JSON.stringify(browsedProductsIdList);
+    localStorage.setItem('browsedProductsIdList', JSON.stringify(browsedProductsIdList));
 
     this.getBrowsedProducts();   
   }
@@ -236,7 +236,7 @@ class App extends Component {
       this.getProductsInBasket(params);
     } else {
 
-      !localStorage.cartId
+      !localStorage.getItem('cartId')
       ? this.setState({productsInBasket: []})
       : null;      
     }   
@@ -249,7 +249,7 @@ class App extends Component {
   //
 
   getProductsInBasket(params) {
-    const cartId = localStorage.cartId;
+    const cartId = localStorage.getItem('cartId');
 
     if (params.method == 'GET' && !cartId) {
       this.setState({productsInBasket: []});
@@ -279,14 +279,14 @@ class App extends Component {
               result = response;
             } else {
               result = new Array(response);
-              localStorage.cartId = data.data.id;
+              localStorage.setItem('cartId', data.data.id);
             }  
           }
 
           return result;
         } else if (/Корзина.+/.test(data.message)) {
 
-          localStorage.cartId = '';
+          localStorage.setItem('cartId', '');
 
           this.setState({productsInBasket: []});
 
@@ -425,31 +425,30 @@ class App extends Component {
               } 
             />
             <Route path="/order" 
-              render={props => productsInBasket.length
-              ? <Order                                    // Оформление заказа
-                  {...props} 
-                  productsInBasket={productsInBasket} 
-                  updateBasket={this.updateBasket} 
-                />
-              : <Loader />
-              } 
+              render={props => <Order                     // Оформление заказа
+                {...props} 
+                productsInBasket={productsInBasket} 
+                updateBasket={this.updateBasket} 
+              />} 
             />
-            <Route path="/order-done" component={OrderDone} />    // Заказ оформлен
-            <Route path="/"                                       // Главная
+            <Route path="/order-done"                     // Заказ оформлен
+              component={OrderDone}       
+            />    
+            <Route path="/"                               // Главная
               render={props => favoritesIdList.length && featuredCategories.length && featuredProducts.length
                 ? <MainPage 
-                  {...props} 
-                  favoritesIdList={favoritesIdList} 
-                  featuredCategories={featuredCategories} 
-                  featuredProducts={featuredProducts}  
-                  updateFavorites={this.updateFavorites} 
-                />
+                    {...props} 
+                    favoritesIdList={favoritesIdList} 
+                    featuredCategories={featuredCategories} 
+                    featuredProducts={featuredProducts}  
+                    updateFavorites={this.updateFavorites} 
+                  />
                 : <Loader />
               }
             />
-            {/* <Route path="*" component={Page404} /> */}
           </Switch>          
-          <Footer />                                              // Футер
+          <Footer                                         // Футер
+          />                                              
         </div>
       </Router>
     );

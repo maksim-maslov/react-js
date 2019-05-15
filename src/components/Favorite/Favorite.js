@@ -10,17 +10,9 @@ import React from 'react';
 
 const Favorite = ({ favorites, updateFavorites, updateFilters }) => {
 
-  const changeTextGoods = goods => {
-    const lastSymbol = Number(String(goods).slice(-1));
-    let result = 'товар';
-
-    if ((goods >= 11 && goods <= 14) || (lastSymbol >= 5 && lastSymbol <= 9) || lastSymbol == 0) {
-      result = 'товаров';
-    } else if (lastSymbol >= 2 && lastSymbol <= 4) {
-      result = 'товара';
-    } 
-    
-    return `${goods} ${result}`;    
+  function declOfNum(number, titles) {  
+    let cases = [2, 0, 1, 1, 1, 2];  
+    return `${number} ${titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]]}`;  
   }
   
   return(
@@ -32,7 +24,7 @@ const Favorite = ({ favorites, updateFavorites, updateFilters }) => {
             <div className="product-catalogue__section-title">
               <h2 className="section-name">В вашем избранном</h2>
               <span className="amount amount_favorite"> 
-                {changeTextGoods(favorites.goods)} 
+                {declOfNum(Number(favorites.goods), ['товар', 'товара', 'товаров'])} 
               </span>
             </div>
             <Sorting updateFilters={updateFilters} />

@@ -13,7 +13,7 @@ class OrderForm extends Component {
 
     this.state = {
       doRedirect: false,
-      validateFormOk: false
+      isValidForm: false
     };
 
     this.submit = this.submit.bind(this);
@@ -24,7 +24,7 @@ class OrderForm extends Component {
   submit(event) {
     event.preventDefault();    
 
-    if (!this.state.validateFormOk) {
+    if (!this.state.isValidForm) {
       return;
     }   
     
@@ -36,7 +36,7 @@ class OrderForm extends Component {
       phone: phone.value,
       address: address.value,
       paymentType: paid.value,
-      cart: localStorage.cartId,
+      cart: localStorage.getItem('cartId'),
       total: this.props.total
     };
 
@@ -50,7 +50,7 @@ class OrderForm extends Component {
       .then(response => response.json())
       .then(data => {        
         this.setState({doRedirect: true});
-        localStorage.cartId = '';
+        localStorage.setItem('cartId', '');
         updateBasket();        
       }); 
   }
@@ -59,13 +59,13 @@ class OrderForm extends Component {
   validateForm() {    
     const { name, phone, address } = this.formData;
     name.value && phone.value && address.value
-    ? this.setState({validateFormOk: true})
-    : this.setState({validateFormOk: false});
+    ? this.setState({isValidForm: true})
+    : this.setState({isValidForm: false});
   }
 
 
   render() {
-    const { validateFormOk } = this.state;
+    const { isValidForm } = this.state;
     
     return(
       <div className="order-process__confirmed">
@@ -132,7 +132,7 @@ class OrderForm extends Component {
           
           <button 
             className={`order-process__form-submit order-process__form-submit_click 
-              ${validateFormOk ? '' : 'order-process__form-submit_disabled'}`
+              ${isValidForm ? '' : 'order-process__form-submit_disabled'}`
             }               
             type="submit"
           >Подтвердить заказ</button> 
