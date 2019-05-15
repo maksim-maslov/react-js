@@ -380,7 +380,7 @@ class App extends Component {
     } = this.state;
     
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL} >
         <div className="container">
           <Header                                         // Хедер
             categories={categories} 
