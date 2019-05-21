@@ -3,7 +3,7 @@ import Page from './Page'
 import React from 'react';
 
 
-const PaginationPagesList = ({ pages, page, changePage }) => {
+function PaginationPagesList({ page, pages, changePage }) {
   const pagesList = [];
 
   for (let c = 1; c <= pages; c++) {

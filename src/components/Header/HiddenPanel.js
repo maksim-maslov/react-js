@@ -6,8 +6,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const HiddenPanel = ({ basketVisibility, profileVisibility, productsInBasket, updateBasket }) => {
-  return(
+function HiddenPanel({ basketVisibility, profileVisibility, productsInBasket, updateBasket }) {
+  return (
     <div className={`header-main__hidden-panel ${profileVisibility || basketVisibility ? 'hidden-panel header-main__hidden-panel_visible' : ''}`}>
       <div className="wrapper">
 
@@ -18,7 +18,11 @@ const HiddenPanel = ({ basketVisibility, profileVisibility, productsInBasket, up
           </Link>
         </div>
         
-        <Basket basketVisibility={basketVisibility} productsInBasket={productsInBasket} updateBasket={updateBasket} />
+        <Basket 
+          basketVisibility={basketVisibility} 
+          productsInBasket={productsInBasket} 
+          updateBasket={updateBasket} 
+        />
 
       </div>
     </div>

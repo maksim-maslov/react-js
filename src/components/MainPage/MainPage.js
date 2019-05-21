@@ -8,8 +8,8 @@ import SalesAndNews from './SalesAndNews';
 import React from 'react';
 
 
-const MainPage = ({ favoritesIdList, featuredCategories, featuredProducts, updateFavorites }) => {
-  return(
+function MainPage({ favoritesIdList, featuredCategories, featuredProducts, updateFavorites }) {
+  return (
     <div className="container">  
       <Slider />
       <NewDeals 

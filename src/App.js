@@ -136,9 +136,9 @@ class App extends Component {
   updateFavorites(productId) {
     const { favoritesIdList } = this.state;
 
-    const removeElementIndex = favoritesIdList.findIndex(el => el.id == productId);
+    const removeElementIndex = favoritesIdList.findIndex(el => el.id === productId);
 
-    removeElementIndex != -1
+    removeElementIndex !== -1
     ? favoritesIdList.splice(removeElementIndex, 1)
     : favoritesIdList.push({id: productId});   
 
@@ -184,8 +184,8 @@ class App extends Component {
   //
 
   updateBrowsedProducts(productId) {     
-    let browsedProductsIdList = this.state.browsedProductsIdList.slice(0, 11).filter(el => el.id != productId);
-
+    let browsedProductsIdList = this.state.browsedProductsIdList.slice(0, 11).filter(el => el.id !== productId);
+    
     browsedProductsIdList.unshift({id: Number(productId)});
 
     this.setState({browsedProductsIdList: browsedProductsIdList}); 
@@ -209,7 +209,7 @@ class App extends Component {
         .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
         .then(response => response.json())
         .then(data => this.setState({
-          browsedProducts: browsedProductsIdList.map(el => data.data.find(element => element.id == el.id))
+          browsedProducts: browsedProductsIdList.map(el => data.data.find(element => element.id === el.id))
         }));
 
     } 
@@ -251,7 +251,7 @@ class App extends Component {
   getProductsInBasket(params) {
     const cartId = localStorage.getItem('cartId');
 
-    if (params.method == 'GET' && !cartId) {
+    if (params.method === 'GET' && !cartId) {
       this.setState({productsInBasket: []});
       return;
     } 
@@ -264,7 +264,7 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
 
-        if (data.status == 'ok') {
+        if (data.status === 'ok') {
 
           let result; 
 
@@ -300,7 +300,7 @@ class App extends Component {
           .then(response => response.json())
           .then(data => {
             return productArray.map((el, index) => {
-              return {item: data.data.filter(element => element.id == el.id)[0], size: el.size, amount: el.amount};
+              return {item: data.data.filter(element => element.id === el.id)[0], size: el.size, amount: el.amount};
             });
           })
           .then(data => this.setState({ productsInBasket: data }));  
@@ -318,7 +318,7 @@ class App extends Component {
   updateFilters(type = '', value = '') {    
     let { filters } = this.state;
 
-    if (type == 'size' || type == 'heelSize') {
+    if (type === 'size' || type === 'heelSize') {
 
       const size = value;
 
@@ -339,21 +339,21 @@ class App extends Component {
         filters[type] = [];
         filters[type].push(size);
       }
-    } else if (type == 'discounted') {
+    } else if (type === 'discounted') {
 
-      value == true
+      value === true
       ? filters.discounted = 'true'
       : delete filters['discounted'];      
-    } else if (type == 'brand') {
+    } else if (type === 'brand') {
 
-      value != '' 
+      value !== '' 
       ? filters[type] = value
       : delete filters[type];     
-    } else if (type == 'sortBy') {
+    } else if (type === 'sortBy') {
 
       filters.sortBy = value;
       this.updateFavorites();
-    } else if (type == 'reset') {
+    } else if (type === 'reset') {
 
       for (let key in filters) {
         delete filters[key];
@@ -400,7 +400,7 @@ class App extends Component {
               />} 
             />
             <Route path="/favorite" 
-              render={props => favorites.status == 'ok'
+              render={props => favorites.status === 'ok'
               ? <Favorite                                 // Избранное
                   {...props} 
                   favorites={favorites}                 

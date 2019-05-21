@@ -5,7 +5,7 @@ import PaginationPagesList from './PaginationPagesList';
 import React from 'react';
 
 
-const Pagination = ({ pages, page, changePage } ) => {
+function Pagination({ pages, page, changePage }) {
 
   const handlerClick = page => {
     const timerId = setInterval(() => {document.querySelector('html').scrollTop -= 200}, 4);    
@@ -13,19 +13,23 @@ const Pagination = ({ pages, page, changePage } ) => {
     changePage(page);
   }
 
-  return(
+  return (
     <div className="product-catalogue__pagination">
       <div className="page-nav-wrapper">
 
-        <div className={`angle-back ${page != 1 ? '' : 'hidden'}`}>
+        <div className={`angle-back ${page !== 1 ? '' : 'hidden'}`}>
           <a onClick={() => handlerClick(page - 1)}>←</a>
         </div>
 
         <ul>
-          <PaginationPagesList pages={pages} page={page} changePage={handlerClick} />          
+          <PaginationPagesList 
+            page={page}           
+            pages={pages} 
+            changePage={handlerClick} 
+          />          
         </ul>
 
-        <div className={`angle-forward ${page != pages ? '' : 'hidden'}`}>
+        <div className={`angle-forward ${page !== pages ? '' : 'hidden'}`}>
           <a onClick={() => handlerClick(page + 1)}>→</a>
         </div>
 

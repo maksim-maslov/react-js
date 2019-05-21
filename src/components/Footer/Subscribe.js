@@ -4,43 +4,43 @@ import React, { Component } from 'react';
 
 class Subscribe extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    
     this.state = {
       subscribe: false,
       isValidEmail: false
-    }
+    };
 
-    this.subscribe = this.subscribe.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
-  subscribe(event) {
+  handleSubmit(event) {
     event.preventDefault();
+    const { isValidEmail, subscribe } = this.state;
 
-    if (this.state.isValidEmail) {
-
-      this.setState({subscribe: !this.state.subscribe});
+    if (isValidEmail) {
+      this.setState({subscribe: !subscribe});
     } else {
-
       return false;
     }
   }
 
   
-  validateEmail(email) {
+  validateEmail(event) {
+    const email = event.currentTarget.value;
 
     /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
     ? this.setState({isValidEmail: true})
     : this.setState({isValidEmail: false});
-
   }
 
 
   render() {
     const { isValidEmail } = this.state;
 
-    return(
+    return (
       <section className="subscribe">
         <div className="subscribe__wrapper">
 
@@ -48,7 +48,10 @@ class Subscribe extends Component {
 
           {this.state.subscribe 
           ?  <div className="subscribe__ok">Подписка оформлена! Спасибо!</div>
-          :  <form className="subscribe__radios" action="" onSubmit={ev => this.subscribe(ev)}>
+          : (
+            <form className="subscribe__radios" 
+                  action="" 
+                  onSubmit={this.handleSubmit}>
               <label className="subscribe__radio_label">
                 <input className="subscribe__radio" type="radio" name="subscribe" value="women" />
                 <div className="subscribe__radio_text">Женское</div>
@@ -58,28 +61,18 @@ class Subscribe extends Component {
                 <div className="subscribe__radio_text">Мужское</div>
               </label>
               <label className="subscribe__radio_label">
-                <input className="subscribe__radio" type="radio" name="subscribe" value="both" checked/>
+                <input className="subscribe__radio" type="radio" name="subscribe" value="both" defaultChecked />
                 <div className="subscribe__radio_text">Всё</div>
               </label>
-              <input 
-                className="subscribe__email" 
-                type="email" 
-                placeholder="Ваш e-mail" 
-                onChange={ev => this.validateEmail(ev.currentTarget.value)} 
-              />
-              <input 
-                className={`subscribe__submit 
-                  ${
-                    isValidEmail 
-                    ? '' 
-                    : 'subscribe__submit_disabled'
-                  }`
-                } 
-                type="submit" 
-                value="ПОДПИСАТЬСЯ" 
-              />
+              <input className="subscribe__email" 
+                     type="email" 
+                     placeholder="Ваш e-mail" 
+                     onChange={this.validateEmail} />
+              <input className={`subscribe__submit ${isValidEmail ? '': 'subscribe__submit_disabled'}`} 
+                     type="submit" 
+                     value="ПОДПИСАТЬСЯ" />
             </form>
-          }
+          )}
 
         </div>
       </section>

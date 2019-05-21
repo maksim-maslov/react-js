@@ -40,7 +40,7 @@ class Order extends Component {
     const { productsInBasket, updateBasket } = this.props; 
     const { total } = this.state;
 
-    return( 
+    return ( 
       <div className="wrapper order-wrapper">
 
         <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '#', text: 'Оформление заказа'}]} /> 
@@ -48,7 +48,8 @@ class Order extends Component {
         <section className="order-process">
 
           {productsInBasket.length
-          ? <div>
+          ? (
+            <div>
               <h2 className="order-process__title">Оформление заказа</h2>   
               <ProductsInBasket 
                 productsInBasket={productsInBasket} 
@@ -59,7 +60,9 @@ class Order extends Component {
                 updateBasket={updateBasket}  
               /> 
             </div>
-          : <div className="order-process__basket-is-empty">В вашей корзине пока ничего нет</div>}  
+          ) 
+          : <div className="order-process__basket-is-empty">В вашей корзине пока ничего нет</div>
+          }  
 
         </section>
 

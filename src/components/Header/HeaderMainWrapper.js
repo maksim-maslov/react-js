@@ -16,6 +16,8 @@ class HeaderMainWrapper extends Component {
     this.state = {
       doRedirect: false
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
 
@@ -28,8 +30,15 @@ class HeaderMainWrapper extends Component {
 
   
   render() {   
+    const { 
+      basketVisibility, 
+      profileVisibility, 
+      searchVisibility, 
+      updateBasketVisibility, 
+      updateProfileVisibility, 
+      updateSearchVisibility 
+    } = this.props;
     const { doRedirect } = this.state;
-    const { basketVisibility, profileVisibility, searchVisibility, updateBasketVisibility, updateProfileVisibility, updateSearchVisibility } = this.props;
 
     return(
       <div className="header-main__wrapper wrapper">
@@ -41,7 +50,7 @@ class HeaderMainWrapper extends Component {
         <div className="header-main__logo">
           <Link to="/">
             <h1>
-              <img src={logo} alt="logotype"/>
+              <img src={logo} alt="logotype" />
             </h1>
           </Link>
           <p>Обувь и аксессуары для всей семьи</p>
@@ -49,38 +58,34 @@ class HeaderMainWrapper extends Component {
 
         <div className="header-main__profile">
           <div className="header-main__pics">
-            <div 
-              className={`header-main__pic header-main__pic_search ${searchVisibility ? 'header-main__pic_search_is-hidden' : ''}`} 
-              onClick={updateSearchVisibility}
-            ></div>
+            <div className={`header-main__pic header-main__pic_search ${searchVisibility ? 'header-main__pic_search_is-hidden' : ''}`} 
+                 onClick={updateSearchVisibility}>
+            </div>
 
             <div className="header-main__pic_border"></div>
 
-            <div 
-              className="header-main__pic header-main__pic_profile" 
-              onClick={updateProfileVisibility}
-            >
+            <div className="header-main__pic header-main__pic_profile" 
+                 onClick={updateProfileVisibility}>
               <div className={`header-main__pic_profile_menu ${profileVisibility ? 'header-main__pic_profile_menu_is-active' : ''}`}></div>
             </div>
 
             <div className="header-main__pic_border"></div>
 
-            <div className="header-main__pic header-main__pic_basket" onClick={updateBasketVisibility}>
+            <div className="header-main__pic header-main__pic_basket" 
+                 onClick={updateBasketVisibility}>
               <div className="header-main__pic_basket_full">1</div>
               <div className={`header-main__pic_basket_menu ${basketVisibility ? 'header-main__pic_basket_menu_is-active' : ''}`}></div>
             </div>
           </div>   
 
-          <form 
-            className={`header-main__search ${searchVisibility ? 'header-main__search_active' : ''}`} 
-            ref={element => this.formData = element} 
-            onSubmit={this.handleSubmit.bind(this)}
-          >
+          <form className={`header-main__search ${searchVisibility ? 'header-main__search_active' : ''}`} 
+                ref={element => this.formData = element} 
+                onSubmit={this.handleSubmit}>
             <input placeholder="Поиск" name="search" />
             <i className="fa fa-search" aria-hidden="true"></i>
           </form>
 
-          {doRedirect && <Redirect to={{pathname: "catalogue", search: `search=${this.search}`}} />}
+          {doRedirect && <Redirect to={{pathname: "/catalogue", search: `search=${this.search}`}} />}
 
         </div>
       </div>

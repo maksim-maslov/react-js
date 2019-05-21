@@ -56,7 +56,7 @@ class Catalogue extends Component {
 
     for (let key in filters) {
 
-      if (key == 'size' || key == 'heelSize') {
+      if (key === 'size' || key === 'heelSize') {
 
         filtersParams = filters[key].reduce((memo, el) => memo + `&${key}[]=${el}`, filtersParams);
       } else if (filters[key]) {
@@ -65,13 +65,13 @@ class Catalogue extends Component {
       } 
     }
 
-    if (this.search == null) {
+    if (this.search === null) {
 
       if (this.categoryId) {
 
         queryString = `categoryId=${this.categoryId}`;
 
-        this.title = categories.find(el => el.id == this.categoryId).title; 
+        this.title = categories.find(el => el.id === Number(this.categoryId)).title; 
       } else {
 
         queryString = 'discounted=true';
@@ -93,7 +93,7 @@ class Catalogue extends Component {
       
         this.setState({products: data});   
 
-        if (!brands.length || filters.brand == newBrand) {
+        if (!brands.length || filters.brand === newBrand) {
 
           let brands = data.data.reduce((memo, el) => {
 
@@ -109,21 +109,29 @@ class Catalogue extends Component {
 
 
   render() {    
+    const { 
+      browsedProducts, 
+      favoritesIdList, 
+      filters, 
+      updateFavorites, 
+      updateFilters 
+    } = this.props;     
     const { products, brands } = this.state; 
-    const { browsedProducts, favoritesIdList, filters, updateFavorites, updateFilters } = this.props;     
+    
     
     return(
       <div>        
-        {browsedProducts && products.status == 'ok'
+        {browsedProducts && products.status === 'ok'
 
-        ? <div>
-            <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '#', text: `${this.title}`}]}/> 
+        ? (
+          <div>
+            <Breadcrumb links={[{link: '/main-page', text: 'Главная'}, {link: '#', text: `${this.title}`}]} /> 
 
             <main className="product-catalogue"> 
               <Sidebar 
-                updateFilters={updateFilters} 
-                filters={filters} 
                 brands={brands} 
+                filters={filters}                                   
+                updateFilters={updateFilters} 
               />  
 
               <section className="product-catalogue-content">  
@@ -143,12 +151,12 @@ class Catalogue extends Component {
 
                     {products.data.map((el, index) => {
 
-                      return(
+                      return (
                         <ProductCard 
                           key={index}
-                          index={index}  
-                          product={el}                                
                           favoritesIdList={favoritesIdList} 
+                          index={index}  
+                          product={el}                      
                           updateFavorites={updateFavorites}
                         />
                       );
@@ -159,8 +167,8 @@ class Catalogue extends Component {
                 </section>  
 
                 <Pagination 
+                  page={products.page}                   
                   pages={products.pages} 
-                  page={products.page} 
                   changePage={this.getProducts} 
                 />
               </section>
@@ -169,8 +177,10 @@ class Catalogue extends Component {
             {browsedProducts.length ? <BrowsedProducts browsedProducts={browsedProducts} /> : ''} 
 
           </div>
+        )
 
-        : <Loader />}
+        : <Loader />
+        }
       </div>
     );
   }

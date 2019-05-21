@@ -85,6 +85,7 @@
 .new-deals__gallery li {
   display: inline-block;
   margin: 7px;
+  vertical-align: middle;
 }
 
 .new-deals__product {
@@ -113,13 +114,18 @@
   opacity: 0.6;
   margin: auto;
   overflow: hidden;
-  
+  transition: width 500ms ease;
+  transition: height 500ms ease;  
 }
+
 .new-deals__product_last {
   opacity: 0.6;
   margin: auto;
   overflow: hidden;
+  transition: width 500ms ease;
+  transition: height 500ms ease;
 }
+
 .new-deals-product__pic {
   max-width: 99%;
   max-height: 99%;

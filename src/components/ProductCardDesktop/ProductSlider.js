@@ -2,16 +2,18 @@ import './css/ProductSlider.css';
 
 import React from 'react';
 
-const ProductSlider = ({ images, changeImage }) => {
-  return(
+function ProductSlider({ images, changeImage }) {
+  return (
     <section className="main-screen__favourite-product-slider">
       <div className="favourite-product-slider">
         <div className={`favourite-product-slider__arrow favourite-product-slider__arrow_up arrow-up ${images.length <= 3 ? 'hidden' : ''}`}></div>
         
         {images.map((el, index) => {
-          return(
-            <div className={`favourite-product-slider__item`} onClick={() => changeImage(el)} >
-              <img src={el} />
+          return (
+            <div className={`favourite-product-slider__item`} 
+                 key={index} 
+                 onClick={() => changeImage(el)}>
+              <img src={el} alt="" />
             </div>                       
           );
         })}         

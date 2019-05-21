@@ -4,11 +4,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const BasketItem = ({ product }) => {
-  return(
+function BasketItem({ product }) {
+  return (
     <div className="basket-item">
 
-      <div className="basket-item__pic"><img src={product.item.images[0]} alt="product_1"/></div>
+      <div className="basket-item__pic">
+        <img src={product.item.images[0]} alt="product_1" />
+      </div>
 
       <div className="basket-item__product">
         <div className="basket-item__product-name">
@@ -16,9 +18,18 @@ const BasketItem = ({ product }) => {
         </div>
 
         <div className="basket-item__product-features">
-          <div className="basket-item__size">Размер: <span>{product.size}</span></div>
-          <div className="basket-item__producer">Производитель: <span>{product.item.brand}</span></div>
-          <div className="basket-item__color">{product.item.color ? 'Цвет: ' : ''}<span>{product.item.color}</span></div>
+          <div className="basket-item__size">
+            Размер: 
+            <span>{product.size}</span>
+          </div>
+          <div className="basket-item__producer">
+            Производитель: 
+            <span>{product.item.brand}</span>
+          </div>
+          <div className="basket-item__color">
+            {product.item.color ? 'Цвет: ' : ''}
+            <span>{product.item.color}</span>
+          </div>
         </div>
       </div>
 
@@ -28,7 +39,10 @@ const BasketItem = ({ product }) => {
         <div className="basket-item__quantity-change basket-item-list__quantity-change_plus">+</div>
       </div>
 
-      <div className="basket-item__price">{product.item.price} <i className="fa fa-rub" aria-hidden="true"></i></div>
+      <div className="basket-item__price">
+        {product.item.price} 
+        <i className="fa fa-rub" aria-hidden="true"></i>
+      </div>
 
     </div>
   );

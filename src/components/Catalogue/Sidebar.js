@@ -10,6 +10,8 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
 
+    this.isCancel = '';
+
     this.state = {
       type: [
         'Балетки',
@@ -70,40 +72,39 @@ class Sidebar extends Component {
   }
   
 
-  componentDidMount() {
-
-    $("input#minCost").change(function() {
-      var value1 = $("input#minCost").val();
-      var value2 = $("input#maxCost").val();
+  componentDidMount() {    
+    this.$inputMinCost.change(() => {
+      let minValueInput = Number(this.$inputMinCost.val());
+      let maxValueInput = Number(this.$inputMaxCost.val());
     
-      if (parseInt(value1) > parseInt(value2)) {
-        value1 = value2;
-        $("input#minCost").val(value1);
+      if (minValueInput > maxValueInput) {
+        minValueInput = maxValueInput;
+        this.$inputMinCost.val(minValueInput);
       }
 
-      $("#slider-range").slider("values",0,value1);	
+      this.$sliderRange.slider('values', 0, minValueInput);	
     });
     
       
-    $("input#maxCost").change(function() {
-      var value1 = $("input#minCost").val();
-      var value2 = $("input#maxCost").val();
+    this.$inputMaxCost.change(() => {
+      let minValueInput = Number(this.$inputMinCost.val());
+      let maxValueInput = Number(this.$inputMaxCost.val());
       
-      if (value2 > 100000) {
-        value2 = 100000; 
-        $("input#maxCost").val(100000);
+      if (maxValueInput > 100000) {
+        maxValueInput = 100000; 
+        this.$inputMaxCost.val(100000);
       }
     
-      if (parseInt(value1) > parseInt(value2)) {
-        value2 = value1;
-        $("input#maxCost").val(value2);
+      if (minValueInput > maxValueInput) {
+        maxValueInput = minValueInput;
+        this.$inputMaxCost.val(maxValueInput);
       }
 
-      $("#slider-range").slider("values", 1, value2);
+      this.$sliderRange.slider('values', 1, maxValueInput);
     });
 
 
-    $("#slider-range").slider({
+    this.$sliderRange.slider({
       min: 0,
       max: 100000,
       values: [0, 100000],
@@ -111,8 +112,8 @@ class Sidebar extends Component {
       change: (event, ui) => {
         const minPrice = ui.values[0];
         const maxPrice = ui.values[1];
-        $("input#minCost").val(minPrice);
-        $("input#maxCost").val(maxPrice);
+        this.$inputMinCost.val(minPrice);
+        this.$inputMaxCost.val(maxPrice);
         this.props.updateFilters('minPrice', minPrice);   
         this.props.updateFilters('maxPrice', maxPrice);   
       }      
@@ -120,8 +121,13 @@ class Sidebar extends Component {
   }
 
 
+  componentWillReceiveProps(newProps) {
+    this.isCancel = JSON.stringify(newProps.filters) === '{}';
+  }
+
+
   render() {
-    const { updateFilters, filters, brands } = this.props;
+    const { updateFilters, brands } = this.props;
     const { 
       type, 
       color, 
@@ -137,28 +143,33 @@ class Sidebar extends Component {
       reasonHide, 
       seasonHide 
     } = this.state;
-    const isCancel = JSON.stringify(filters) === '{}';
 
-    if (isCancel) {
-      $("#slider-range").slider("values", 0, 0);
-      $("#slider-range").slider("values", 1, 100000);
+    if (this.isCancel) {
+      this.$sliderRange.slider('values', 0, 0);
+      this.$sliderRange.slider('values', 1, 100000);
     } 
 
-    return(
+    return (
       <section className="sidebar">
           <section className="sidebar__division">
             <div className="sidebar__catalogue-list">
               
               <div className="sidebar__division-title">
                 <h3>Каталог</h3>
-                <div 
-                  className={`${typeHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({typeHide: !this.state.typeHide})}
-                ></div>
+                <div className={`${typeHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({typeHide: !typeHide})}>
+                </div>
               </div>
 
               <ul className={`${typeHide ? 'hide' : 'show'}`}>
-                {type.map((el, index) => <li key={index} onClick={() => updateFilters('type', el)}><a>{el}</a></li>)}
+                {type.map((el, index) => {
+                  return (
+                    <li key={index} 
+                        onClick={() => updateFilters('type', el)}>
+                      <a>{el}</a>
+                    </li>
+                  );
+                })}
               </ul>
 
             </div>
@@ -167,24 +178,34 @@ class Sidebar extends Component {
           <div className="separator-150 separator-150-1"></div>
 
           <section className="sidebar__division">
-            <div className="sidebar__price" onClick={event => updateFilters(event)}>
+            <div className="sidebar__price" 
+                 onClick={event => updateFilters(event)}>
 
               <div className="sidebar__division-title">
                 <h3>Цена</h3>
-                <div 
-                  className={`${priceHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({priceHide: !this.state.priceHide})}
-                ></div>                
+                <div className={`${priceHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({priceHide: !priceHide})}>
+                </div>                
               </div>
 
               <div className={`price-slider ${priceHide ? 'hide' : 'show'}`}>
                 <div className="circle-container">
-                  <div id="slider-range"></div>
+                  <div id="slider-range" 
+                       ref={el => this.$sliderRange = $(el)}>
+                  </div>
                 </div>
                 <div className="counter">
-                  <input type="text" id="minCost" defaultValue="0" value={isCancel ? 0 : null}/>
+                  <input id="minCost" 
+                         ref={el => this.$inputMinCost = $(el)} 
+                         type="text" 
+                         defaultValue="0" 
+                         value={this.isCancel ? 0 : null} />
                   <div className="input-separator"></div>
-                  <input type="text" id="maxCost" defaultValue="100000" value={isCancel ? 100000 : null}/>
+                  <input id="maxCost" 
+                         ref={el => this.$inputMaxCost = $(el)} 
+                         type="text" 
+                         defaultValue="100000" 
+                         value={this.isCancel ? 100000 : null} />
                 </div>
               </div>  
 
@@ -198,16 +219,16 @@ class Sidebar extends Component {
 
               <div className="sidebar__division-title">
                 <h3>Цвет</h3>
-                <div 
-                  className={`${colorHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({colorHide: !this.state.colorHide})}
-                ></div>
+                <div className={`${colorHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({colorHide: !colorHide})}>
+                </div>
               </div>
 
               <ul className={`${colorHide ? 'hide' : 'show'}`}>    
                 {color.map((el, index) => {
-                  return(
-                    <li key={index} onClick={() => updateFilters('color', el.title)}>
+                  return (
+                    <li key={index} 
+                        onClick={() => updateFilters('color', el.title)}>
                       <a>
                         <div className={`color ${el.color}`}></div>
                         <span className="color-name">{el.title}</span>
@@ -227,28 +248,27 @@ class Sidebar extends Component {
 
               <div className="sidebar__division-title">
                 <h3>Размер</h3>
-                <div 
-                  className={`${sizeHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({sizeHide: !this.state.sizeHide})
-                }></div>
+                <div className={`${sizeHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({sizeHide: !sizeHide})}>
+                </div>
               </div>
 
               <ul className={`${sizeHide ? 'hide' : 'show'}`}>
                 {size.map((element, index) => {
-                  return(
-                    <div className={`list-${index + 1}`}>
+                  return (
+                    <div className={`list-${index + 1}`}
+                         key={index}>
 
                       {element.map((el, idx) => {
-                        return(
-                          <li key={idx} onChange={() => updateFilters('size', el)}>
+                        return (
+                          <li key={idx} 
+                              onChange={() => updateFilters('size', el)}>
                             <label>
-                              <input 
-                                type="checkbox" 
-                                className="checkbox" 
-                                name={`checkbox-${el}`} 
-                                value={el} 
-                                checked={isCancel ? false : null}
-                              />
+                              <input className="checkbox"                                 
+                                     type="checkbox" 
+                                     name={`checkbox-${el}`} 
+                                     value={el} 
+                                     checked={this.isCancel ? false : null} />
                               <span className="checkbox-custom"></span>
                               <span className="label">{el}</span>
                             </label>
@@ -272,27 +292,26 @@ class Sidebar extends Component {
               <div className="sidebar__division-title">
                 <h3>Размер каблука</h3>
 
-                <div 
-                  className={`${heelSizeHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({heelSizeHide: !this.state.heelSizeHide})}
-                ></div>
+                <div className={`${heelSizeHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({heelSizeHide: !heelSizeHide})}>
+                </div>
 
                 <ul className={`${heelSizeHide ? 'hide' : 'show'}`}>
                   {heelSize.map((element, index) => {
-                    return(
-                      <div className={`list-${index + 1}`}>
+                    return (
+                      <div className={`list-${index + 1}`}
+                           key={index}>
 
                         {element.map((el, idx) => {
-                          return(
-                            <li key={idx} onChange={() => updateFilters('heelSize', el)}>
+                          return (
+                            <li key={idx} 
+                                onChange={() => updateFilters('heelSize', el)}>
                               <label>
-                                <input 
-                                  type="checkbox" 
-                                  className="checkbox" 
-                                  name={`checkbox-${el}`} 
-                                  value={el} 
-                                  checked={isCancel ? false : null}
-                                />
+                                <input className="checkbox"                                   
+                                       type="checkbox" 
+                                       name={`checkbox-${el}`} 
+                                       value={el} 
+                                       checked={this.isCancel ? false : null} />
                                 <span className="checkbox-custom"></span>
                                 <span className="label">{el}</span>
                               </label>
@@ -317,14 +336,20 @@ class Sidebar extends Component {
 
               <div className="sidebar__division-title">
                 <h3>Повод</h3>                
-                <div 
-                  className={`${reasonHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({reasonHide: !this.state.reasonHide})}
-                ></div>
+                <div className={`${reasonHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({reasonHide: !reasonHide})}>
+                </div>
               </div>
 
               <ul className={`${reasonHide ? 'hide' : 'show'}`}>
-                {reason.map((el, index) => <li key={index} onClick={() => updateFilters('reason', el)}><a>{el}</a></li>)}                
+                {reason.map((el, index) => {
+                  return (
+                    <li key={index} 
+                        onClick={() => updateFilters('reason', el)}>
+                      <a>{el}</a>
+                    </li>
+                  );
+                })}                 
               </ul>
 
             </div>
@@ -337,14 +362,20 @@ class Sidebar extends Component {
 
               <div className="sidebar__division-title">
                 <h3>Сезон</h3>
-                <div 
-                  className={`${seasonHide ? 'opener-up' : 'opener-down'}`} 
-                  onClick={() => this.setState({seasonHide: !this.state.seasonHide})}
-                ></div>                
+                <div className={`${seasonHide ? 'opener-up' : 'opener-down'}`} 
+                     onClick={() => this.setState({seasonHide: !seasonHide})}>
+                </div>                
               </div>
 
               <ul className={`${seasonHide ? 'hide' : 'show'}`}>
-                {season.map((el, index) => <li key={index} onClick={() => updateFilters('season', el)}><a>{el}</a></li>)}
+                {season.map((el, index) => {
+                  return (
+                    <li key={index} 
+                        onClick={() => updateFilters('season', el)}>
+                      <a>{el}</a>
+                    </li>
+                  );
+                })}
               </ul>
 
             </div>
@@ -355,21 +386,22 @@ class Sidebar extends Component {
           <section className="sidebar__division">
             <div className="sidebar__brand">
               <h3>Бренд</h3>
-              <select name="" className="sidebar-brand__container" onChange={ev => updateFilters('brand', ev.currentTarget.value)}>
-                <option selected={isCancel ? true : null } value=""></option>
-                {brands.map((el, index) => <option value={el}>{el}</option>)}
+              <select className="sidebar-brand__container"                        
+                      onChange={ev => updateFilters('brand', ev.currentTarget.value)}>
+                <option selected={this.isCancel ? true : null} 
+                        value="">
+                </option>
+                {brands.map((el, index) => <option key={index} value={el}>{el}</option>)}
               </select>                            
             </div>
 
             <label>
-              <input 
-                type="checkbox" 
-                className="checkbox" 
-                name="checkbox-disc" 
-                value="" 
-                onChange={ev => updateFilters('discounted', ev.currentTarget.checked)} 
-                checked={isCancel ? false : null}
-              />
+              <input className="checkbox"               
+                     type="checkbox" 
+                     name="checkbox-disc" 
+                     value="" 
+                     onChange={ev => updateFilters('discounted', ev.currentTarget.checked)} 
+                     checked={this.isCancel ? false : null} />
               <span className="checkbox-discount" ></span>
               <span className="text-discount">Со скидкой</span>
             </label>
@@ -378,7 +410,8 @@ class Sidebar extends Component {
           </section>
               
           <section className="sidebar__division">    
-            <div className="drop-down" onClick={() => updateFilters('reset')}>
+            <div className="drop-down" 
+                 onClick={() => updateFilters('reset')}>
               <a><span className="drop-down-icon"></span>Сбросить</a>
             </div>
           </section>

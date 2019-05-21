@@ -1,7 +1,5 @@
 import './css/NewDeals.css';
 
-import Loader from '../Loader/Loader';
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +11,7 @@ class NewDeals extends Component {
     this.state = { 
       categoryId: props.featuredCategories[0].id, 
       featuredProducts: props.featuredProducts,
-      featuredProductsFilter: props.featuredProducts.filter(el => el.categoryId == props.featuredCategories[0].id),
+      featuredProductsFilter: props.featuredProducts.filter(el => el.categoryId === props.featuredCategories[0].id),
       first: 0 
     };  
 
@@ -29,10 +27,10 @@ class NewDeals extends Component {
 
 
   updateCategory(categoryId) {
-    if (categoryId != this.state.categoryId) {
+    if (categoryId !== this.state.categoryId) {
       this.setState({
         categoryId: categoryId, 
-        featuredProductsFilter: this.state.featuredProducts.filter(el => el.categoryId == categoryId),
+        featuredProductsFilter: this.state.featuredProducts.filter(el => el.categoryId === categoryId),
         first: 0
       });      
     }    
@@ -40,12 +38,12 @@ class NewDeals extends Component {
 
 
   render() {
-    const { first, featuredProductsFilter } = this.state;
     const { favoritesIdList, featuredCategories } = this.props;
+    const { first, featuredProductsFilter } = this.state;    
     const last = featuredProductsFilter.length;      
     this.position = -(first * (284 + 14));  
     
-    return(
+    return (
       <section className="new-deals wave-bottom">
       
         <h2 className="h2">Новинки</h2>
@@ -54,11 +52,12 @@ class NewDeals extends Component {
           <ul className="new-deals__menu-items">
 
             {featuredCategories.map((el, index) => {
-              return(
-                <li key={index} className="new-deals__menu-item">
-                  <a                   
-                    onClick={ev => this.updateCategory(el.id)} 
-                  >{el.title}</a>
+              return (
+                <li className="new-deals__menu-item" 
+                    key={index}>
+                  <a onClick={ev => this.updateCategory(el.id)}>
+                    {el.title}
+                  </a>
                 </li>
               );
             })}
@@ -68,44 +67,30 @@ class NewDeals extends Component {
 
         <div>          
           <div className="new-deals__slider">
-            <div 
-              className={`new-deals__arrow new-deals__arrow_left arrow ${first === 0 ? 'hidden' : ''}`}
-              onClick={() => this.setState({first: first - 1})}
-            >
+            <div className={`new-deals__arrow new-deals__arrow_left arrow ${first === 0 ? 'hidden' : ''}`}
+                 onClick={() => this.setState({first: first - 1})}>
             </div>
 
             <div className="new-deals__gallery">
               <ul style={{transform: `translate(${this.position}px)`}}>  
 
                 {featuredProductsFilter.map((el, index) => {                       
-                  return(
+                  return (
                     <li key={index}>
                       <Link to={`/product-card-desktop/${el.id}`}>
-                        <div 
-                          className={`new-deals__product 
-                            ${index === first + 1 ? 'new-deals__product_active' : ''}
-                            ${index === first ? 'new-deals__product_first' : ''}
-                            ${index === first + 2 ? 'new-deals__product_last' : ''}`
-                          }
-                        >
-                          <img 
-                            className="new-deals-product__pic" 
-                            src={el.images[0]} 
-                            alt={el.title}
-                          />
+                        <div className={`new-deals__product 
+                              ${index === first + 1 ? 'new-deals__product_active' : ''}
+                              ${index === first ? 'new-deals__product_first' : ''}
+                              ${index === first + 2 ? 'new-deals__product_last' : ''}`}>
+                          <img className="new-deals-product__pic" 
+                               src={el.images[0]} 
+                               alt={el.title} />
 
-                          {index === first + 1 &&                      
-                            <div 
-                              className={`new-deals__product_favorite 
-                                ${favoritesIdList.findIndex(element => element.id == el.id) === -1 
-                                  ? '' 
-                                  : 'favourite_chosen'
-                                }`
-                              } 
-                              onClick={ev => this.updateFavorites(ev, el.id)} 
-                            >
+                          {index === first + 1 &&  (
+                            <div className={`new-deals__product_favorite ${favoritesIdList.findIndex(element => element.id === el.id) === -1 ? '' : 'favourite_chosen'}`} 
+                              onClick={ev => this.updateFavorites(ev, el.id)}>
                             </div>
-                          }
+                          )}
                         </div>
                       </Link>
                     </li>
@@ -115,10 +100,8 @@ class NewDeals extends Component {
               </ul>
             </div>
 
-            <div 
-              className={`new-deals__arrow new-deals__arrow_right arrow ${last < 3 || first + 3 === last ? 'hidden' : ''}`} 
-              onClick={() => this.setState({first: first + 1})}
-            >
+            <div className={`new-deals__arrow new-deals__arrow_right arrow ${last < 3 || first + 3 === last ? 'hidden' : ''}`} 
+                 onClick={() => this.setState({first: first + 1})}>
             </div>
           </div>   
 
@@ -129,7 +112,10 @@ class NewDeals extends Component {
             <p> 
               <span className="new-deals-product-info__brand">{featuredProductsFilter[first + 1].brand}</span>
             </p>
-            <h3 className="new-deals-product-info__price">{featuredProductsFilter[first + 1].price}&nbsp;<i className="fa fa-rub" aria-hidden="true"></i></h3>
+            <h3 className="new-deals-product-info__price">
+              {featuredProductsFilter[first + 1].price}&nbsp;
+              <i className="fa fa-rub" aria-hidden="true"></i>
+            </h3>
           </div>
 
         </div>

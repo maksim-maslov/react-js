@@ -8,7 +8,7 @@ import Sorting from '../Sorting/Sorting';
 import React from 'react';
 
 
-const Favorite = ({ favorites, updateFavorites, updateFilters }) => {
+function Favorite({ favorites, updateFavorites, updateFilters }) {
 
   function declOfNum(number, titles) {  
     let cases = [2, 0, 1, 1, 1, 2];  
@@ -31,10 +31,22 @@ const Favorite = ({ favorites, updateFavorites, updateFilters }) => {
           </section>
           <section className="product-catalogue__item-list_favorite"> 
             <ul className="product-catalogue__items">    
-              {favorites.data.map((el, index) => <ProductCard index={index} product={el} updateFavorites={updateFavorites} />)}  
+              {favorites.data.map((el, index) => {
+                return (
+                  <ProductCard 
+                    index={index} 
+                    product={el} 
+                    updateFavorites={updateFavorites} 
+                  />
+                );
+              })}  
             </ul> 
           </section> 
-          <Pagination pages={favorites.pages} page={favorites.page} changePage={updateFavorites} />
+          <Pagination 
+            page={favorites.page}             
+            pages={favorites.pages} 
+            changePage={updateFavorites} 
+          />
         </main>
       </div>
     </div>

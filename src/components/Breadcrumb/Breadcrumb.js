@@ -4,23 +4,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Breadcrumb = ({ links }) => {
-  return(
+function Breadcrumb({ links }) {
+  return (
     <div className="site-path">
       <ul className="site-path__items">
 
-        {links.length && links.map((el, index) => 
-        
-          <li key={index} className="site-path__item">
+        {links.length && (
+          links.map((el, index) => {
+            return (
+              <li className="site-path__item" key={index}>
 
-            {index + 1 != links.length
+                {index + 1 !== links.length
 
-            ? <Link to={el.link}>{el.text}</Link>
+                ? <Link to={el.link}>{el.text}</Link>
 
-            : <span>{el.text}</span>}
+                : <span>{el.text}</span>}
 
-          </li>
-
+              </li>
+            ); 
+          })
         )}
 
       </ul>

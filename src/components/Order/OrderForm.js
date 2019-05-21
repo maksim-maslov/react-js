@@ -16,12 +16,12 @@ class OrderForm extends Component {
       isValidForm: false
     };
 
-    this.submit = this.submit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
   }
 
   
-  submit(event) {
+  handleSubmit(event) {
     event.preventDefault();    
 
     if (!this.state.isValidForm) {
@@ -67,45 +67,40 @@ class OrderForm extends Component {
   render() {
     const { isValidForm } = this.state;
     
-    return(
+    return (
       <div className="order-process__confirmed">
 
-        <form ref={element => this.formData = element} onSubmit={ev => this.submit(ev)}>
+        <form ref={element => this.formData = element} 
+              onSubmit={this.handleSubmit}>
           <div className="order-process__delivery">
             <h3 className="h3">кому и куда доставить?</h3>
 
             <div className="order-process__delivery-form">
               <label className="order-process__delivery-label">
                 <div className="order-process__delivery-text">Имя</div>
-                <input 
-                  className="order-process__delivery-input" 
-                  type="text" 
-                  name="name" 
-                  placeholder="Представьтесь, пожалуйста" 
-                  onChange={this.validateForm}
-                />
+                <input className="order-process__delivery-input" 
+                       type="text" 
+                       name="name" 
+                       placeholder="Представьтесь, пожалуйста" 
+                       onChange={this.validateForm} />
               </label>
 
               <label className="order-process__delivery-label">
                 <div className="order-process__delivery-text">Телефон</div>
-                <input 
-                  className="order-process__delivery-input" 
-                  type="tel" 
-                  name="phone" 
-                  placeholder="Номер в любом формате" 
-                  onChange={this.validateForm}
-                />
+                <input className="order-process__delivery-input" 
+                       type="tel" 
+                       name="phone" 
+                       placeholder="Номер в любом формате" 
+                       onChange={this.validateForm} />
               </label>
 
               <label className="order-process__delivery-label">
                 <div className="order-process__delivery-text">Адрес</div>
-                <input 
-                  className="order-process__delivery-input order-process__delivery-input_adress" 
-                  type="text" 
-                  name="address" 
-                  placeholder="Ваша покупка будет доставлена по этому адресу" 
-                  onChange={this.validateForm}
-                />
+                <input className="order-process__delivery-input order-process__delivery-input_adress" 
+                       type="text" 
+                       name="address" 
+                       placeholder="Ваша покупка будет доставлена по этому адресу" 
+                       onChange={this.validateForm} />
               </label>
             </div>
 
@@ -116,26 +111,24 @@ class OrderForm extends Component {
             <h3 className="h3">хотите оплатить онлайн или курьеру при получении?</h3>
             <div className="order-process__paid-form">
               <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="onlineCard"/>
+                <input className="order-process__paid-radio" type="radio" name="paid" value="onlineCard" />
                 <span className="order-process__paid-text">Картой онлайн</span>
               </label>
               <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCard" checked/>
+                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCard" defaultChecked />
                 <span className="order-process__paid-text">Картой курьеру</span>
               </label>
               <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCash"/>
+                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCash" />
                 <span className="order-process__paid-text">Наличными курьеру</span>
               </label>
             </div>
           </div>
           
-          <button 
-            className={`order-process__form-submit order-process__form-submit_click 
-              ${isValidForm ? '' : 'order-process__form-submit_disabled'}`
-            }               
-            type="submit"
-          >Подтвердить заказ</button> 
+          <button className={`order-process__form-submit order-process__form-submit_click ${isValidForm ? '' : 'order-process__form-submit_disabled'}`}               
+                  type="submit">
+            Подтвердить заказ
+          </button> 
         </form>
 
         {this.state.doRedirect && <Redirect to={{pathname: "order-done", state: this.order}} />} 

@@ -9,11 +9,6 @@ import React, { Component } from 'react';
 
 
 class Slider extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
 
   componentDidMount() {
     window.requestAnimationFrame = (function () { // для поддержки requestAnimationFrame всеми браузерами
@@ -32,31 +27,31 @@ class Slider extends Component {
   
 
   render() {
-    return(
+    return (
       <section className="slider">
         <div className="wrapper">
           <div className="slider__pictures">
-          <a className="slider__image">
-            <img src={slide1} alt="slide picture"/>
-          </a>
-          <a className="slider__image">
-            <img src={slide2} alt="slide picture"/>
-          </a>
-          <a className="slider__image">
-            <img src={slide1} alt="slide picture"/>
-          </a>
-          <a className="slider__image">
-            <img src={slide2} alt="slide picture"/>
-          </a>
-          <div className="arrow slider__arrow slider__arrow_left"></div>
-          <div className="arrow slider__arrow slider__arrow_right"></div>
-          <div className="slider__circles">
-            <button className="slider__circle" value="0"></button>
-            <button className="slider__circle" value="1"></button>
-            <button className="slider__circle" value="2"></button>
-            <button className="slider__circle" value="3"></button>
-          </div>
-          <h2 className="h2">К весне готовы!</h2>
+            <a className="slider__image">
+              <img src={slide1} alt="" />
+            </a>
+            <a className="slider__image">
+              <img src={slide2} alt="" />
+            </a>
+            <a className="slider__image">
+              <img src={slide1} alt="" />
+            </a>
+            <a className="slider__image">
+              <img src={slide2} alt="" />
+            </a>
+            <div className="arrow slider__arrow slider__arrow_left"></div>
+            <div className="arrow slider__arrow slider__arrow_right"></div>
+            <div className="slider__circles">
+              <button className="slider__circle" value="0"></button>
+              <button className="slider__circle" value="1"></button>
+              <button className="slider__circle" value="2"></button>
+              <button className="slider__circle" value="3"></button>
+            </div>
+            <h2 className="h2">К весне готовы!</h2>
           </div>
         </div>
       </section>

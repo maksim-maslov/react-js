@@ -24,7 +24,7 @@ class Product extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       size: '',
-      imageSrc: newProps.product != '{}' ? newProps.product.images[0] : null
+      imageSrc: newProps.product.images[0]
     });
   }
 
@@ -43,7 +43,7 @@ class Product extends Component {
     const { categoryTitle, favoritesIdList, product, updateFavorites, updateBasket } = this.props;
     const { size, imageSrc } = this.state;
 
-    return(
+    return (
       <main className="product-card">
         <section className="product-card-content">
 
@@ -67,7 +67,11 @@ class Product extends Component {
                 <table className="features-table">                  
                   <tr>
                     <td className="left-col">Бренд</td>
-                    <td className="right-col"><a><span className="producer">{product.brand}</span></a></td>
+                    <td className="right-col">
+                      <a>
+                        <span className="producer">{product.brand}</span>
+                      </a>
+                    </td>
                   </tr>
                   <tr>
                     <td className="left-col">Артикул</td>
@@ -96,24 +100,27 @@ class Product extends Component {
 
               <ul className="sizes">              
                 <ProductSizes 
+                  size={size}                 
                   sizes={product.sizes} 
-                  size={size} 
                   changeSize={this.changeSize} 
                 />
               </ul>
 
               <div className="size-wrapper">
-                <a><span className="size-rule"></span><p className="size-table">Таблица размеров</p></a>
+                <a>
+                  <span className="size-rule"></span>
+                  <p className="size-table">Таблица размеров</p>
+                </a>
               </div>
 
-              <a className="in-favourites-wrapper" onClick={() => updateFavorites(product.id)}>
-                <div 
-                  className={favoritesIdList.findIndex(element => element.id == product.id) != -1 
-                  ? 'favourite favourite_chosen' 
-                  : 'favourite'}
-                ></div>
+              <a className="in-favourites-wrapper" 
+                 onClick={() => updateFavorites(product.id)}>
+                <div className={favoritesIdList.findIndex(element => element.id === product.id) !== -1 
+                     ? 'favourite favourite_chosen' 
+                     : 'favourite'}>
+                </div>
                 <p className="in-favourites">
-                  {favoritesIdList.findIndex(element => element.id == product.id) != -1 
+                  {favoritesIdList.findIndex(element => element.id === product.id) !== -1 
                   ? 'В избранном' 
                   : 'В избранное'}
                 </p>
@@ -125,12 +132,16 @@ class Product extends Component {
                 <div className="basket-item__quantity-change basket-item-list__quantity-change_plus">+</div>
               </div>
 
-              <div className="price">{product.price}&nbsp;<i className="fa fa-rub" aria-hidden="true"></i></div>
+              <div className="price">
+                {product.price}&nbsp;
+                <i className="fa fa-rub" aria-hidden="true"></i>
+              </div>
 
               <button 
                 className={`in-basket in-basket-click ${size ? '' : 'in-basket_disabled'}`} 
-                onClick={() => updateBasket({id: product.id, size: size, amount: 1})}
-              >В корзину</button>
+                onClick={() => updateBasket({id: product.id, size: size, amount: 1})}>
+                В корзину
+              </button>
             </div>            
           </section>
           

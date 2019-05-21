@@ -32,7 +32,7 @@ class ProductCardDesktop extends Component {
   init(props) {
     const { id } = this.state;
 
-    if (id == props.match.params.id) {
+    if (id === props.match.params.id) {
       return;
     }
 
@@ -59,7 +59,7 @@ class ProductCardDesktop extends Component {
       .then(response => response.json())
       .then(data => {
 
-        this.setState({similarProducts: data.data.filter(el => el.id != id)});
+        this.setState({similarProducts: data.data.filter(el => el.id !== id)});
 
         updateBrowsedProducts(id);
       });
@@ -67,38 +67,41 @@ class ProductCardDesktop extends Component {
   
 
   render() {
-    const { product, similarProducts, categoryTitle, id } = this.state;
-    const { categories, updateFavorites, favoritesIdList, updateBasket } = this.props;
-    const browsedProducts = this.props.browsedProducts.filter(el => el.id != id);
+    const { updateFavorites, favoritesIdList, updateBasket } = this.props;
+    const { product, similarProducts, categoryTitle, id } = this.state;    
+    const browsedProducts = this.props.browsedProducts.filter(el => el.id !== id);
 
-    return(
+    return (
       <div>
-        {JSON.stringify(product) != '{}'
-        ? <div>
-            <Breadcrumb links={[
-              {link: '/main-page', text: 'Главная'}, 
-              {link: `/catalogue?categoryId=${product.categoryId}`, text: categoryTitle },
-              {link: `#`, text: product.title }
-            ]}/>
+        {JSON.stringify(product) !== '{}'
+        ? (
+          <div>
+            <Breadcrumb 
+              links={[
+                {link: '/main-page', text: 'Главная'}, 
+                {link: `/catalogue?categoryId=${product.categoryId}`, text: categoryTitle },
+                {link: `#`, text: product.title }
+              ]}
+            />
             <Product 
               categoryTitle={categoryTitle}
+              favoritesIdList={favoritesIdList}  
+              product={product}                          
               updateFavorites={updateFavorites}
-              favoritesIdList={favoritesIdList}
-              product={product}
               updateBasket={updateBasket}                 
             />
-            {
-              browsedProducts.length 
-              ? <BrowsedProducts browsedProducts={browsedProducts} />
-              : ''
+            {browsedProducts.length 
+            ? <BrowsedProducts browsedProducts={browsedProducts} />
+            : ''
             }        
-            {
-              similarProducts.length 
-              ? <SimilarProducts similarProducts={similarProducts} />
-              : ''
+            {similarProducts.length 
+            ? <SimilarProducts similarProducts={similarProducts} />
+            : ''
             }    
           </div>
-        : <Loader />}
+        ) 
+        : <Loader />
+        }
       </div>
     ); 
   }

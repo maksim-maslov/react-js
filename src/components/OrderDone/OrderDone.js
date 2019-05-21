@@ -6,10 +6,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const OrderDone = (props) => {
+function OrderDone(props) {
   const order = props.location.state;
   
-  return(
+  return (
     <div>
       {order && (
         <div className="wrapper order-wrapper"> 
@@ -22,7 +22,10 @@ const OrderDone = (props) => {
             <div className="order-done__information order-info">
               <div className="order-info__item order-info__item_summ"> 
                 <h3>Сумма заказа:</h3>
-                <p>{order.total}&nbsp;<i className="fa fa-rub" aria-hidden="true"></i></p>
+                <p>
+                  {order.total}&nbsp;
+                  <i className="fa fa-rub" aria-hidden="true"></i>
+                </p>
               </div>
 
               <div className="order-info__item order-info__item_pay-form"> 
@@ -55,9 +58,14 @@ const OrderDone = (props) => {
               </div>
             </div>
 
-            <p className="order-done__notice">Данные о заказе отправлены на адрес <span>notbosaanymore@gmail.com.  </span></p>
+            <p className="order-done__notice">
+              Данные о заказе отправлены на адрес 
+              <span>notbosaanymore@gmail.com.  </span>
+            </p>
 
-            <Link to="/"><button className="order-done__continue">продолжить покупки</button></Link>            
+            <Link to="/">
+              <button className="order-done__continue">продолжить покупки</button>
+            </Link>            
           </section> 
 
         </div>

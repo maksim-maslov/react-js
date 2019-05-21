@@ -3,8 +3,8 @@ import './css/Loader.css';
 import React from 'react';
 
 
-const Loader = props => {
-  return(
+function Loader() {
+  return (
     <div id="floatingCirclesG">
       <div className="f_circleG" id="frotateG_01"></div>
       <div className="f_circleG" id="frotateG_02"></div>

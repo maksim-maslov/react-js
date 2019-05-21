@@ -3,7 +3,7 @@ import './css/TopMenu.css';
 import React from 'react';
 
 
-const TopMenu = () => {
+function TopMenu() {
 
   const topMenuItem = [
     'Возврат',
@@ -17,7 +17,14 @@ const TopMenu = () => {
     <div className="top-menu">
       <div className="wrapper">
         <ul className="top-menu__items">
-          {topMenuItem.map((el, index) => <li key={index} className="top-menu__item"><a>{el}</a></li>)}          
+          {topMenuItem.map((el, index) => {
+            return (
+              <li className="top-menu__item"
+                  key={index}>
+                <a>{el}</a>
+              </li>
+            );
+          })}          
         </ul>
       </div>
     </div>

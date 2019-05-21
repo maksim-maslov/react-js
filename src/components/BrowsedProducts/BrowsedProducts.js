@@ -13,38 +13,38 @@ class BrowsedProducts extends Component {
     };
   } 
 
+  handlerClickArrow(nextFirst) {
+    this.setState({first: nextFirst});
+  }
+
 
   render() {
-    const { first } = this.state;
     const { browsedProducts } = this.props;
+    const { first } = this.state;    
     const last = browsedProducts.length;    
     this.position = -(first * (185 + 14));
 
-    return(
+    return (
       <section className="product__overlooked-slider">
         <h3>Вы смотрели</h3>
         <div className="overlooked-slider">
 
-          <div 
-            className={`overlooked-slider__arrow overlooked-slider__arrow_left ${first === 0 ? 'hidden' : ''}`} 
-            onClick={() => this.setState({first: first - 1})}
-          >
+          <div className={`overlooked-slider__arrow overlooked-slider__arrow_left ${first === 0 ? 'hidden' : ''}`} 
+               onClick={this.handlerClickArrow.bind(this, first - 1)}>
           </div>
 
           <div className="overlooked-slider__gallery">
             <ul style={{transform: `translate(${this.position}px)`}}>
 
               {browsedProducts.map((el, index) => {
-                return(
+                return (
                   <li key={index}>
 
                     <Link to={`/product-card-desktop/${el.id}`}>
                       <div className="overlooked-slider__item">                        
-                        <img 
-                          src={el.images[0]} 
-                          className="overlooked-slider__item-pic" 
-                          alt={el.title}
-                        />
+                        <img className="overlooked-slider__item-pic" 
+                             src={el.images[0]}                           
+                             alt={el.title} />
                       </div>  
                     </Link> 
 
@@ -55,10 +55,8 @@ class BrowsedProducts extends Component {
             </ul>
           </div>
 
-          <div 
-            className={`overlooked-slider__arrow overlooked-slider__arrow_right ${last < 5 || first + 5 === last ? 'hidden' : ''}`} 
-            onClick={() => this.setState({first: first + 1})}
-          >
+          <div className={`overlooked-slider__arrow overlooked-slider__arrow_right ${last < 5 || first + 5 === last ? 'hidden' : ''}`} 
+               onClick={this.handlerClickArrow.bind(this, first + 1)}>
           </div> 
 
         </div>
