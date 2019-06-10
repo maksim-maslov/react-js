@@ -35,24 +35,24 @@
   margin: 10px 0 0 7px;
 }
 
-.subscribe__radio:checked + .subscribe__radio_text:after {
+.subscribe__radio:checked + .subscribe__radio-text:after {
   opacity: 1;
 }
 
-.subscribe__radio_label {
+.subscribe__radio-label {
   margin-right: 10px;
   font-weight: 300;
   font-size: 16px;
   color: #333333;
 }
 
-.subscribe__radio_text {
+.subscribe__radio-text {
   position: relative;
   padding: 0 0 0 25px;
   cursor: pointer;
 }
 
-.subscribe__radio_text::before {
+.subscribe__radio-text::before {
   content: '';
   position: absolute;
   top: -3px;
@@ -65,7 +65,7 @@
   background: #dde4e8;
 }
 
-.subscribe__radio_text::after {
+.subscribe__radio-text::after {
   content: '';
   position: absolute;
   top: 2px;
@@ -123,6 +123,6 @@
   cursor: not-allowed;
 }
 
-.subscribe__ok {
+.subscribe__done {
   margin-right: 300px;
 }

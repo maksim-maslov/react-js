@@ -1,5 +1,6 @@
 import './css/normalize.css';
 import './css/font-awesome.min.css';
+import apiBaseUrl from './configApp.js'
 
 import Catalogue from './components/Catalogue/Catalogue';
 import Footer from './components/Footer/Footer';
@@ -38,6 +39,7 @@ class App extends Component {
       productsInBasket: []                                    // Массив добавленных в корзину товаров         
     };
 
+    this.getFavorites = this.getFavorites.bind(this);
     this.updateBasket = this.updateBasket.bind(this);    
     this.updateBrowsedProducts = this.updateBrowsedProducts.bind(this);
     this.updateFavorites = this.updateFavorites.bind(this);
@@ -95,7 +97,7 @@ class App extends Component {
   //
 
   getCategories() {
-    fetch('https://api-neto.herokuapp.com/bosa-noga/categories')
+    fetch(`${apiBaseUrl}/categories`)
       .then(response => response.json())
       .then(data => {
         this.setState({categories: data.data});
@@ -112,7 +114,7 @@ class App extends Component {
   //
 
   getFeatured(categories) {
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/featured`)
+    fetch(`${apiBaseUrl}/featured`)
       .then(response => response.json())
       .then(data => {
         
@@ -167,7 +169,7 @@ class App extends Component {
             queryString = queryString + `&sortBy=${this.state.filters.sortBy}`;
           }   
 
-          return fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}&page[]=${page}`);
+          return fetch(`${apiBaseUrl}/products?${queryString}&page[]=${page}`);
         })
         .then(response => response.json())
         .then(data => this.setState({favorites: data})); 
@@ -184,7 +186,7 @@ class App extends Component {
   //
 
   updateBrowsedProducts(productId) {     
-    let browsedProductsIdList = this.state.browsedProductsIdList.slice(0, 11).filter(el => el.id !== productId);
+    let browsedProductsIdList = this.state.browsedProductsIdList.slice(0, 11).filter(el => el.id !== Number(productId));
     
     browsedProductsIdList.unshift({id: Number(productId)});
 
@@ -206,7 +208,7 @@ class App extends Component {
     if (browsedProductsIdList.length) {
 
       this.joinProductIdsToQueryString(browsedProductsIdList)
-        .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
+        .then(queryString => fetch(`${apiBaseUrl}/products?${queryString}`))
         .then(response => response.json())
         .then(data => this.setState({
           browsedProducts: browsedProductsIdList.map(el => data.data.find(element => element.id === el.id))
@@ -257,8 +259,8 @@ class App extends Component {
     } 
 
     const url = cartId
-    ? `https://api-neto.herokuapp.com/bosa-noga/cart/${cartId}`
-    : 'https://api-neto.herokuapp.com/bosa-noga/cart/';        
+    ? `${apiBaseUrl}/cart/${cartId}`
+    : `${apiBaseUrl}/cart/`;        
 
     fetch(url, params)
       .then(response => response.json())
@@ -296,7 +298,7 @@ class App extends Component {
       .then(productArray => {
 
         return this.joinProductIdsToQueryString(productArray)
-          .then(queryString => fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`))
+          .then(queryString => fetch(`${apiBaseUrl}/products?${queryString}`))
           .then(response => response.json())
           .then(data => {
             return productArray.map((el, index) => {
@@ -404,7 +406,8 @@ class App extends Component {
               ? <Favorite                                 // Избранное
                   {...props} 
                   favorites={favorites}                 
-                  updateFavorites={this.updateFavorites} 
+                  getFavorites={this.getFavorites} 
+                  updateFavorites={this.updateFavorites}   
                   updateFilters={this.updateFilters}                 
                 />
               : <Loader />

@@ -17,7 +17,7 @@
 }
 
 /*Голова каталога*/
-.product-catalogue__head {
+.product-catalogue-content__head {
   display: flex;
   justify-content: space-between;
   width: 880px;
@@ -26,7 +26,7 @@
   margin-left: 24px;
 }
 
-.product-catalogue h2.section-name {
+.product-catalogue-content-section-title__section-name {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 22px;
@@ -35,7 +35,7 @@
   color: #333333;
 }
 
-.product-catalogue span.amount {
+.product-catalogue-content-section-title__amount {
   display: block;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -46,7 +46,7 @@
 }
 
 /*Основная часть каталога с фотками товара*/
-.product-catalogue__item-list {
+.product-catalogue-content__item-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -55,7 +55,7 @@
   width: unset;
 }
 
-.product-catalogue__items {
+.product-catalogue-content-item-list__items {
   display: flex;
   flex-wrap: wrap;
   padding-top: 20px;

@@ -10,23 +10,23 @@
   padding-top: 20px;
 }
 
-.site-path__item {
+.site-path-items__item {
   list-style: none;
 }
 
-.site-path__item a {
+.site-path-items__item a {
   font-size: 14px;
   text-align: center;
   text-decoration: none;
   color: #333333;
 }
 
-.site-path__item span {
+.site-path-items__item span {
   font-size: 14px;
   text-align: center;
   color: #333333;
 }
 
-.site-path__item:not(:first-child)::before {
+.site-path-items__item:not(:first-child)::before {
   content: "\2000 \203a \2000";
 }

@@ -53,8 +53,9 @@ function Footer() {
             </div>
             <div className="footer__copyright">2009-2018 © BosaNoga.ru — модный интернет-магазин обуви<br/> и аксессуаров. Все права защищены. Доставка по всей России!</div>
           </div>
-          <div className="footer__contacts"><a className="footer__phone" >+7 495 79 03 5 03</a>
-            <p className="footer__phone_text">Ежедневно с 09-00 до 21-00</p>
+          <div className="footer__contacts">
+            <a className="footer__phone">+7 495 79 03 5 03</a>
+            <p className="footer__phone-text">Ежедневно с 09-00 до 21-00</p>
             <a className="footer__email" href="mailto:office@bosanoga.ru">office@bosanoga.ru</a>
           </div>
         </div>

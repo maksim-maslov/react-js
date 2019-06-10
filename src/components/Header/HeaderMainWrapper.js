@@ -25,6 +25,7 @@ class HeaderMainWrapper extends Component {
     event.preventDefault();  
     const { search } = this.formData;
     this.search = search.value;
+    search.value = '';
     this.setState({doRedirect: true});
   }
 

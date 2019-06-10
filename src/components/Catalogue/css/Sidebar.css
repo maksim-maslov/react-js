@@ -27,11 +27,8 @@
   box-shadow: 3px 3px 15px #D4E4E6;
 }
 
-.sidebar a:hover{
-  text-decoration: none;
-}
-
-.sidebar h3 {
+.sidebar-division-wrap-title__text,
+.sidebar-division-wrap__brand-title-text {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -44,13 +41,13 @@
   padding-bottom: 30px;
 }
 
-.sidebar__division-title {
+.sidebar-division-wrap__title {
   position: relative;
   margin: 0;
 }
 
 /*Списки в сайдбаре*/
-.sidebar ul {
+.sidebar-division-wrap__content {
   width: 240px;
   margin: -3px auto;
   display: flex;
@@ -59,7 +56,8 @@
   padding-bottom: 12px;
 }
 
-.sidebar ul li {
+.sidebar-division-wrap-content__item,
+.sidebar-division-wrap-content-list__item {
   padding-left: 25px;
   list-style: none;
   font-family: 'Roboto', sans-serif;
@@ -69,70 +67,67 @@
 }
 
 /*Стрелочка напротив заголовка отдельной секции сайдбара*/
-.opener-up,
-.opener-down {
+.sidebar-division-wrap-title__control {
   position: absolute;
   top: 14px;
   right: 16px;
   display: inline-block;
   width: 30px;
   height: 30px;
-  background: url(../../../img/catalogue-pics/product-catalogue-sprite-min.png);
-  background-position: -55px -155px;  
+  background: url(../../../img/catalogue-pics/product-catalogue-sprite-min.png);  
   cursor: pointer;
 }
 
-.opener-down {
+.sidebar-division-wrap-title__control_opener-up {
+  background-position: -55px -155px;
+}
+
+.sidebar-division-wrap-title__control_opener-down {
   background-position: -16px -155px;
 }
 
-.sidebar__division .hide {
+.sidebar-division-wrap__content_hide,
+.sidebar-division-wrap__price-slider_hide {
   display: none;
 }
 
-.sidebar__division .show {
+.sidebar-division-wrap__content_show,
+.sidebar-division-wrap__price-slider_show {
   display: inherit;
 }
 
 /*Разделы сайдбара*/
 /*Каталог в сайдбаре*/
-.sidebar__catalogue-list ul {
+.sidebar-division__wrap_catalogue-list .sidebar-division-wrap__content {
   height: 206px;
-  display: flex;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
   overflow: auto;
 }
 
-.sidebar__catalogue-list ul li {
+.sidebar-division__wrap_catalogue-list .sidebar-division-wrap-content__item {
   padding-top: 12px;
 }
 
-.sidebar a:hover {
+.sidebar-division-wrap-content-item__text:hover,
+.sidebar-division-wrap__text:hover,
+.sidebar-division__discount:hover {
   color: #FF8076;
-  text-decoration: none;
-}
-
-.sidebar a:hover {
   transition: color 300ms ease; 
+  cursor: pointer;  
 }
 
 /*Цена*/
-/* .sidebar__price .opener-down {
-  top: 20px;
-  background-position: -55px -152px;
-} */
-
 /*Ползунок с ценой*/
-.price-slider {
-  display: flex;
-  flex-direction: column;
+.sidebar-division-wrap__price-slider {
   width: 240px;
   height: 94px;
   margin: 0 auto;
 }
 
-.circle-container {
+.sidebar-division-wrap-price-slider__circle-container {
   position: relative;
   width: 100%;
   display: flex;
@@ -140,29 +135,10 @@
   padding: 25px 0;
 }
 
-.counter {
+.sidebar-division-wrap-price-slider__counter {
   width: 100%;
   display: flex;
   justify-content: space-between;
-}
-
-.line-white {
-  position: relative;
-  width: 236px;
-  height: 7px;
-  top: -3px;
-  margin: 0 auto;
-  border-radius: 5px;
-  background: #F4F4F4;
-}
-
-.line-colored {
-  position: absolute;
-  top: 21px;
-  left: 42px;
-  width: 105px;
-  height: 7px;
-  background: #A1B3BF;
 }
 
 #minCost,
@@ -181,7 +157,7 @@
   color: #333333;
 }
 
-.input-separator {
+.sidebar-division-wrap-price-slider-counter__input-separator {
   position: relative;
   top: 18px;
   width: 25px;
@@ -220,11 +196,13 @@
 	border: 0;
   overflow: hidden;  
 }
+
 /*Горизонтальный слайдер (полоса по которой бегает ползунок)*/
 .ui-slider-horizontal {
    height: 3px; 
    cursor: pointer;
 }
+
 /*Позиционирование ползунков*/
 .ui-slider-horizontal .ui-slider-handle { 
 	top: -10px;
@@ -243,16 +221,19 @@
 .ui-slider-horizontal .ui-slider-range-max {
 	right: 0;
 }
+
 /*Оформление полосы по которой ходит ползунок*/
 .ui-widget-content { 
 	border: 1px solid #D4D4D4;
 	background: #fff;
 }
+
 /*Оформление активного участка (между двумя ползунками)*/
 .ui-widget-header { 
 	border: 1px solid #D4D4D4;
 	background: #f00;
 }
+
 /*Скругление для полосы слайдера*/
 .ui-corner-all {
 	-moz-border-radius: 4px;
@@ -261,29 +242,29 @@
 }
 
 /*Цвет*/
-.sidebar__color ul {
+.sidebar-division__wrap_color .sidebar-division-wrap__content {
   height: 140px;
   flex-direction: column;
   flex-wrap: nowrap;
   overflow: auto;
 }
 
-.sidebar__color ul li {
+.sidebar-division__wrap_color .sidebar-division-wrap-content__item {
   padding-top: 8px;
 }
 
-span.color-name {
-  display: inline-block;
-  padding-left: 10px;
-  vertical-align: bottom;
-}
-
-.sidebar__color .color {
+.sidebar-division-wrap-content-item__color {
   display: inline-block;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   vertical-align: middle;
+}
+
+.sidebar-division-wrap-content-item__color-name {
+  display: inline-block;
+  padding-left: 10px;
+  vertical-align: bottom;
 }
 
 .beige {
@@ -314,22 +295,18 @@ span.color-name {
   background: #000000;
 }
 
-/* .sidebar__color .opener-down {
-  background-position: -56px -153px;
-} */
-
 /*Размер*/
-.sidebar__size ul {
+.sidebar-division__wrap_size .sidebar-division-wrap__content {
   height: 130px;
   overflow: auto;
 }
 
 /*Кастомизация чекбокса*/
-.checkbox {
+.sidebar-division-wrap-content-list-item__checkbox {
   display: none;
 }
 
-.checkbox-custom {
+.sidebar-division-wrap-content-list-item__checkbox-custom {
   position: relative;
   bottom: 15px;
   width: 20px;
@@ -337,19 +314,18 @@ span.color-name {
   background: #ffffff;
 }
 
-.list-1, .list-2 {
+.sidebar-division-wrap-content__list {
   width: 100px;
   display: inline-block;
 }
 
-.sidebar .list-1 li,
-.sidebar .list-2 li {
+.sidebar-division-wrap-content-list__item {
   margin-top: 7px;
   padding-left: 0; 
 }
 
-.list-1 .checkbox-custom,
-.list-1 .label {
+.sidebar-division-wrap-content-list-item__checkbox-custom,
+.sidebar-division-wrap-content-list-item__label {
   position: relative;
   top: 7px;
   margin-top: 0px;
@@ -357,20 +333,11 @@ span.color-name {
   vertical-align: middle;
 }
 
-.list-2 .checkbox-custom,
-.list-2 .label {
-  position: relative;
-  top: 7px;
-  margin-top: 0px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.list-2 .label {
+.sidebar-division-wrap-content-list-item__label {
   padding-left: 1px;
 }
 
-.checkbox:checked + .checkbox-custom::before {
+.sidebar-division-wrap-content-list-item__checkbox:checked + .sidebar-division-wrap-content-list-item__checkbox-custom::before {
   content: url(../../../img/catalogue-pics/checkbox-checked.png);
   display: block;
   position: absolute;
@@ -381,13 +348,13 @@ span.color-name {
 }
 
 /*Размер каблука*/
-.sidebar__heel-height ul {
+.sidebar-division__wrap_heel-height .sidebar-division-wrap__content {
   height: 160px;
   overflow: auto;
 }
 
 /*Повод*/
-.sidebar__occasion ul {
+.sidebar-division__wrap_occasion .sidebar-division-wrap__content {
   width: 240px;
   height: 145px;
   flex-direction: column;
@@ -395,12 +362,12 @@ span.color-name {
   overflow: auto;
 }
 
-.sidebar__occasion ul li {
+.sidebar-division__wrap_occasion .sidebar-division-wrap-content__item {
   padding-top: 12px;
 }
 
 /*Сезон*/
-.sidebar__season ul {
+.sidebar-division__wrap_season .sidebar-division-wrap__content {
   width: 240px;
   height: 74px;
   flex-direction: column;
@@ -408,12 +375,12 @@ span.color-name {
   overflow: auto;
 }
 
-.sidebar__season ul li {
+.sidebar-division__wrap_season .sidebar-division-wrap-content__item {
   padding-top: 12px;
 }
 
 /*Бренд*/
-.sidebar-brand__container {  
+.sidebar-division-wrap__brand-content {  
   outline: none;
   height: 26px;
   border-radius: 5px;
@@ -437,7 +404,11 @@ span.color-name {
 }
 
 /*Чекбокс "Со скидкой"*/
-span.checkbox-discount {
+.sidebar-division-discount__checkbox {
+  display: none;
+}
+
+.sidebar-division-discount__checkbox-custom {
   position: relative;
   display: inline-block;
   top: -2px;
@@ -448,7 +419,7 @@ span.checkbox-discount {
   border: 1px solid #848484;
 }
 
-.checkbox:checked + .checkbox-discount::before {
+.sidebar-division-discount__checkbox:checked + .sidebar-division-discount__checkbox-custom::before {
   position: absolute;
   top: -1px;
   left: -1px;
@@ -458,7 +429,7 @@ span.checkbox-discount {
   height: 16px;
 }
 
-.text-discount {
+.sidebar-division-discount__label {
   display: inline-block;
   margin-left: 18px;
   margin-top: 40px;
@@ -469,7 +440,7 @@ span.checkbox-discount {
 }
 
 /*Сброс*/
-.drop-down {
+.sidebar-division__wrap_drop-down {
   display: block;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -479,7 +450,7 @@ span.checkbox-discount {
   text-align: center;
 }
 
-.drop-down-icon {
+.sidebar-division-wrap__drop-down-icon {
   position: relative;
   top: -3px;
   right: 1px;
@@ -491,7 +462,7 @@ span.checkbox-discount {
   background-position: -60px -19px;
 }
 
-.drop-down a {
+.sidebar-division-wrap__text {
   position: relative;
   top: 10px;
   right: 2px;
@@ -500,4 +471,5 @@ span.checkbox-discount {
   font-size: 16px;
   font-weight: 700;
 }
+
 

@@ -12,7 +12,7 @@ function Breadcrumb({ links }) {
         {links.length && (
           links.map((el, index) => {
             return (
-              <li className="site-path__item" key={index}>
+              <li className="site-path-items__item" key={index}>
 
                 {index + 1 !== links.length
 

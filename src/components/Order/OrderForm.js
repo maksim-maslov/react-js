@@ -1,4 +1,6 @@
 import './css/OrderForm.css';
+import apiBaseUrl from '../../configApp.js'
+import paymentTypes from '../../paymentTypes.js';
 
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
@@ -46,7 +48,7 @@ class OrderForm extends Component {
       body: JSON.stringify(this.order)
     };
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/order`, params)
+    fetch(`${apiBaseUrl}/order`, params)
       .then(response => response.json())
       .then(data => {        
         this.setState({doRedirect: true});
@@ -110,18 +112,18 @@ class OrderForm extends Component {
           <div className="order-process__paid">
             <h3 className="h3">хотите оплатить онлайн или курьеру при получении?</h3>
             <div className="order-process__paid-form">
-              <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="onlineCard" />
-                <span className="order-process__paid-text">Картой онлайн</span>
-              </label>
-              <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCard" defaultChecked />
-                <span className="order-process__paid-text">Картой курьеру</span>
-              </label>
-              <label className="order-process__paid-label">
-                <input className="order-process__paid-radio" type="radio" name="paid" value="offlineCash" />
-                <span className="order-process__paid-text">Наличными курьеру</span>
-              </label>
+              {paymentTypes.map((el, index) => {
+                return (
+                  <label className="order-process__paid-label" key={index}>
+                    <input className="order-process__paid-radio" 
+                           type="radio" 
+                           name="paid" 
+                           value={el.value} 
+                           defaultChecked={index === 1 ? true : false} />
+                    <span className="order-process__paid-text">{el.name}</span>
+                  </label>
+                );
+              })}
             </div>
           </div>
           

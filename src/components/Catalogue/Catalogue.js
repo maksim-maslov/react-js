@@ -1,4 +1,5 @@
 import './css/Catalogue.css';
+import apiBaseUrl from '../../configApp.js'
 
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
@@ -87,7 +88,7 @@ class Catalogue extends Component {
 
     queryString = queryString + `&page[]=${page}${filtersParams}`;
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/products?${queryString}`)
+    fetch(`${apiBaseUrl}/products?${queryString}`)
       .then(response => response.json())
       .then(data => {
       
@@ -119,7 +120,7 @@ class Catalogue extends Component {
     const { products, brands } = this.state; 
     
     
-    return(
+    return (
       <div>        
         {browsedProducts && products.status === 'ok'
 
@@ -135,19 +136,19 @@ class Catalogue extends Component {
               />  
 
               <section className="product-catalogue-content">  
-                <section className="product-catalogue__head">
+                <section className="product-catalogue-content__head">
                   
-                  <div className="product-catalogue__section-title">
-                    <h2 className="section-name">{this.title}</h2>
-                    <span className="amount">Товаров: {products.goods}</span>
+                  <div className="product-catalogue-content__section-title">
+                    <h2 className="product-catalogue-content-section-title__section-name">{this.title}</h2>
+                    <span className="product-catalogue-content-section-title__amount">Товаров: {products.goods}</span>
                   </div>
 
                   <Sorting updateFilters={updateFilters} />  
 
                 </section>       
 
-                <section className="product-catalogue__item-list">
-                  <ul className="product-catalogue__items"> 
+                <section className="product-catalogue-content__item-list">
+                  <ul className="product-catalogue-content-item-list__items"> 
 
                     {products.data.map((el, index) => {
 

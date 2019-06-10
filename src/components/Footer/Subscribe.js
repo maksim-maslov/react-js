@@ -47,22 +47,22 @@ class Subscribe extends Component {
           <h2 className="subscribe__title">Подписаться на рассылку выгодных предложений</h2>
 
           {this.state.subscribe 
-          ?  <div className="subscribe__ok">Подписка оформлена! Спасибо!</div>
+          ?  <div className="subscribe__done">Подписка оформлена! Спасибо!</div>
           : (
             <form className="subscribe__radios" 
                   action="" 
                   onSubmit={this.handleSubmit}>
-              <label className="subscribe__radio_label">
+              <label className="subscribe__radio-label">
                 <input className="subscribe__radio" type="radio" name="subscribe" value="women" />
-                <div className="subscribe__radio_text">Женское</div>
+                <div className="subscribe__radio-text">Женское</div>
               </label>
-              <label className="subscribe__radio_label">
+              <label className="subscribe__radio-label">
                 <input className="subscribe__radio" type="radio" name="subscribe" value="men" />
-                <div className="subscribe__radio_text">Мужское</div>
+                <div className="subscribe__radio-text">Мужское</div>
               </label>
-              <label className="subscribe__radio_label">
+              <label className="subscribe__radio-label">
                 <input className="subscribe__radio" type="radio" name="subscribe" value="both" defaultChecked />
-                <div className="subscribe__radio_text">Всё</div>
+                <div className="subscribe__radio-text">Всё</div>
               </label>
               <input className="subscribe__email" 
                      type="email" 

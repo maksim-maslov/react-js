@@ -1,4 +1,5 @@
 import './css/OrderDone.css';
+import paymentTypes from '../../paymentTypes.js';
 
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 
@@ -31,14 +32,7 @@ function OrderDone(props) {
               <div className="order-info__item order-info__item_pay-form"> 
                 <h3>Способ оплаты:</h3>
                 <p>
-                  {order.paymentType ===  'onlineCard'
-                  ? 'Картой онлайн'
-                  : order.paymentType === 'offlineCard'
-                    ? 'Картой курьеру'
-                    : order.paymentType === 'offlineCash'
-                      ? 'Наличными курьеру'
-                      : ''
-                  }
+                  {paymentTypes[order.paymentType].name}
                 </p>
               </div>
 
@@ -60,7 +54,7 @@ function OrderDone(props) {
 
             <p className="order-done__notice">
               Данные о заказе отправлены на адрес 
-              <span>notbosaanymore@gmail.com.  </span>
+              <span> notbosaanymore@gmail.com.  </span>
             </p>
 
             <Link to="/">

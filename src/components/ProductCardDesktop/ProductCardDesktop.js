@@ -1,3 +1,5 @@
+import apiBaseUrl from '../../configApp.js'
+
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import BrowsedProducts from '../BrowsedProducts/BrowsedProducts';
 import Loader from '../Loader/Loader';
@@ -45,7 +47,7 @@ class ProductCardDesktop extends Component {
   getProductInfo(id) {
     const { categories, updateBrowsedProducts } = this.props;
 
-    fetch(`https://api-neto.herokuapp.com/bosa-noga/products/${id}`)
+    fetch(`${apiBaseUrl}/products/${id}`)
       .then(response => response.json())
       .then(data => {
 
@@ -54,7 +56,7 @@ class ProductCardDesktop extends Component {
           categoryTitle: categories.find(el => el.id === data.data.categoryId).title
         });
 
-        return fetch(`https://api-neto.herokuapp.com/bosa-noga/products?type=${data.data.type}&color=${data.data.color}`);
+        return fetch(`${apiBaseUrl}/products?type=${data.data.type}&color=${data.data.color}`);
       })
       .then(response => response.json())
       .then(data => {

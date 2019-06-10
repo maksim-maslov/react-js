@@ -151,270 +151,276 @@ class Sidebar extends Component {
 
     return (
       <section className="sidebar">
-          <section className="sidebar__division">
-            <div className="sidebar__catalogue-list">
-              
-              <div className="sidebar__division-title">
-                <h3>Каталог</h3>
-                <div className={`${typeHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({typeHide: !typeHide})}>
+        <section className="sidebar__division">
+          <div className="sidebar-division__wrap sidebar-division__wrap_catalogue-list">
+            
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Каталог</h3>
+              <div className={`sidebar-division-wrap-title__control ${typeHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({typeHide: !typeHide})}>
+              </div>
+            </div>
+
+            <ul className={`sidebar-division-wrap__content ${typeHide ? 'sidebar-division-wrap__content_hide' : 'sidebar-division-wrap__content_show'}`}>
+              {type.map((el, index) => {
+                return (
+                  <li className="sidebar-division-wrap-content__item"
+                      key={index} 
+                      onClick={() => updateFilters('type', el)}>
+                    <div className="sidebar-division-wrap-content-item__text">{el}</div>
+                  </li>
+                );
+              })}
+            </ul>
+
+          </div>
+        </section>
+
+        <div className="separator-150 separator-150-1"></div>
+
+        <section className="sidebar__division">
+          <div className="sidebar-division__wrap sidebar-division__wrap_price">
+
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Цена</h3>
+              <div className={`sidebar-division-wrap-title__control ${priceHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({priceHide: !priceHide})}>
+              </div>                
+            </div>
+
+            <div className={`sidebar-division-wrap__price-slider ${priceHide ? 'sidebar-division-wrap__price-slider_hide' : 'sidebar-division-wrap__price-slider_show'}`}>
+              <div className="sidebar-division-wrap-price-slider__circle-container">
+                <div id="slider-range" 
+                      ref={el => this.$sliderRange = $(el)}>
                 </div>
               </div>
-
-              <ul className={`${typeHide ? 'hide' : 'show'}`}>
-                {type.map((el, index) => {
-                  return (
-                    <li key={index} 
-                        onClick={() => updateFilters('type', el)}>
-                      <a>{el}</a>
-                    </li>
-                  );
-                })}
-              </ul>
-
-            </div>
-          </section>
-
-          <div className="separator-150 separator-150-1"></div>
-
-          <section className="sidebar__division">
-            <div className="sidebar__price" 
-                 onClick={event => updateFilters(event)}>
-
-              <div className="sidebar__division-title">
-                <h3>Цена</h3>
-                <div className={`${priceHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({priceHide: !priceHide})}>
-                </div>                
+              <div className="sidebar-division-wrap-price-slider__counter">
+                <input id="minCost" 
+                        ref={el => this.$inputMinCost = $(el)} 
+                        type="text" 
+                        defaultValue="0" 
+                        value={this.isCancel ? 0 : null} />
+                <div className="sidebar-division-wrap-price-slider-counter__input-separator"></div>
+                <input id="maxCost" 
+                        ref={el => this.$inputMaxCost = $(el)} 
+                        type="text" 
+                        defaultValue="100000" 
+                        value={this.isCancel ? 100000 : null} />
               </div>
+            </div>
 
-              <div className={`price-slider ${priceHide ? 'hide' : 'show'}`}>
-                <div className="circle-container">
-                  <div id="slider-range" 
-                       ref={el => this.$sliderRange = $(el)}>
+          </div>
+        </section>
+
+        <div className="separator-150 separator-150-2"></div>
+
+        <section className="sidebar__division">
+          <div className="sidebar-division__wrap sidebar-division__wrap_color" >
+
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Цвет</h3>
+              <div className={`sidebar-division-wrap-title__control ${colorHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({colorHide: !colorHide})}>
+              </div>
+            </div>
+
+            <ul className={`sidebar-division-wrap__content ${colorHide ? 'sidebar-division-wrap__content_hide' : 'sidebar-division-wrap__content_show'}`}>
+              {color.map((el, index) => {
+                return (
+                  <li className="sidebar-division-wrap-content__item" 
+                      key={index} 
+                      onClick={() => updateFilters('color', el.title)}>
+                    <div className="sidebar-division-wrap-content-item__text">
+                      <div className={`sidebar-division-wrap-content-item__color ${el.color}`}></div>
+                      <span className="sidebar-division-wrap-content-item__color-name">{el.title}</span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+
+          </div>
+        </section>
+
+        <div className="separator-150 separator-150-3"></div>    
+
+        <section className="sidebar__division">
+          <div className="sidebar-division__wrap sidebar-division__wrap_size" >
+
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Размер</h3>
+              <div className={`sidebar-division-wrap-title__control ${sizeHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({sizeHide: !sizeHide})}>
+              </div>
+            </div>
+
+            <ul className={`sidebar-division-wrap__content ${sizeHide ? 'sidebar-division-wrap__content_hide' : 'sidebar-division-wrap__content_show'}`}>
+              {size.map((element, index) => {
+                return (
+                  <div className={`sidebar-division-wrap-content__list sidebar-division-wrap-content__list_list-${index + 1}`}
+                        key={index}>
+
+                    {element.map((el, idx) => {
+                      return (
+                        <li className="sidebar-division-wrap-content-list__item"
+                            key={idx} 
+                            onChange={() => updateFilters('size', el)}>
+                          <label>
+                            <input className="sidebar-division-wrap-content-list-item__checkbox"                                 
+                                    type="checkbox" 
+                                    name={`checkbox-${el}`} 
+                                    value={el} 
+                                    checked={this.isCancel ? false : null} />
+                            <span className="sidebar-division-wrap-content-list-item__checkbox-custom"></span>
+                            <span className="sidebar-division-wrap-content-list-item__label">{el}</span>
+                          </label>
+                        </li>
+                      );
+                    })}
+
                   </div>
-                </div>
-                <div className="counter">
-                  <input id="minCost" 
-                         ref={el => this.$inputMinCost = $(el)} 
-                         type="text" 
-                         defaultValue="0" 
-                         value={this.isCancel ? 0 : null} />
-                  <div className="input-separator"></div>
-                  <input id="maxCost" 
-                         ref={el => this.$inputMaxCost = $(el)} 
-                         type="text" 
-                         defaultValue="100000" 
-                         value={this.isCancel ? 100000 : null} />
-                </div>
-              </div>  
+                );
+              })} 
+            </ul>
 
-            </div>
-          </section>
+          </div>
+        </section>
 
-          <div className="separator-150 separator-150-2"></div>
+        <div className="separator-150 separator-150-4"></div>   
 
-          <section className="sidebar__division">
-            <div className="sidebar__color" >
+        <section className="sidebar__division">    
+          <div className="sidebar-division__wrap sidebar-division__wrap_heel-height" >
+          
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Размер каблука</h3>
 
-              <div className="sidebar__division-title">
-                <h3>Цвет</h3>
-                <div className={`${colorHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({colorHide: !colorHide})}>
-                </div>
+              <div className={`sidebar-division-wrap-title__control ${heelSizeHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({heelSizeHide: !heelSizeHide})}>
               </div>
 
-              <ul className={`${colorHide ? 'hide' : 'show'}`}>    
-                {color.map((el, index) => {
+              <ul className={`sidebar-division-wrap__content ${heelSizeHide ? 'sidebar-division-wrap__content_hide' : 'sidebar-division-wrap__content_show'}`}>
+                {heelSize.map((element, index) => {
                   return (
-                    <li key={index} 
-                        onClick={() => updateFilters('color', el.title)}>
-                      <a>
-                        <div className={`color ${el.color}`}></div>
-                        <span className="color-name">{el.title}</span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-
-            </div>
-          </section>
-
-          <div className="separator-150 separator-150-3"></div>    
-
-          <section className="sidebar__division">
-            <div className="sidebar__size" >
-
-              <div className="sidebar__division-title">
-                <h3>Размер</h3>
-                <div className={`${sizeHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({sizeHide: !sizeHide})}>
-                </div>
-              </div>
-
-              <ul className={`${sizeHide ? 'hide' : 'show'}`}>
-                {size.map((element, index) => {
-                  return (
-                    <div className={`list-${index + 1}`}
-                         key={index}>
+                    <div className={`sidebar-division-wrap-content__list sidebar-division-wrap-content__list_list-${index + 1}`}
+                          key={index}>
 
                       {element.map((el, idx) => {
                         return (
-                          <li key={idx} 
-                              onChange={() => updateFilters('size', el)}>
+                          <li className="sidebar-division-wrap-content-list__item"
+                              key={idx} 
+                              onChange={() => updateFilters('heelSize', el)}>
                             <label>
-                              <input className="checkbox"                                 
-                                     type="checkbox" 
-                                     name={`checkbox-${el}`} 
-                                     value={el} 
-                                     checked={this.isCancel ? false : null} />
-                              <span className="checkbox-custom"></span>
-                              <span className="label">{el}</span>
+                              <input className="sidebar-division-wrap-content-list-item__checkbox"                                 
+                                      type="checkbox" 
+                                      name={`checkbox-${el}`} 
+                                      value={el} 
+                                      checked={this.isCancel ? false : null} />
+                              <span className="sidebar-division-wrap-content-list-item__checkbox-custom"></span>
+                              <span className="sidebar-division-wrap-content-list-item__label">{el}</span>
                             </label>
                           </li>
                         );
                       })}
-
+                      
                     </div>
                   );
-                })} 
+                })}                   
               </ul>
 
             </div>
-          </section>
 
-          <div className="separator-150 separator-150-4"></div>   
+          </div>
+        </section>
 
-          <section className="sidebar__division">    
-            <div className="sidebar__heel-height" >
+        <div className="separator-150 separator-150-5"></div> 
+
+        <section className="sidebar__division">  
+          <div className="sidebar-division__wrap sidebar-division__wrap_occasion">
+
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Повод</h3>                
+              <div className={`sidebar-division-wrap-title__control ${reasonHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({reasonHide: !reasonHide})}>
+              </div>
+            </div>
+
+            <ul className={`sidebar-division-wrap__content ${reasonHide ? 'sidebar-division-wrap__content_hide' : 'sidebar-division-wrap__content_show'}`}>
+              {reason.map((el, index) => {
+                return (
+                  <li className="sidebar-division-wrap-content__item"
+                      key={index} 
+                      onClick={() => updateFilters('reason', el)}>
+                    <div className="sidebar-division-wrap-content-item__text">{el}</div>
+                  </li>
+                );
+              })}                 
+            </ul>
+
+          </div>
+        </section>
+
+        <div className="separator-150 separator-150-6"></div>   
+
+        <section className="sidebar__division">
+          <div className="sidebar-division__wrap sidebar-division__wrap_season">
+
+            <div className="sidebar-division-wrap__title">
+              <h3 className="sidebar-division-wrap-title__text">Сезон</h3>
+              <div className={`sidebar-division-wrap-title__control ${seasonHide ? 'sidebar-division-wrap-title__control_opener-up' : 'sidebar-division-wrap-title__control_opener-down'}`} 
+                    onClick={() => this.setState({seasonHide: !seasonHide})}>
+              </div>                
+            </div>
+
+            <ul className={`sidebar-division-wrap__content ${seasonHide ? 'sidebar-division-wrap__content_hide' : 'sidebar-division-wrap__content_show'}`}>
+              {season.map((el, index) => {
+                return (
+                  <li className="sidebar-division-wrap-content__item"
+                      key={index} 
+                      onClick={() => updateFilters('season', el)}>
+                    <div className="sidebar-division-wrap-content-item__text">{el}</div>
+                  </li>
+                );
+              })}
+            </ul>
+
+          </div>
+        </section>
+
+        <div className="separator-150 separator-150-7"></div>   
+                
+        <section className="sidebar__division">
+          <div className="sidebar-division__wrap sidebar-division__wrap_brand">
+            <h3 className="sidebar-division-wrap__brand-title-text">Бренд</h3>
+            <select className="sidebar-division-wrap__brand-content"                        
+                    onChange={ev => updateFilters('brand', ev.currentTarget.value)}>
+              <option selected={this.isCancel ? true : null} 
+                      value="">
+              </option>
+              {brands.map((el, index) => <option key={index} value={el}>{el}</option>)}
+            </select>                            
+          </div>
+
+          <label className="sidebar-division__discount">
+            <input className="sidebar-division-discount__checkbox"               
+                    type="checkbox" 
+                    name="checkbox-disc" 
+                    value="" 
+                    onChange={ev => updateFilters('discounted', ev.currentTarget.checked)} 
+                    checked={this.isCancel ? false : null} />
+            <span className="sidebar-division-discount__checkbox-custom" ></span>
+            <span className="sidebar-division-discount__label">Со скидкой</span>
+          </label>
+
+          <div className="separator-240"></div>
+        </section>
+        
             
-              <div className="sidebar__division-title">
-                <h3>Размер каблука</h3>
-
-                <div className={`${heelSizeHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({heelSizeHide: !heelSizeHide})}>
-                </div>
-
-                <ul className={`${heelSizeHide ? 'hide' : 'show'}`}>
-                  {heelSize.map((element, index) => {
-                    return (
-                      <div className={`list-${index + 1}`}
-                           key={index}>
-
-                        {element.map((el, idx) => {
-                          return (
-                            <li key={idx} 
-                                onChange={() => updateFilters('heelSize', el)}>
-                              <label>
-                                <input className="checkbox"                                   
-                                       type="checkbox" 
-                                       name={`checkbox-${el}`} 
-                                       value={el} 
-                                       checked={this.isCancel ? false : null} />
-                                <span className="checkbox-custom"></span>
-                                <span className="label">{el}</span>
-                              </label>
-                            </li>
-                          );
-                        })}
-                        
-                      </div>
-                    );
-                  })}                   
-                </ul>
-
-              </div>
-
-            </div>
-          </section>
-
-          <div className="separator-150 separator-150-5"></div> 
-
-          <section className="sidebar__division">  
-            <div className="sidebar__occasion">
-
-              <div className="sidebar__division-title">
-                <h3>Повод</h3>                
-                <div className={`${reasonHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({reasonHide: !reasonHide})}>
-                </div>
-              </div>
-
-              <ul className={`${reasonHide ? 'hide' : 'show'}`}>
-                {reason.map((el, index) => {
-                  return (
-                    <li key={index} 
-                        onClick={() => updateFilters('reason', el)}>
-                      <a>{el}</a>
-                    </li>
-                  );
-                })}                 
-              </ul>
-
-            </div>
-          </section>
-
-          <div className="separator-150 separator-150-6"></div>   
-
-          <section className="sidebar__division">
-            <div className="sidebar__season">
-
-              <div className="sidebar__division-title">
-                <h3>Сезон</h3>
-                <div className={`${seasonHide ? 'opener-up' : 'opener-down'}`} 
-                     onClick={() => this.setState({seasonHide: !seasonHide})}>
-                </div>                
-              </div>
-
-              <ul className={`${seasonHide ? 'hide' : 'show'}`}>
-                {season.map((el, index) => {
-                  return (
-                    <li key={index} 
-                        onClick={() => updateFilters('season', el)}>
-                      <a>{el}</a>
-                    </li>
-                  );
-                })}
-              </ul>
-
-            </div>
-          </section>
-
-          <div className="separator-150 separator-150-7"></div>   
-                  
-          <section className="sidebar__division">
-            <div className="sidebar__brand">
-              <h3>Бренд</h3>
-              <select className="sidebar-brand__container"                        
-                      onChange={ev => updateFilters('brand', ev.currentTarget.value)}>
-                <option selected={this.isCancel ? true : null} 
-                        value="">
-                </option>
-                {brands.map((el, index) => <option key={index} value={el}>{el}</option>)}
-              </select>                            
-            </div>
-
-            <label>
-              <input className="checkbox"               
-                     type="checkbox" 
-                     name="checkbox-disc" 
-                     value="" 
-                     onChange={ev => updateFilters('discounted', ev.currentTarget.checked)} 
-                     checked={this.isCancel ? false : null} />
-              <span className="checkbox-discount" ></span>
-              <span className="text-discount">Со скидкой</span>
-            </label>
-
-            <div className="separator-240"></div>
-          </section>
-              
-          <section className="sidebar__division">    
-            <div className="drop-down" 
-                 onClick={() => updateFilters('reset')}>
-              <a><span className="drop-down-icon"></span>Сбросить</a>
-            </div>
-          </section>
+        <section className="sidebar__division">    
+          <div className="sidebar-division__wrap sidebar-division__wrap_drop-down" 
+                onClick={() => updateFilters('reset')}>
+            <div className="sidebar-division-wrap__text"><span className="sidebar-division-wrap__drop-down-icon"></span>Сбросить</div>
+          </div>
+        </section>
 
       </section>
     );
